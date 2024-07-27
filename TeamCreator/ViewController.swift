@@ -11,7 +11,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Yunus Emre 1.Güncelleme")
+        print("Ceren 1.Güncelleme")
     }
 
 
