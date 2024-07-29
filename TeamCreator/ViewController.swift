@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Ceren 1.Güncelleme")
+        print("Giray 2. güncelleme")
     }
 
 
