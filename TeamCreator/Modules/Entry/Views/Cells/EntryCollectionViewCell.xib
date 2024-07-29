@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="EntryCollectionViewCell" customModule="TeamCreator" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="450" height="180"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="450" height="180"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ODf-0d-2WD">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="180"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pexels-pixabay-46798-3" translatesAutoresizingMaskIntoConstraints="NO" id="22M-aB-oF8">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="180"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Football" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rS3-YV-icd">
+                                <rect key="frame" x="5" y="64" width="161" height="52"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="43"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="22M-aB-oF8" firstAttribute="top" secondItem="ODf-0d-2WD" secondAttribute="top" id="4f1-Zv-Suj"/>
+                            <constraint firstAttribute="trailing" secondItem="22M-aB-oF8" secondAttribute="trailing" id="MTN-VE-RcG"/>
+                            <constraint firstItem="rS3-YV-icd" firstAttribute="leading" secondItem="ODf-0d-2WD" secondAttribute="leading" constant="5" id="V6G-ug-oAx"/>
+                            <constraint firstItem="22M-aB-oF8" firstAttribute="leading" secondItem="ODf-0d-2WD" secondAttribute="leading" id="aMA-yl-yq2"/>
+                            <constraint firstAttribute="bottom" secondItem="22M-aB-oF8" secondAttribute="bottom" id="iTt-QV-lZW"/>
+                            <constraint firstItem="rS3-YV-icd" firstAttribute="centerY" secondItem="ODf-0d-2WD" secondAttribute="centerY" id="kQG-3Z-kpY"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="ODf-0d-2WD" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="9Jn-1n-Zi5"/>
+                <constraint firstAttribute="bottom" secondItem="ODf-0d-2WD" secondAttribute="bottom" id="PHE-C1-oZv"/>
+                <constraint firstItem="ODf-0d-2WD" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="ZVz-tj-hvx"/>
+                <constraint firstAttribute="trailing" secondItem="ODf-0d-2WD" secondAttribute="trailing" id="hyf-p5-u9a"/>
+            </constraints>
+            <size key="customSize" width="300" height="110"/>
+            <connections>
+                <outlet property="backgroundImageView" destination="22M-aB-oF8" id="fHX-VV-DdM"/>
+                <outlet property="sportNameLabel" destination="rS3-YV-icd" id="tiN-xX-YMg"/>
+            </connections>
+            <point key="canvasLocation" x="303.81679389312978" y="9.8591549295774659"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="pexels-pixabay-46798-3" width="3000" height="1200"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
