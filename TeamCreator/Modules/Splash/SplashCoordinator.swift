@@ -8,24 +8,31 @@
 import UIKit
 
 protocol SplashCoordinatorProtocol: AnyObject {
-    func navigateToEntry()
+    func navigateToOnboard()
 }
 
 final class SplashCoordinator: SplashCoordinatorProtocol {
-
+    
     weak var viewController: SplashViewController?
-
+    
     init(viewController: SplashViewController) {
         self.viewController = viewController
     }
-
-    func navigateToEntry() {
+    
+    func navigateToOnboard() {
         guard let window = viewController?.view.window else { return }
-
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let entryVC = storyboard.instantiateViewController(withIdentifier: "EntryViewController") as? EntryViewController else { return }
-
-        window.rootViewController = entryVC
+        let storyboard = UIStoryboard(name: "OnboardViewController", bundle: nil) 
+        guard let onboardVC = storyboard.instantiateViewController(withIdentifier: "OnboardViewController") as? OnboardViewController else {
+            return
+        }
+        
+        let onboardCoordinator = OnboardCoordinator(viewController: onboardVC)
+        let onboardViewModel = OnboardViewModel(view: onboardVC, coordinator: onboardCoordinator)
+        onboardVC.viewModel = onboardViewModel
+        
+        
+        window.rootViewController = onboardVC
         window.makeKeyAndVisible()
+        
     }
 }

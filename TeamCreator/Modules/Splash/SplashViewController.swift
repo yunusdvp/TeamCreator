@@ -33,7 +33,7 @@ class SplashViewController: BaseViewController {
     }
     
     func navigateToEntry() {
-        (viewModel as? SplashViewModel)?.coordinator?.navigateToEntry()
+        (viewModel as? SplashViewModel)?.coordinator?.navigateToOnboard()
     }
 }
 
