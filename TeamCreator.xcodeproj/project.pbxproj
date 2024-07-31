@@ -44,6 +44,12 @@
 		54A5D4562C5917F200EF405C /* OnboardViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54A5D4552C5917F200EF405C /* OnboardViewController.storyboard */; };
 		54A5D45C2C591E0B00EF405C /* OnboardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A5D45B2C591E0B00EF405C /* OnboardCoordinator.swift */; };
 		54A5D45E2C591F3500EF405C /* OnboardModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A5D45D2C591F3500EF405C /* OnboardModule.swift */; };
+		C42C28682C5A3D2600E6586E /* SecondCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C28622C5A3D2600E6586E /* SecondCollectionViewCell.swift */; };
+		C42C28692C5A3D2600E6586E /* SecondCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C42C28632C5A3D2600E6586E /* SecondCollectionViewCell.xib */; };
+		C42C286A2C5A3D2600E6586E /* SecondView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42C28662C5A3D2600E6586E /* SecondView.storyboard */; };
+		C42C286C2C5A3D4400E6586E /* Matches.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C286B2C5A3D4400E6586E /* Matches.swift */; };
+		C42C286E2C5A3F2D00E6586E /* SecondViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C286D2C5A3F2D00E6586E /* SecondViewModel.swift */; };
+		C42C28702C5A3F3E00E6586E /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C286F2C5A3F3E00E6586E /* SecondViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +109,12 @@
 		54A5D4552C5917F200EF405C /* OnboardViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OnboardViewController.storyboard; sourceTree = "<group>"; };
 		54A5D45B2C591E0B00EF405C /* OnboardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardCoordinator.swift; sourceTree = "<group>"; };
 		54A5D45D2C591F3500EF405C /* OnboardModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardModule.swift; sourceTree = "<group>"; };
+		C42C28622C5A3D2600E6586E /* SecondCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondCollectionViewCell.swift; sourceTree = "<group>"; };
+		C42C28632C5A3D2600E6586E /* SecondCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondCollectionViewCell.xib; sourceTree = "<group>"; };
+		C42C28662C5A3D2600E6586E /* SecondView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SecondView.storyboard; sourceTree = "<group>"; };
+		C42C286B2C5A3D4400E6586E /* Matches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Matches.swift; sourceTree = "<group>"; };
+		C42C286D2C5A3F2D00E6586E /* SecondViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewModel.swift; sourceTree = "<group>"; };
+		C42C286F2C5A3F3E00E6586E /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +183,7 @@
 		462F564D2C58183D00081988 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				C42C28672C5A3D2600E6586E /* Second */,
 				54A3D5C42C58364000AD457C /* Onboarding */,
 				462F565D2C58249200081988 /* Splash */,
 				462F564E2C5818FC00081988 /* Base */,
@@ -301,6 +314,7 @@
 			isa = PBXGroup;
 			children = (
 				4646075A2C57AB250032DC89 /* Sport.swift */,
+				C42C286B2C5A3D4400E6586E /* Matches.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -343,6 +357,34 @@
 				54A5D4552C5917F200EF405C /* OnboardViewController.storyboard */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		C42C28642C5A3D2600E6586E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				C42C28622C5A3D2600E6586E /* SecondCollectionViewCell.swift */,
+				C42C28632C5A3D2600E6586E /* SecondCollectionViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		C42C28652C5A3D2600E6586E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C42C28642C5A3D2600E6586E /* Cells */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C42C28672C5A3D2600E6586E /* Second */ = {
+			isa = PBXGroup;
+			children = (
+				C42C28652C5A3D2600E6586E /* Views */,
+				C42C28662C5A3D2600E6586E /* SecondView.storyboard */,
+				C42C286D2C5A3F2D00E6586E /* SecondViewModel.swift */,
+				C42C286F2C5A3F3E00E6586E /* SecondViewController.swift */,
+			);
+			path = Second;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -456,7 +498,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C42C28692C5A3D2600E6586E /* SecondCollectionViewCell.xib in Resources */,
 				464606EB2C53FF0D0032DC89 /* Assets.xcassets in Resources */,
+				C42C286A2C5A3D2600E6586E /* SecondView.storyboard in Resources */,
 				54A5D4522C58CB8B00EF405C /* OnboardViewCell.xib in Resources */,
 				464607562C57A32E0032DC89 /* EntryCollectionViewCell.xib in Resources */,
 				464606EE2C53FF0D0032DC89 /* Base in Resources */,
@@ -487,7 +531,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C42C286E2C5A3F2D00E6586E /* SecondViewModel.swift in Sources */,
 				462F56652C58279800081988 /* SplashModule.swift in Sources */,
+				C42C28702C5A3F3E00E6586E /* SecondViewController.swift in Sources */,
 				464606E32C53FF0B0032DC89 /* ViewController.swift in Sources */,
 				464607502C57A2E70032DC89 /* EntryViewController.swift in Sources */,
 				464606DF2C53FF0B0032DC89 /* AppDelegate.swift in Sources */,
@@ -501,7 +547,9 @@
 				54A3D5E32C583D9900AD457C /* OnboardSlide.swift in Sources */,
 				54A5D45C2C591E0B00EF405C /* OnboardCoordinator.swift in Sources */,
 				462F56582C581D8100081988 /* UICollectionView.swift in Sources */,
+				C42C28682C5A3D2600E6586E /* SecondCollectionViewCell.swift in Sources */,
 				464606E12C53FF0B0032DC89 /* SceneDelegate.swift in Sources */,
+				C42C286C2C5A3D4400E6586E /* Matches.swift in Sources */,
 				462F565F2C5824AC00081988 /* SplashViewController.swift in Sources */,
 				462F56502C58191800081988 /* BaseViewController.swift in Sources */,
 				54A5D45E2C591F3500EF405C /* OnboardModule.swift in Sources */,
@@ -693,7 +741,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = H5Z575J4ZY;
+				DEVELOPMENT_TEAM = 863AAK6883;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TeamCreator/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -721,7 +769,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = H5Z575J4ZY;
+				DEVELOPMENT_TEAM = 863AAK6883;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TeamCreator/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
