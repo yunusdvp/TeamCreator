@@ -44,8 +44,8 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueCell(with: SecondCollectionViewCell.self, for: indexPath)
-        cell.configure(with: viewModel.matches[indexPath.row])
-        return cell
+        cell?.configure(with: viewModel.matches[indexPath.item])
+        return cell ?? UICollectionViewCell()
     }
 }
 

@@ -11,24 +11,18 @@ protocol OnboardViewControllerProtocol: AnyObject {
 }
 
  final class OnboardViewController: BaseViewController {
-    
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var nextButton: UIButton!
     @IBOutlet private weak var pageControl: UIPageControl!
-    
-     var viewModel: OnboardViewModelProtocol!
-    
+     
+    var viewModel: OnboardViewModelProtocol!
     override func viewDidLoad() {
         super.viewDidLoad()
-      
         collectionView.delegate = self
         collectionView.dataSource = self
-        
         registerCell()
-        
         pageControl.numberOfPages = viewModel.getNumberOfSlides()
         pageControl.addTarget(self, action: #selector(pageControlTapped(_:)), for: .valueChanged)
-                
         viewModel.updateUI = { [weak self] in
             self?.updateUI()
         }
@@ -42,14 +36,12 @@ protocol OnboardViewControllerProtocol: AnyObject {
     private func registerCell() {
         collectionView.register(UINib(nibName: String(describing: OnboardViewCell.self), bundle: nil), forCellWithReuseIdentifier: String(describing: OnboardViewCell.self))
     }
-    
     @IBAction func nextButtonClicked(_ sender: UIButton) {
         if viewModel.isLastPage() {
             navigateToEntry()
           } else {
               viewModel.nextPage()
-              collectionView.reloadData() 
-              
+              collectionView.reloadData()
               let indexPath = IndexPath(item: viewModel.getCurrentPage(), section: 0)
               collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
           }
@@ -63,13 +55,11 @@ extension OnboardViewController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.getNumberOfSlides()
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: OnboardViewCell.self), for: indexPath) as! OnboardViewCell
-        cell.setupCell(viewModel.getSlide(at: indexPath.row))
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: OnboardViewCell.self), for: indexPath) as? OnboardViewCell else {return UICollectionViewCell()}
+        cell.setupCell(viewModel.getSlide(at: indexPath.item))
         return cell
     }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
     }

@@ -43,11 +43,10 @@ extension EntryViewController: UICollectionViewDelegate, UICollectionViewDataSou
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueCell(with: EntryCollectionViewCell.self, for: indexPath)
-        cell.configure(with: viewModel.sports[indexPath.row])
-        return cell
+        cell?.configure(with: viewModel.sports[indexPath.row])
+        return cell ?? UICollectionViewCell()
     }
 }
-
 //MARK: EntryViewInterface
 
 extension EntryViewController: EntryViewInterface {
