@@ -33,17 +33,8 @@
 		464607582C57A3510032DC89 /* EntryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464607572C57A3510032DC89 /* EntryViewModel.swift */; };
 		4646075B2C57AB250032DC89 /* Sport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4646075A2C57AB250032DC89 /* Sport.swift */; };
 		468C7BBD2C5A24CF0006AD51 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 468C7BBC2C5A24CF0006AD51 /* GoogleService-Info.plist */; };
-		541A2ECD2C5B98E300663382 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 541A2ECC2C5B98E300663382 /* FirebaseFirestore */; };
-		541A2ECF2C5B98E300663382 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 541A2ECE2C5B98E300663382 /* FirebaseStorage */; };
-		541A2ED12C5B9BD700663382 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541A2ED02C5B9BD700663382 /* Player.swift */; };
-		5448AB8D2C5AE0A5007C6ED1 /* PlayerListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5448AB8B2C5AE0A5007C6ED1 /* PlayerListTableViewCell.swift */; };
-		5448AB8E2C5AE0A5007C6ED1 /* PlayerListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5448AB8C2C5AE0A5007C6ED1 /* PlayerListTableViewCell.xib */; };
-		5448AB902C5B7ACB007C6ED1 /* PlayerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5448AB8F2C5B7ACB007C6ED1 /* PlayerListViewController.swift */; };
-		5448AB922C5B7E3E007C6ED1 /* UITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5448AB912C5B7E3E007C6ED1 /* UITableViewCell.swift */; };
-		5448AB942C5B7E5F007C6ED1 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5448AB932C5B7E5F007C6ED1 /* UITableView.swift */; };
-		5448AB972C5B7F61007C6ED1 /* AddPlayerButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5448AB952C5B7F61007C6ED1 /* AddPlayerButtonTableViewCell.swift */; };
-		5448AB982C5B7F61007C6ED1 /* AddPlayerButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5448AB962C5B7F61007C6ED1 /* AddPlayerButtonTableViewCell.xib */; };
-		5448AB9A2C5B8F9E007C6ED1 /* PlayerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5448AB992C5B8F9E007C6ED1 /* PlayerListViewModel.swift */; };
+		468C7BC02C5A25BA0006AD51 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 468C7BBF2C5A25BA0006AD51 /* FirebaseFirestore */; };
+		468C7BC22C5A25BA0006AD51 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 468C7BC12C5A25BA0006AD51 /* FirebaseStorage */; };
 		54A3D5DF2C58391100AD457C /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A3D5DE2C58391100AD457C /* UIView.swift */; };
 		54A3D5E12C5839DD00AD457C /* OnboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A3D5E02C5839DD00AD457C /* OnboardViewModel.swift */; };
 		54A3D5E32C583D9900AD457C /* OnboardSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A3D5E22C583D9900AD457C /* OnboardSlide.swift */; };
@@ -53,7 +44,6 @@
 		54A5D4562C5917F200EF405C /* OnboardViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54A5D4552C5917F200EF405C /* OnboardViewController.storyboard */; };
 		54A5D45C2C591E0B00EF405C /* OnboardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A5D45B2C591E0B00EF405C /* OnboardCoordinator.swift */; };
 		54A5D45E2C591F3500EF405C /* OnboardModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A5D45D2C591F3500EF405C /* OnboardModule.swift */; };
-		54D6138C2C5A4E95002013C2 /* PlayerListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54D6138B2C5A4E95002013C2 /* PlayerListViewController.storyboard */; };
 		C42C28682C5A3D2600E6586E /* SecondCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C28622C5A3D2600E6586E /* SecondCollectionViewCell.swift */; };
 		C42C28692C5A3D2600E6586E /* SecondCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C42C28632C5A3D2600E6586E /* SecondCollectionViewCell.xib */; };
 		C42C286A2C5A3D2600E6586E /* SecondView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42C28662C5A3D2600E6586E /* SecondView.storyboard */; };
@@ -110,15 +100,6 @@
 		464607572C57A3510032DC89 /* EntryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryViewModel.swift; sourceTree = "<group>"; };
 		4646075A2C57AB250032DC89 /* Sport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sport.swift; sourceTree = "<group>"; };
 		468C7BBC2C5A24CF0006AD51 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		541A2ED02C5B9BD700663382 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		5448AB8B2C5AE0A5007C6ED1 /* PlayerListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListTableViewCell.swift; sourceTree = "<group>"; };
-		5448AB8C2C5AE0A5007C6ED1 /* PlayerListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerListTableViewCell.xib; sourceTree = "<group>"; };
-		5448AB8F2C5B7ACB007C6ED1 /* PlayerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListViewController.swift; sourceTree = "<group>"; };
-		5448AB912C5B7E3E007C6ED1 /* UITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCell.swift; sourceTree = "<group>"; };
-		5448AB932C5B7E5F007C6ED1 /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
-		5448AB952C5B7F61007C6ED1 /* AddPlayerButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerButtonTableViewCell.swift; sourceTree = "<group>"; };
-		5448AB962C5B7F61007C6ED1 /* AddPlayerButtonTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddPlayerButtonTableViewCell.xib; sourceTree = "<group>"; };
-		5448AB992C5B8F9E007C6ED1 /* PlayerListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListViewModel.swift; sourceTree = "<group>"; };
 		54A3D5DE2C58391100AD457C /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		54A3D5E02C5839DD00AD457C /* OnboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardViewModel.swift; sourceTree = "<group>"; };
 		54A3D5E22C583D9900AD457C /* OnboardSlide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardSlide.swift; sourceTree = "<group>"; };
@@ -128,7 +109,6 @@
 		54A5D4552C5917F200EF405C /* OnboardViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OnboardViewController.storyboard; sourceTree = "<group>"; };
 		54A5D45B2C591E0B00EF405C /* OnboardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardCoordinator.swift; sourceTree = "<group>"; };
 		54A5D45D2C591F3500EF405C /* OnboardModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardModule.swift; sourceTree = "<group>"; };
-		54D6138B2C5A4E95002013C2 /* PlayerListViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlayerListViewController.storyboard; sourceTree = "<group>"; };
 		C42C28622C5A3D2600E6586E /* SecondCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondCollectionViewCell.swift; sourceTree = "<group>"; };
 		C42C28632C5A3D2600E6586E /* SecondCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondCollectionViewCell.xib; sourceTree = "<group>"; };
 		C42C28662C5A3D2600E6586E /* SecondView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SecondView.storyboard; sourceTree = "<group>"; };
@@ -142,8 +122,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				541A2ECD2C5B98E300663382 /* FirebaseFirestore in Frameworks */,
-				541A2ECF2C5B98E300663382 /* FirebaseStorage in Frameworks */,
+				468C7BC02C5A25BA0006AD51 /* FirebaseFirestore in Frameworks */,
+				468C7BC22C5A25BA0006AD51 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,7 +183,6 @@
 		462F564D2C58183D00081988 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				54D613882C5A4DF7002013C2 /* Player */,
 				C42C28672C5A3D2600E6586E /* Second */,
 				54A3D5C42C58364000AD457C /* Onboarding */,
 				462F565D2C58249200081988 /* Splash */,
@@ -334,7 +313,6 @@
 		464607592C57AB130032DC89 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				541A2ED02C5B9BD700663382 /* Player.swift */,
 				4646075A2C57AB250032DC89 /* Sport.swift */,
 				C42C286B2C5A3D4400E6586E /* Matches.swift */,
 			);
@@ -346,21 +324,8 @@
 			children = (
 				462F56572C581D8100081988 /* UICollectionView.swift */,
 				54A3D5DE2C58391100AD457C /* UIView.swift */,
-				5448AB912C5B7E3E007C6ED1 /* UITableViewCell.swift */,
-				5448AB932C5B7E5F007C6ED1 /* UITableView.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		541A2ED22C5BA5B400663382 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				5448AB8B2C5AE0A5007C6ED1 /* PlayerListTableViewCell.swift */,
-				5448AB8C2C5AE0A5007C6ED1 /* PlayerListTableViewCell.xib */,
-				5448AB952C5B7F61007C6ED1 /* AddPlayerButtonTableViewCell.swift */,
-				5448AB962C5B7F61007C6ED1 /* AddPlayerButtonTableViewCell.xib */,
-			);
-			path = Cell;
 			sourceTree = "<group>";
 		};
 		54A3D5C42C58364000AD457C /* Onboarding */ = {
@@ -392,17 +357,6 @@
 				54A5D4552C5917F200EF405C /* OnboardViewController.storyboard */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		54D613882C5A4DF7002013C2 /* Player */ = {
-			isa = PBXGroup;
-			children = (
-				541A2ED22C5BA5B400663382 /* Cell */,
-				5448AB8F2C5B7ACB007C6ED1 /* PlayerListViewController.swift */,
-				54D6138B2C5A4E95002013C2 /* PlayerListViewController.storyboard */,
-				5448AB992C5B8F9E007C6ED1 /* PlayerListViewModel.swift */,
-			);
-			path = Player;
 			sourceTree = "<group>";
 		};
 		C42C28642C5A3D2600E6586E /* Cells */ = {
@@ -450,8 +404,8 @@
 			);
 			name = TeamCreator;
 			packageProductDependencies = (
-				541A2ECC2C5B98E300663382 /* FirebaseFirestore */,
-				541A2ECE2C5B98E300663382 /* FirebaseStorage */,
+				468C7BBF2C5A25BA0006AD51 /* FirebaseFirestore */,
+				468C7BC12C5A25BA0006AD51 /* FirebaseStorage */,
 			);
 			productName = TeamCreator;
 			productReference = 464606DB2C53FF0B0032DC89 /* TeamCreator.app */;
@@ -548,11 +502,8 @@
 				464606EB2C53FF0D0032DC89 /* Assets.xcassets in Resources */,
 				C42C286A2C5A3D2600E6586E /* SecondView.storyboard in Resources */,
 				54A5D4522C58CB8B00EF405C /* OnboardViewCell.xib in Resources */,
-				5448AB982C5B7F61007C6ED1 /* AddPlayerButtonTableViewCell.xib in Resources */,
-				5448AB8E2C5AE0A5007C6ED1 /* PlayerListTableViewCell.xib in Resources */,
 				464607562C57A32E0032DC89 /* EntryCollectionViewCell.xib in Resources */,
 				464606EE2C53FF0D0032DC89 /* Base in Resources */,
-				54D6138C2C5A4E95002013C2 /* PlayerListViewController.storyboard in Resources */,
 				54A5D4562C5917F200EF405C /* OnboardViewController.storyboard in Resources */,
 				468C7BBD2C5A24CF0006AD51 /* GoogleService-Info.plist in Resources */,
 				464606E62C53FF0B0032DC89 /* Base in Resources */,
@@ -581,12 +532,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C42C286E2C5A3F2D00E6586E /* SecondViewModel.swift in Sources */,
-				5448AB902C5B7ACB007C6ED1 /* PlayerListViewController.swift in Sources */,
 				462F56652C58279800081988 /* SplashModule.swift in Sources */,
 				C42C28702C5A3F3E00E6586E /* SecondViewController.swift in Sources */,
-				5448AB9A2C5B8F9E007C6ED1 /* PlayerListViewModel.swift in Sources */,
 				464606E32C53FF0B0032DC89 /* ViewController.swift in Sources */,
-				5448AB8D2C5AE0A5007C6ED1 /* PlayerListTableViewCell.swift in Sources */,
 				464607502C57A2E70032DC89 /* EntryViewController.swift in Sources */,
 				464606DF2C53FF0B0032DC89 /* AppDelegate.swift in Sources */,
 				54A5D44D2C5842EC00EF405C /* OnboardViewController.swift in Sources */,
@@ -596,11 +544,8 @@
 				462F565C2C58248100081988 /* API.swift in Sources */,
 				54A5D4512C58CB8B00EF405C /* OnboardViewCell.swift in Sources */,
 				462F56612C5824BA00081988 /* SplashViewModel.swift in Sources */,
-				541A2ED12C5B9BD700663382 /* Player.swift in Sources */,
 				54A3D5E32C583D9900AD457C /* OnboardSlide.swift in Sources */,
-				5448AB972C5B7F61007C6ED1 /* AddPlayerButtonTableViewCell.swift in Sources */,
 				54A5D45C2C591E0B00EF405C /* OnboardCoordinator.swift in Sources */,
-				5448AB922C5B7E3E007C6ED1 /* UITableViewCell.swift in Sources */,
 				462F56582C581D8100081988 /* UICollectionView.swift in Sources */,
 				C42C28682C5A3D2600E6586E /* SecondCollectionViewCell.swift in Sources */,
 				464606E12C53FF0B0032DC89 /* SceneDelegate.swift in Sources */,
@@ -612,7 +557,6 @@
 				464606E92C53FF0B0032DC89 /* TeamCreator.xcdatamodeld in Sources */,
 				54A3D5E12C5839DD00AD457C /* OnboardViewModel.swift in Sources */,
 				462F56632C58267300081988 /* SplashCoordinator.swift in Sources */,
-				5448AB942C5B7E5F007C6ED1 /* UITableView.swift in Sources */,
 				462F565A2C58244500081988 /* Reachibility.swift in Sources */,
 				4646075B2C57AB250032DC89 /* Sport.swift in Sources */,
 				464607552C57A32E0032DC89 /* EntryCollectionViewCell.swift in Sources */,
@@ -975,12 +919,12 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		541A2ECC2C5B98E300663382 /* FirebaseFirestore */ = {
+		468C7BBF2C5A25BA0006AD51 /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 468C7BBE2C5A25B90006AD51 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
 		};
-		541A2ECE2C5B98E300663382 /* FirebaseStorage */ = {
+		468C7BC12C5A25BA0006AD51 /* FirebaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 468C7BBE2C5A25B90006AD51 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
