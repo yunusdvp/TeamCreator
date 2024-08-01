@@ -57,7 +57,7 @@ extension OnboardViewController: UICollectionViewDataSource, UICollectionViewDel
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: OnboardViewCell.self), for: indexPath) as? OnboardViewCell else {return UICollectionViewCell()}
-                cell.setupCell(viewModel.getSlide(at: indexPath.row))
+        cell.setupCell(viewModel.getSlide(at: indexPath.item))
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
