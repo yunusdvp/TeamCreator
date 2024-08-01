@@ -33,6 +33,8 @@
 		464607582C57A3510032DC89 /* EntryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464607572C57A3510032DC89 /* EntryViewModel.swift */; };
 		4646075B2C57AB250032DC89 /* Sport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4646075A2C57AB250032DC89 /* Sport.swift */; };
 		468C7BBD2C5A24CF0006AD51 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 468C7BBC2C5A24CF0006AD51 /* GoogleService-Info.plist */; };
+		541A2ECD2C5B98E300663382 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 541A2ECC2C5B98E300663382 /* FirebaseFirestore */; };
+		541A2ECF2C5B98E300663382 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 541A2ECE2C5B98E300663382 /* FirebaseStorage */; };
 		541A2ED12C5B9BD700663382 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541A2ED02C5B9BD700663382 /* Player.swift */; };
 		5448AB8D2C5AE0A5007C6ED1 /* PlayerListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5448AB8B2C5AE0A5007C6ED1 /* PlayerListTableViewCell.swift */; };
 		5448AB8E2C5AE0A5007C6ED1 /* PlayerListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5448AB8C2C5AE0A5007C6ED1 /* PlayerListTableViewCell.xib */; };
