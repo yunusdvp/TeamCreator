@@ -50,7 +50,15 @@
 		46E171402C5CB23B003D9C74 /* EntryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E1713F2C5CB23B003D9C74 /* EntryCoordinator.swift */; };
 		46E171422C5CB5B6003D9C74 /* SecondModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E171412C5CB5B6003D9C74 /* SecondModule.swift */; };
 		46E171442C5CB5C5003D9C74 /* SecondCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E171432C5CB5C5003D9C74 /* SecondCoordinator.swift */; };
-
+		545D3C572C5D726D00EAB40D /* PlayerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D3C4F2C5D726D00EAB40D /* PlayerListViewModel.swift */; };
+		545D3C582C5D726D00EAB40D /* AddPlayerButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D3C502C5D726D00EAB40D /* AddPlayerButtonTableViewCell.swift */; };
+		545D3C592C5D726D00EAB40D /* AddPlayerButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 545D3C512C5D726D00EAB40D /* AddPlayerButtonTableViewCell.xib */; };
+		545D3C5A2C5D726D00EAB40D /* PlayerListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D3C522C5D726D00EAB40D /* PlayerListTableViewCell.swift */; };
+		545D3C5B2C5D726D00EAB40D /* PlayerListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 545D3C532C5D726D00EAB40D /* PlayerListTableViewCell.xib */; };
+		545D3C5E2C5D72A000EAB40D /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D3C5C2C5D72A000EAB40D /* UITableView.swift */; };
+		545D3C5F2C5D72A000EAB40D /* UITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D3C5D2C5D72A000EAB40D /* UITableViewCell.swift */; };
+		545D3C672C5D7BCD00EAB40D /* PlayerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D3C662C5D7BCD00EAB40D /* PlayerListViewController.swift */; };
+		545D3C692C5D7BDD00EAB40D /* PlayerListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 545D3C682C5D7BDD00EAB40D /* PlayerListViewController.storyboard */; };
 		54A3D5DF2C58391100AD457C /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A3D5DE2C58391100AD457C /* UIView.swift */; };
 		54A3D5E12C5839DD00AD457C /* OnboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A3D5E02C5839DD00AD457C /* OnboardViewModel.swift */; };
 		54A3D5E32C583D9900AD457C /* OnboardSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A3D5E22C583D9900AD457C /* OnboardSlide.swift */; };
@@ -131,6 +139,15 @@
 		46E1713F2C5CB23B003D9C74 /* EntryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryCoordinator.swift; sourceTree = "<group>"; };
 		46E171412C5CB5B6003D9C74 /* SecondModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondModule.swift; sourceTree = "<group>"; };
 		46E171432C5CB5C5003D9C74 /* SecondCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondCoordinator.swift; sourceTree = "<group>"; };
+		545D3C4F2C5D726D00EAB40D /* PlayerListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerListViewModel.swift; sourceTree = "<group>"; };
+		545D3C502C5D726D00EAB40D /* AddPlayerButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlayerButtonTableViewCell.swift; sourceTree = "<group>"; };
+		545D3C512C5D726D00EAB40D /* AddPlayerButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddPlayerButtonTableViewCell.xib; sourceTree = "<group>"; };
+		545D3C522C5D726D00EAB40D /* PlayerListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerListTableViewCell.swift; sourceTree = "<group>"; };
+		545D3C532C5D726D00EAB40D /* PlayerListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerListTableViewCell.xib; sourceTree = "<group>"; };
+		545D3C5C2C5D72A000EAB40D /* UITableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UITableView.swift; path = "../../../../Documents/TeamCreator 2/TeamCreator/Extensions/UITableView.swift"; sourceTree = "<group>"; };
+		545D3C5D2C5D72A000EAB40D /* UITableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UITableViewCell.swift; path = "../../../../Documents/TeamCreator 2/TeamCreator/Extensions/UITableViewCell.swift"; sourceTree = "<group>"; };
+		545D3C662C5D7BCD00EAB40D /* PlayerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListViewController.swift; sourceTree = "<group>"; };
+		545D3C682C5D7BDD00EAB40D /* PlayerListViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlayerListViewController.storyboard; sourceTree = "<group>"; };
 		54A3D5DE2C58391100AD457C /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		54A3D5E02C5839DD00AD457C /* OnboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardViewModel.swift; sourceTree = "<group>"; };
 		54A3D5E22C583D9900AD457C /* OnboardSlide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardSlide.swift; sourceTree = "<group>"; };
@@ -218,8 +235,8 @@
 		462F564D2C58183D00081988 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				545D3C432C5D724C00EAB40D /* PlayerList */,
 				46E171252C5B8B00003D9C74 /* PlayerCRUD */,
-				5440267F2C5CD316006FAB7B /* Player */,
 				C42C28672C5A3D2600E6586E /* Second */,
 				54A3D5C42C58364000AD457C /* Onboarding */,
 				462F565D2C58249200081988 /* Splash */,
@@ -363,6 +380,8 @@
 		4646075C2C5817630032DC89 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				545D3C5C2C5D72A000EAB40D /* UITableView.swift */,
+				545D3C5D2C5D72A000EAB40D /* UITableViewCell.swift */,
 				462F56572C581D8100081988 /* UICollectionView.swift */,
 				54A3D5DE2C58391100AD457C /* UIView.swift */,
 			);
@@ -381,28 +400,27 @@
 			path = PlayerCRUD;
 			sourceTree = "<group>";
 		};
-		5440267A2C5CD316006FAB7B /* Cell */ = {
+		545D3C432C5D724C00EAB40D /* PlayerList */ = {
 			isa = PBXGroup;
 			children = (
-				544026762C5CD316006FAB7B /* AddPlayerButtonTableViewCell.swift */,
-				544026772C5CD316006FAB7B /* AddPlayerButtonTableViewCell.xib */,
-				544026782C5CD316006FAB7B /* PlayerListTableViewCell.swift */,
-				544026792C5CD316006FAB7B /* PlayerListTableViewCell.xib */,
+				545D3C542C5D726D00EAB40D /* Cell */,
+				545D3C4F2C5D726D00EAB40D /* PlayerListViewModel.swift */,
+				545D3C662C5D7BCD00EAB40D /* PlayerListViewController.swift */,
+				545D3C682C5D7BDD00EAB40D /* PlayerListViewController.storyboard */,
 			);
-			path = Cell;
+			path = PlayerList;
 			sourceTree = "<group>";
 		};
-		5440267F2C5CD316006FAB7B /* Player */ = {
+		545D3C542C5D726D00EAB40D /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				5440267A2C5CD316006FAB7B /* Cell */,
-				5440267B2C5CD316006FAB7B /* PlayerListViewController.storyboard */,
-				5440267C2C5CD316006FAB7B /* PlayerListViewController.swift */,
-				5440267D2C5CD316006FAB7B /* PlayerListViewModel.swift */,
-				5440267E2C5CD316006FAB7B /* PlayerViewController.swift */,
+				545D3C502C5D726D00EAB40D /* AddPlayerButtonTableViewCell.swift */,
+				545D3C512C5D726D00EAB40D /* AddPlayerButtonTableViewCell.xib */,
+				545D3C522C5D726D00EAB40D /* PlayerListTableViewCell.swift */,
+				545D3C532C5D726D00EAB40D /* PlayerListTableViewCell.xib */,
 			);
-			name = Player;
-			path = "../../../TeamCreator 2/TeamCreator/Modules/Player";
+			name = Cell;
+			path = "../../../../../Documents/TeamCreator 2/TeamCreator/Modules/PlayerList/Cell";
 			sourceTree = "<group>";
 		};
 		54A3D5C42C58364000AD457C /* Onboarding */ = {
@@ -578,16 +596,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				544026832C5CD316006FAB7B /* PlayerListTableViewCell.xib in Resources */,
 				C42C28692C5A3D2600E6586E /* SecondCollectionViewCell.xib in Resources */,
-				544026842C5CD316006FAB7B /* PlayerListViewController.storyboard in Resources */,
 				464606EB2C53FF0D0032DC89 /* Assets.xcassets in Resources */,
-				544026812C5CD316006FAB7B /* AddPlayerButtonTableViewCell.xib in Resources */,
+				545D3C692C5D7BDD00EAB40D /* PlayerListViewController.storyboard in Resources */,
 				C42C286A2C5A3D2600E6586E /* SecondView.storyboard in Resources */,
+				545D3C5B2C5D726D00EAB40D /* PlayerListTableViewCell.xib in Resources */,
 				46E171292C5B8B45003D9C74 /* PlayerCRUD.storyboard in Resources */,
 				54A5D4522C58CB8B00EF405C /* OnboardViewCell.xib in Resources */,
 				464607562C57A32E0032DC89 /* EntryCollectionViewCell.xib in Resources */,
 				464606EE2C53FF0D0032DC89 /* Base in Resources */,
+				545D3C592C5D726D00EAB40D /* AddPlayerButtonTableViewCell.xib in Resources */,
 				54A5D4562C5917F200EF405C /* OnboardViewController.storyboard in Resources */,
 				468C7BBD2C5A24CF0006AD51 /* GoogleService-Info.plist in Resources */,
 				464606E62C53FF0B0032DC89 /* Base in Resources */,
@@ -645,13 +663,14 @@
 				464606E32C53FF0B0032DC89 /* ViewController.swift in Sources */,
 				46E1713E2C5CB222003D9C74 /* EntryModule.swift in Sources */,
 				46E1712B2C5B8B59003D9C74 /* PlayerCRUDViewModel.swift in Sources */,
+				545D3C5A2C5D726D00EAB40D /* PlayerListTableViewCell.swift in Sources */,
 				464607502C57A2E70032DC89 /* EntryViewController.swift in Sources */,
 				464606DF2C53FF0B0032DC89 /* AppDelegate.swift in Sources */,
 				54A5D44D2C5842EC00EF405C /* OnboardViewController.swift in Sources */,
 				46E171422C5CB5B6003D9C74 /* SecondModule.swift in Sources */,
 				462F56562C5819A800081988 /* LoadingView.swift in Sources */,
-				544026872C5CD316006FAB7B /* PlayerViewController.swift in Sources */,
 				462F56532C58196C00081988 /* LoadingShowable.swift in Sources */,
+				545D3C572C5D726D00EAB40D /* PlayerListViewModel.swift in Sources */,
 				46E171362C5BAA0B003D9C74 /* PlayerRepository.swift in Sources */,
 				46E171302C5B8B84003D9C74 /* PlayerCRUDCoordinator.swift in Sources */,
 				464607582C57A3510032DC89 /* EntryViewModel.swift in Sources */,
@@ -661,29 +680,29 @@
 				54A3D5E32C583D9900AD457C /* OnboardSlide.swift in Sources */,
 				54A5D45C2C591E0B00EF405C /* OnboardCoordinator.swift in Sources */,
 				462F56582C581D8100081988 /* UICollectionView.swift in Sources */,
-				544026862C5CD316006FAB7B /* PlayerListViewModel.swift in Sources */,
 				46E171382C5BB35E003D9C74 /* ImageStorage.swift in Sources */,
 				46E171442C5CB5C5003D9C74 /* SecondCoordinator.swift in Sources */,
 				46E171342C5BA92B003D9C74 /* Player.swift in Sources */,
-				544026822C5CD316006FAB7B /* PlayerListTableViewCell.swift in Sources */,
+				545D3C582C5D726D00EAB40D /* AddPlayerButtonTableViewCell.swift in Sources */,
 				C42C28682C5A3D2600E6586E /* SecondCollectionViewCell.swift in Sources */,
 				46E1712D2C5B8B6E003D9C74 /* PlayerCRUDModule.swift in Sources */,
 				464606E12C53FF0B0032DC89 /* SceneDelegate.swift in Sources */,
 				46E171402C5CB23B003D9C74 /* EntryCoordinator.swift in Sources */,
+				545D3C5F2C5D72A000EAB40D /* UITableViewCell.swift in Sources */,
 				C42C286C2C5A3D4400E6586E /* Matches.swift in Sources */,
 				46E171322C5BA3EF003D9C74 /* NetworkService.swift in Sources */,
 				46E171272C5B8B35003D9C74 /* PlayerCRUDViewController.swift in Sources */,
+				545D3C5E2C5D72A000EAB40D /* UITableView.swift in Sources */,
 				462F565F2C5824AC00081988 /* SplashViewController.swift in Sources */,
 				462F56502C58191800081988 /* BaseViewController.swift in Sources */,
 				54A5D45E2C591F3500EF405C /* OnboardModule.swift in Sources */,
-				544026852C5CD316006FAB7B /* PlayerListViewController.swift in Sources */,
 				54A3D5DF2C58391100AD457C /* UIView.swift in Sources */,
 				464606E92C53FF0B0032DC89 /* TeamCreator.xcdatamodeld in Sources */,
 				54A3D5E12C5839DD00AD457C /* OnboardViewModel.swift in Sources */,
 				462F56632C58267300081988 /* SplashCoordinator.swift in Sources */,
-				544026802C5CD316006FAB7B /* AddPlayerButtonTableViewCell.swift in Sources */,
 				462F565A2C58244500081988 /* Reachibility.swift in Sources */,
 				46E1713C2C5BB72B003D9C74 /* Match.swift in Sources */,
+				545D3C672C5D7BCD00EAB40D /* PlayerListViewController.swift in Sources */,
 				4646075B2C57AB250032DC89 /* Sport.swift in Sources */,
 				464607552C57A32E0032DC89 /* EntryCollectionViewCell.swift in Sources */,
 				46E1713A2C5BB6D2003D9C74 /* MatchRepository.swift in Sources */,
