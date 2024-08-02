@@ -7,9 +7,13 @@
 
 import UIKit
 
+protocol SecondViewControllerProtocol: AnyObject {
+    func reloadCollectionView()
+}
+
 class SecondViewController: BaseViewController {
     
-    var viewModel: SecondViewModelInterface!
+    var viewModel: SecondViewModelProtocol!
     
     @IBOutlet weak var secondCollectionView: UICollectionView!
     
@@ -49,9 +53,9 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
 }
 
-//MARK: EntryViewInterface
+//MARK: SecondViewControllerProtocol
 
-extension SecondViewController: SecondViewInterface {
+extension SecondViewController: SecondViewControllerProtocol {
     func reloadCollectionView() {
         secondCollectionView.reloadData()
     }

@@ -7,22 +7,25 @@
 
 import Foundation
 
-protocol EntryViewModelInterface: AnyObject {
+protocol EntryViewModelProtocol: AnyObject {
     var sports: [Sport] { get }
+    
     func fetchSports()
 }
 
-protocol EntryViewInterface: AnyObject {
-    func reloadCollectionView()
-}
 
-class EntryViewModel: EntryViewModelInterface {
+class EntryViewModel: EntryViewModelProtocol {
     
-    weak var view: EntryViewInterface?
+    weak var view: EntryViewControllerProtocol?
+    var coordinator: EntryCoordinatorProtocol?
     var sports: [Sport] = []
     
-    init(view: EntryViewInterface) {
+    init(view: EntryViewControllerProtocol) {
         self.view = view
+    }
+    init(view: EntryViewControllerProtocol, coordinator: EntryCoordinatorProtocol) {
+        self.view = view
+        self.coordinator = coordinator
     }
     
     func fetchSports() {
