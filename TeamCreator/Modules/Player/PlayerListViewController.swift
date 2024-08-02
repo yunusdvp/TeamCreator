@@ -14,9 +14,7 @@ final class PlayerListViewController: UIViewController {
     var viewModel = PlayerListViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         registerCells()
-    
         tableView.delegate = self
         tableView.dataSource = self
     }
