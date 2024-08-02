@@ -34,7 +34,7 @@ extension PlayerListViewController: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DenemeTableViewCell", for: indexPath) as! DenemeTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DenemeTableViewCell", for: indexPath) as? DenemeTableViewCell else { return .init() }
         return cell
     }
     
