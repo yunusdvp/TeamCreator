@@ -2,20 +2,18 @@
 //  Player.swift
 //  TeamCreator
 //
-//  Created by Ceren Uludoğan on 1.08.2024.
+//  Created by Yunus Emre ÖZŞAHİN on 1.08.2024.
 //
 
 import Foundation
 
-
 struct Player: Codable {
-    let id: String
-    let name: String
-    let age: Int
-    let position: String
-    let team: String
-    let skillRating: Int
-    let gender: Bool
-    let profilePhotoUrl: String
-    
+    var id: String
+    var name:String
+    var age: Int
+    var position: String
+    var team: String
+    var skillRating: Int
+    var gender: Bool
+    var profilePhotoURL: String
 }
