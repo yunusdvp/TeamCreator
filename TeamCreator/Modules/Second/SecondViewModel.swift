@@ -7,21 +7,24 @@
 
 import Foundation
 
-protocol SecondViewModelInterface: AnyObject {
+protocol SecondViewModelProtocol: AnyObject {
     var matches: [Matches] { get }
     func fetchMatches()
 }
 
-protocol SecondViewInterface: AnyObject {
-    func reloadCollectionView()
-}
 
-class SecondViewModel: SecondViewModelInterface {
+class SecondViewModel: SecondViewModelProtocol {
     
-    weak var view: SecondViewInterface?
+    weak var view: SecondViewControllerProtocol?
+    var coordinator: SecondCoordinatorProtocol?
     var matches: [Matches] = []
     
-    init(view: SecondViewInterface) {
+    init(view: SecondViewControllerProtocol,coordinator: SecondCoordinatorProtocol) {
+        self.view = view
+        self.coordinator = coordinator
+        
+    }
+    init(view: SecondViewControllerProtocol) {
         self.view = view
     }
     
