@@ -6,9 +6,13 @@
 //
 import UIKit
 
+protocol EntryViewControllerProtocol: AnyObject {
+    func reloadCollectionView()
+}
+
 class EntryViewController: BaseViewController {
     
-    var viewModel: EntryViewModelInterface!
+    var viewModel: EntryViewModelProtocol!
     
     @IBOutlet weak var entryCollectionView: UICollectionView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -47,9 +51,9 @@ extension EntryViewController: UICollectionViewDelegate, UICollectionViewDataSou
         return cell ?? UICollectionViewCell()
     }
 }
-//MARK: EntryViewInterface
+//MARK: EntryViewProtocol
 
-extension EntryViewController: EntryViewInterface {
+extension EntryViewController: EntryViewControllerProtocol {
     func reloadCollectionView() {
         entryCollectionView.reloadData()
     }
