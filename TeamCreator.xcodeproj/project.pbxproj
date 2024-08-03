@@ -150,8 +150,8 @@
 		545D3C512C5D726D00EAB40D /* AddPlayerButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddPlayerButtonTableViewCell.xib; sourceTree = "<group>"; };
 		545D3C522C5D726D00EAB40D /* PlayerListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerListTableViewCell.swift; sourceTree = "<group>"; };
 		545D3C532C5D726D00EAB40D /* PlayerListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerListTableViewCell.xib; sourceTree = "<group>"; };
-		545D3C5C2C5D72A000EAB40D /* UITableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UITableView.swift; path = "../../../../Documents/TeamCreator 2/TeamCreator/Extensions/UITableView.swift"; sourceTree = "<group>"; };
-		545D3C5D2C5D72A000EAB40D /* UITableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UITableViewCell.swift; path = "../../../../Documents/TeamCreator 2/TeamCreator/Extensions/UITableViewCell.swift"; sourceTree = "<group>"; };
+		545D3C5C2C5D72A000EAB40D /* UITableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
+		545D3C5D2C5D72A000EAB40D /* UITableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewCell.swift; sourceTree = "<group>"; };
 		545D3C662C5D7BCD00EAB40D /* PlayerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListViewController.swift; sourceTree = "<group>"; };
 		545D3C682C5D7BDD00EAB40D /* PlayerListViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlayerListViewController.storyboard; sourceTree = "<group>"; };
 		54A3D5DE2C58391100AD457C /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
