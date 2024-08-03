@@ -428,8 +428,7 @@
 				545D3C522C5D726D00EAB40D /* PlayerListTableViewCell.swift */,
 				545D3C532C5D726D00EAB40D /* PlayerListTableViewCell.xib */,
 			);
-			name = Cell;
-			path = "../../../../../Documents/TeamCreator 2/TeamCreator/Modules/PlayerList/Cell";
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		54A3D5C42C58364000AD457C /* Onboarding */ = {
