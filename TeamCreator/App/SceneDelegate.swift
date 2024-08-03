@@ -24,17 +24,33 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        self.window = window
 //        
 //    }
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let windowScene = (scene as? UIWindowScene) else { return }
-                let window = UIWindow(windowScene: windowScene)
-                let splashView = PlayerListViewController()
-                window.makeKeyAndVisible()
-                window.rootViewController = splashView
-                self.window = window
-        }
+//    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+//        guard let windowScene = (scene as? UIWindowScene) else { return }
+//                let window = UIWindow(windowScene: windowScene)
+//                let splashView = PlayerListViewController()
+//                window.makeKeyAndVisible()
+//                window.rootViewController = splashView
+//                self.window = window
+//        }
 
  
-
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+           guard let windowScene = (scene as? UIWindowScene) else { return }
+           let window = UIWindow(windowScene: windowScene)
+           
+           // Storyboard kullanarak PlayerListViewController oluşturma
+           let storyboard = UIStoryboard(name: "PlayerListViewController", bundle: nil)
+           guard let playerListViewController = storyboard.instantiateViewController(withIdentifier: "PlayerListViewController") as? PlayerListViewController else {
+               return
+           }
+           
+           // Programatik olarak oluşturma (eğer storyboard kullanmıyorsanız)
+           // let playerListViewController = PlayerListViewController()
+           
+           window.rootViewController = playerListViewController
+           window.makeKeyAndVisible()
+           self.window = window
+       }
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
