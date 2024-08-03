@@ -12,6 +12,7 @@ final class PlayerListViewController: UIViewController {
     // MARK: - Properties
     @IBOutlet weak var tableView: UITableView!
     var viewModel = PlayerListViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,7 +23,7 @@ final class PlayerListViewController: UIViewController {
     }
     
     
-    private func registerCells(){
+    private func registerCells() {
         tableView.register(cellType: PlayerListTableViewCell.self)
         tableView.register(cellType: AddPlayerButtonTableViewCell.self)
     }
