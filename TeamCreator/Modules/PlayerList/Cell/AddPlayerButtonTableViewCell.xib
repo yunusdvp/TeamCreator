@@ -36,6 +36,9 @@
                                         <real key="value" value="10"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="addPlayerButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Fe3-zI-2vD"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -53,6 +56,9 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="addPlayerButton" destination="4Ru-BU-WtG" id="HsB-bv-Buh"/>
+            </connections>
             <point key="canvasLocation" x="-112.21374045801527" y="26.056338028169016"/>
         </tableViewCell>
     </objects>

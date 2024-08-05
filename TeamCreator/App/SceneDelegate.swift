@@ -39,8 +39,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
            let window = UIWindow(windowScene: windowScene)
            
            // Storyboard kullanarak PlayerListViewController oluşturma
-           let storyboard = UIStoryboard(name: "PlayerListViewController", bundle: nil)
-           guard let playerListViewController = storyboard.instantiateViewController(withIdentifier: "PlayerListViewController") as? PlayerListViewController else {
+           let storyboard = UIStoryboard(name: "PlayerCRUDViewController", bundle: nil)
+           guard let playerListViewController = storyboard.instantiateViewController(withIdentifier: "PlayerCRUDViewController") as? PlayerCRUDViewController else {
                return
            }
            

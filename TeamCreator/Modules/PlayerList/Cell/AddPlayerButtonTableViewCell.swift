@@ -9,15 +9,15 @@ import UIKit
 
 class AddPlayerButtonTableViewCell: UITableViewCell {
 
+    @IBOutlet private weak var addPlayerButton: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    @IBAction func addPlayerButtonClicked(_ sender: UIButton) {
+        print("Buton tiklandi")
     }
     
 }
