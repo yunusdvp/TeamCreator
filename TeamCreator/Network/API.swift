@@ -12,9 +12,9 @@ final class API {
     static let shared = API()
 }
 
-extension API{
+extension API {
     
-    func isConnectoInternet() -> Bool{
+    func isConnectoInternet() -> Bool {
         Reachability.isConnectedToNetwork()
     }
     

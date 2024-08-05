@@ -8,37 +8,45 @@
 import UIKit
 
 protocol SplashViewControllerProtocol: AnyObject {
-    func noInternetConnection()
+    func updateUI(for state: SplashViewState)
 }
 
-class SplashViewController: BaseViewController {
+final class SplashViewController: BaseViewController {
     
-    var viewModel: SplashViewModelProtocol!
+    var viewModel: SplashViewModelProtocol! {
+        didSet {
+            viewModel.delegate = self
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       view.backgroundColor = .blue
-        bindViewModel()
-        viewModel.checkInternetConnection()
-    }
-    
-    private func bindViewModel() {
-        viewModel.onInternetStatusChecked = { [weak self] in
-            self?.navigateToEntry()
-        }
-        
-        viewModel.onNoInternet = { [weak self] in
-            self?.noInternetConnection()
-        }
-    }
-    
-    func navigateToEntry() {
-        (viewModel as? SplashViewModel)?.coordinator?.navigateToOnboard()
+        viewModel = SplashViewModel()
+        viewModel.viewDidLoad()
     }
 }
 
 extension SplashViewController: SplashViewControllerProtocol {
-    func noInternetConnection() {
-        showAlert("Error", "No Internet connection, please check your connection")
+    func updateUI(for state: SplashViewState) {
+        switch state {
+        case .showOnboarding:
+            navigateToOnboard()
+        case .noInternetConnection:
+            showAlert("Error", "No Internet connection, please check your connection")
+        }
+    }
+    
+    private func navigateToOnboard() {
+        guard let window = view.window else { return }
+        let storyboard = UIStoryboard(name: "OnboardViewController", bundle: nil)
+        guard let onboardVC = storyboard.instantiateViewController(withIdentifier: "OnboardViewController") as? OnboardViewController else {
+            return
+        }
+        
+        let onboardViewModel = OnboardViewModel()
+        onboardVC.viewModel = onboardViewModel
+        
+        window.rootViewController = onboardVC
+        window.makeKeyAndVisible()
     }
 }

@@ -8,24 +8,26 @@
 import Foundation
 
 protocol EntryViewModelProtocol: AnyObject {
-    var sports: [Sport] { get }
+    var delegate: EntryViewModelDelegate? { get set }
     
     func fetchSports()
+    func getSportsCount() -> Int
+    func getSport(at index: Int) -> Sport
+    func navigateToSecond()
 }
 
+protocol EntryViewModelDelegate: AnyObject {
+    func reloadCollectionView()
+    func navigateToSecond()
+}
 
-class EntryViewModel: EntryViewModelProtocol {
+final class EntryViewModel: EntryViewModelProtocol {
     
-    weak var view: EntryViewControllerProtocol?
-    var coordinator: EntryCoordinatorProtocol?
-    var sports: [Sport] = []
+    weak var delegate: EntryViewModelDelegate?
+    private var sports: [Sport] = []
     
-    init(view: EntryViewControllerProtocol) {
-        self.view = view
-    }
-    init(view: EntryViewControllerProtocol, coordinator: EntryCoordinatorProtocol) {
-        self.view = view
-        self.coordinator = coordinator
+    init() {
+        
     }
     
     func fetchSports() {
@@ -33,6 +35,18 @@ class EntryViewModel: EntryViewModelProtocol {
         let sports2 = Sport(name: "Volleyball", backgroundImage: "volleyball")
         let sports3 = Sport(name: "Basketball", backgroundImage: "basketball")
         sports.append(contentsOf: [sports1, sports2, sports3])
-        view?.reloadCollectionView()
+        delegate?.reloadCollectionView()
+    }
+    
+    func getSportsCount() -> Int {
+        return sports.count
+    }
+    
+    func getSport(at index: Int) -> Sport {
+        return sports[index]
+    }
+    
+    func navigateToSecond() {
+        delegate?.navigateToSecond()
     }
 }

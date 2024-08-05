@@ -22,13 +22,13 @@ class PlayerListViewController: UIViewController {
         
     }
     
-    private func registerCell(){
+    private func registerCell() {
         tableView.register(UINib(nibName: "DenemeTableViewCell", bundle: nil), forCellReuseIdentifier: "DenemeTableViewCell")
     }
     
 
 }
-extension PlayerListViewController: UITableViewDelegate,UITableViewDataSource {
+extension PlayerListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }

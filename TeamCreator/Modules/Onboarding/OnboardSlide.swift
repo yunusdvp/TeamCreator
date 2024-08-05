@@ -11,5 +11,5 @@ import UIKit
 struct OnboardSlide {
     let title: String
     let description: String
-    let image: UIImage
+    let imageName: String
 }

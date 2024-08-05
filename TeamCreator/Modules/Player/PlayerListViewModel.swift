@@ -6,13 +6,14 @@
 //
 
 import Foundation
-final class PlayerListViewModel{
+final class PlayerListViewModel {
     
-    enum PlayerListTableViewCell{
+    enum PlayerListTableViewCell {
         case player
         case addButton
         
     }
+    
     var celltypeList: [PlayerListTableViewCell]
     
     init() {

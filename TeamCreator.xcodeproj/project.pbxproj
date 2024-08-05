@@ -15,8 +15,6 @@
 		462F565C2C58248100081988 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462F565B2C58248100081988 /* API.swift */; };
 		462F565F2C5824AC00081988 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462F565E2C5824AC00081988 /* SplashViewController.swift */; };
 		462F56612C5824BA00081988 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462F56602C5824BA00081988 /* SplashViewModel.swift */; };
-		462F56632C58267300081988 /* SplashCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462F56622C58267300081988 /* SplashCoordinator.swift */; };
-		462F56652C58279800081988 /* SplashModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462F56642C58279800081988 /* SplashModule.swift */; };
 		464606DF2C53FF0B0032DC89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464606DE2C53FF0B0032DC89 /* AppDelegate.swift */; };
 		464606E12C53FF0B0032DC89 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464606E02C53FF0B0032DC89 /* SceneDelegate.swift */; };
 		464606E32C53FF0B0032DC89 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464606E22C53FF0B0032DC89 /* ViewController.swift */; };
@@ -46,12 +44,6 @@
 		46E171382C5BB35E003D9C74 /* ImageStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E171372C5BB35E003D9C74 /* ImageStorage.swift */; };
 		46E1713A2C5BB6D2003D9C74 /* MatchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E171392C5BB6D2003D9C74 /* MatchRepository.swift */; };
 		46E1713C2C5BB72B003D9C74 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E1713B2C5BB72B003D9C74 /* Match.swift */; };
-		46E1713E2C5CB222003D9C74 /* EntryModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E1713D2C5CB222003D9C74 /* EntryModule.swift */; };
-		46E171402C5CB23B003D9C74 /* EntryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E1713F2C5CB23B003D9C74 /* EntryCoordinator.swift */; };
-		46E171422C5CB5B6003D9C74 /* SecondModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E171412C5CB5B6003D9C74 /* SecondModule.swift */; };
-		46E171442C5CB5C5003D9C74 /* SecondCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E171432C5CB5C5003D9C74 /* SecondCoordinator.swift */; };
-		542A79812C5D88EA0033C7D1 /* PlayerListModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542A79802C5D88EA0033C7D1 /* PlayerListModule.swift */; };
-		542A79832C5D88F80033C7D1 /* PlayerListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542A79822C5D88F80033C7D1 /* PlayerListCoordinator.swift */; };
 		542A79852C5D8CDD0033C7D1 /* SplashViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 542A79842C5D8CDD0033C7D1 /* SplashViewController.storyboard */; };
 		545D3C572C5D726D00EAB40D /* PlayerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D3C4F2C5D726D00EAB40D /* PlayerListViewModel.swift */; };
 		545D3C582C5D726D00EAB40D /* AddPlayerButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D3C502C5D726D00EAB40D /* AddPlayerButtonTableViewCell.swift */; };
@@ -69,8 +61,6 @@
 		54A5D4512C58CB8B00EF405C /* OnboardViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A5D44F2C58CB8B00EF405C /* OnboardViewCell.swift */; };
 		54A5D4522C58CB8B00EF405C /* OnboardViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54A5D4502C58CB8B00EF405C /* OnboardViewCell.xib */; };
 		54A5D4562C5917F200EF405C /* OnboardViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54A5D4552C5917F200EF405C /* OnboardViewController.storyboard */; };
-		54A5D45C2C591E0B00EF405C /* OnboardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A5D45B2C591E0B00EF405C /* OnboardCoordinator.swift */; };
-		54A5D45E2C591F3500EF405C /* OnboardModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A5D45D2C591F3500EF405C /* OnboardModule.swift */; };
 		C42C28682C5A3D2600E6586E /* SecondCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C28622C5A3D2600E6586E /* SecondCollectionViewCell.swift */; };
 		C42C28692C5A3D2600E6586E /* SecondCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C42C28632C5A3D2600E6586E /* SecondCollectionViewCell.xib */; };
 		C42C286A2C5A3D2600E6586E /* SecondView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42C28662C5A3D2600E6586E /* SecondView.storyboard */; };
@@ -105,8 +95,6 @@
 		462F565B2C58248100081988 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		462F565E2C5824AC00081988 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		462F56602C5824BA00081988 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
-		462F56622C58267300081988 /* SplashCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashCoordinator.swift; sourceTree = "<group>"; };
-		462F56642C58279800081988 /* SplashModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashModule.swift; sourceTree = "<group>"; };
 		464606DB2C53FF0B0032DC89 /* TeamCreator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeamCreator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		464606DE2C53FF0B0032DC89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		464606E02C53FF0B0032DC89 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -138,12 +126,6 @@
 		46E171372C5BB35E003D9C74 /* ImageStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStorage.swift; sourceTree = "<group>"; };
 		46E171392C5BB6D2003D9C74 /* MatchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchRepository.swift; sourceTree = "<group>"; };
 		46E1713B2C5BB72B003D9C74 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
-		46E1713D2C5CB222003D9C74 /* EntryModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryModule.swift; sourceTree = "<group>"; };
-		46E1713F2C5CB23B003D9C74 /* EntryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryCoordinator.swift; sourceTree = "<group>"; };
-		46E171412C5CB5B6003D9C74 /* SecondModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondModule.swift; sourceTree = "<group>"; };
-		46E171432C5CB5C5003D9C74 /* SecondCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondCoordinator.swift; sourceTree = "<group>"; };
-		542A79802C5D88EA0033C7D1 /* PlayerListModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListModule.swift; sourceTree = "<group>"; };
-		542A79822C5D88F80033C7D1 /* PlayerListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListCoordinator.swift; sourceTree = "<group>"; };
 		542A79842C5D8CDD0033C7D1 /* SplashViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplashViewController.storyboard; sourceTree = "<group>"; };
 		545D3C4F2C5D726D00EAB40D /* PlayerListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerListViewModel.swift; sourceTree = "<group>"; };
 		545D3C502C5D726D00EAB40D /* AddPlayerButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlayerButtonTableViewCell.swift; sourceTree = "<group>"; };
@@ -161,8 +143,6 @@
 		54A5D44F2C58CB8B00EF405C /* OnboardViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardViewCell.swift; sourceTree = "<group>"; };
 		54A5D4502C58CB8B00EF405C /* OnboardViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnboardViewCell.xib; sourceTree = "<group>"; };
 		54A5D4552C5917F200EF405C /* OnboardViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OnboardViewController.storyboard; sourceTree = "<group>"; };
-		54A5D45B2C591E0B00EF405C /* OnboardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardCoordinator.swift; sourceTree = "<group>"; };
-		54A5D45D2C591F3500EF405C /* OnboardModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardModule.swift; sourceTree = "<group>"; };
 		C42C28622C5A3D2600E6586E /* SecondCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondCollectionViewCell.swift; sourceTree = "<group>"; };
 		C42C28632C5A3D2600E6586E /* SecondCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondCollectionViewCell.xib; sourceTree = "<group>"; };
 		C42C28662C5A3D2600E6586E /* SecondView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SecondView.storyboard; sourceTree = "<group>"; };
@@ -281,8 +261,6 @@
 			children = (
 				462F565E2C5824AC00081988 /* SplashViewController.swift */,
 				462F56602C5824BA00081988 /* SplashViewModel.swift */,
-				462F56622C58267300081988 /* SplashCoordinator.swift */,
-				462F56642C58279800081988 /* SplashModule.swift */,
 				542A79842C5D8CDD0033C7D1 /* SplashViewController.storyboard */,
 			);
 			path = Splash;
@@ -350,8 +328,6 @@
 				464607512C57A2F40032DC89 /* Views */,
 				4646074F2C57A2E70032DC89 /* EntryViewController.swift */,
 				464607572C57A3510032DC89 /* EntryViewModel.swift */,
-				46E1713D2C5CB222003D9C74 /* EntryModule.swift */,
-				46E1713F2C5CB23B003D9C74 /* EntryCoordinator.swift */,
 			);
 			path = Entry;
 			sourceTree = "<group>";
@@ -414,8 +390,6 @@
 				545D3C4F2C5D726D00EAB40D /* PlayerListViewModel.swift */,
 				545D3C662C5D7BCD00EAB40D /* PlayerListViewController.swift */,
 				545D3C682C5D7BDD00EAB40D /* PlayerListViewController.storyboard */,
-				542A79802C5D88EA0033C7D1 /* PlayerListModule.swift */,
-				542A79822C5D88F80033C7D1 /* PlayerListCoordinator.swift */,
 			);
 			path = PlayerList;
 			sourceTree = "<group>";
@@ -437,8 +411,6 @@
 				54A5D45F2C59572300EF405C /* Views */,
 				54A3D5E02C5839DD00AD457C /* OnboardViewModel.swift */,
 				54A3D5E22C583D9900AD457C /* OnboardSlide.swift */,
-				54A5D45B2C591E0B00EF405C /* OnboardCoordinator.swift */,
-				54A5D45D2C591F3500EF405C /* OnboardModule.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -486,8 +458,6 @@
 				C42C28662C5A3D2600E6586E /* SecondView.storyboard */,
 				C42C286D2C5A3F2D00E6586E /* SecondViewModel.swift */,
 				C42C286F2C5A3F3E00E6586E /* SecondViewController.swift */,
-				46E171412C5CB5B6003D9C74 /* SecondModule.swift */,
-				46E171432C5CB5C5003D9C74 /* SecondCoordinator.swift */,
 			);
 			path = Second;
 			sourceTree = "<group>";
@@ -667,17 +637,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C42C286E2C5A3F2D00E6586E /* SecondViewModel.swift in Sources */,
-				462F56652C58279800081988 /* SplashModule.swift in Sources */,
 				C42C28702C5A3F3E00E6586E /* SecondViewController.swift in Sources */,
 				464606E32C53FF0B0032DC89 /* ViewController.swift in Sources */,
-				46E1713E2C5CB222003D9C74 /* EntryModule.swift in Sources */,
 				46E1712B2C5B8B59003D9C74 /* PlayerCRUDViewModel.swift in Sources */,
 				545D3C5A2C5D726D00EAB40D /* PlayerListTableViewCell.swift in Sources */,
 				464607502C57A2E70032DC89 /* EntryViewController.swift in Sources */,
 				464606DF2C53FF0B0032DC89 /* AppDelegate.swift in Sources */,
 				54A5D44D2C5842EC00EF405C /* OnboardViewController.swift in Sources */,
-				542A79832C5D88F80033C7D1 /* PlayerListCoordinator.swift in Sources */,
-				46E171422C5CB5B6003D9C74 /* SecondModule.swift in Sources */,
 				462F56562C5819A800081988 /* LoadingView.swift in Sources */,
 				462F56532C58196C00081988 /* LoadingShowable.swift in Sources */,
 				545D3C572C5D726D00EAB40D /* PlayerListViewModel.swift in Sources */,
@@ -688,16 +654,13 @@
 				54A5D4512C58CB8B00EF405C /* OnboardViewCell.swift in Sources */,
 				462F56612C5824BA00081988 /* SplashViewModel.swift in Sources */,
 				54A3D5E32C583D9900AD457C /* OnboardSlide.swift in Sources */,
-				54A5D45C2C591E0B00EF405C /* OnboardCoordinator.swift in Sources */,
 				462F56582C581D8100081988 /* UICollectionView.swift in Sources */,
 				46E171382C5BB35E003D9C74 /* ImageStorage.swift in Sources */,
-				46E171442C5CB5C5003D9C74 /* SecondCoordinator.swift in Sources */,
 				46E171342C5BA92B003D9C74 /* Player.swift in Sources */,
 				545D3C582C5D726D00EAB40D /* AddPlayerButtonTableViewCell.swift in Sources */,
 				C42C28682C5A3D2600E6586E /* SecondCollectionViewCell.swift in Sources */,
 				46E1712D2C5B8B6E003D9C74 /* PlayerCRUDModule.swift in Sources */,
 				464606E12C53FF0B0032DC89 /* SceneDelegate.swift in Sources */,
-				46E171402C5CB23B003D9C74 /* EntryCoordinator.swift in Sources */,
 				545D3C5F2C5D72A000EAB40D /* UITableViewCell.swift in Sources */,
 				C42C286C2C5A3D4400E6586E /* Matches.swift in Sources */,
 				46E171322C5BA3EF003D9C74 /* NetworkService.swift in Sources */,
@@ -705,17 +668,14 @@
 				545D3C5E2C5D72A000EAB40D /* UITableView.swift in Sources */,
 				462F565F2C5824AC00081988 /* SplashViewController.swift in Sources */,
 				462F56502C58191800081988 /* BaseViewController.swift in Sources */,
-				54A5D45E2C591F3500EF405C /* OnboardModule.swift in Sources */,
 				54A3D5DF2C58391100AD457C /* UIView.swift in Sources */,
 				464606E92C53FF0B0032DC89 /* TeamCreator.xcdatamodeld in Sources */,
 				54A3D5E12C5839DD00AD457C /* OnboardViewModel.swift in Sources */,
-				462F56632C58267300081988 /* SplashCoordinator.swift in Sources */,
 				462F565A2C58244500081988 /* Reachibility.swift in Sources */,
 				46E1713C2C5BB72B003D9C74 /* Match.swift in Sources */,
 				545D3C672C5D7BCD00EAB40D /* PlayerListViewController.swift in Sources */,
 				4646075B2C57AB250032DC89 /* Sport.swift in Sources */,
 				464607552C57A32E0032DC89 /* EntryCollectionViewCell.swift in Sources */,
-				542A79812C5D88EA0033C7D1 /* PlayerListModule.swift in Sources */,
 				46E1713A2C5BB6D2003D9C74 /* MatchRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

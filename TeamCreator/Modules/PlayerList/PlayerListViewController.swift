@@ -7,37 +7,45 @@
 
 import UIKit
 
+protocol PlayerListViewControllerProtocol: AnyObject {
+    func reloadTableView()
+}
+
 final class PlayerListViewController: UIViewController {
     
     // MARK: - Properties
     @IBOutlet weak var tableView: UITableView!
-    var viewModel = PlayerListViewModel()
+    var viewModel: PlayerListViewModelProtocol! {
+        didSet {
+            viewModel.delegate = self
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel = PlayerListViewModel()
         registerCells()
     
         tableView.delegate = self
         tableView.dataSource = self
+        viewModel.fetchData()
     }
-    
     
     private func registerCells() {
-        tableView.register(cellType: PlayerListTableViewCell.self)
-        tableView.register(cellType: AddPlayerButtonTableViewCell.self)
+        tableView.register(UINib(nibName: "PlayerListTableViewCell", bundle: nil), forCellReuseIdentifier: "PlayerListTableViewCell")
+        tableView.register(UINib(nibName: "AddPlayerButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "AddPlayerButtonTableViewCell")
     }
-    
 }
 
-extension PlayerListViewController: UITableViewDelegate,UITableViewDataSource {
+extension PlayerListViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.celltypeList.count
+        return viewModel.getCellTypeCount()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let celltypeList = viewModel.celltypeList
-        switch celltypeList[section] {
+        let cellType = viewModel.getCellType(at: section)
+        switch cellType {
         case .player:
             return 2
         case .addButton:
@@ -46,14 +54,20 @@ extension PlayerListViewController: UITableViewDelegate,UITableViewDataSource {
     }
    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch viewModel.celltypeList[indexPath.section] {
+        let cellType = viewModel.getCellType(at: indexPath.section)
+        switch cellType {
         case .player:
-            let cell = tableView.dequeCell(cellType: PlayerListTableViewCell.self, indexPath: indexPath)
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerListTableViewCell", for: indexPath) as? PlayerListTableViewCell else { return UITableViewCell() }
             return cell
         case .addButton:
-            let cell = tableView.dequeCell(cellType: AddPlayerButtonTableViewCell.self, indexPath: indexPath)
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "AddPlayerButtonTableViewCell", for: indexPath) as? AddPlayerButtonTableViewCell else { return UITableViewCell()}
             return cell
         }
     }
 }
 
+extension PlayerListViewController: PlayerListViewControllerProtocol {
+    func reloadTableView() {
+        tableView.reloadData()
+    }
+}
