@@ -58,9 +58,11 @@ class OnboardViewController: BaseViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let entryVC = storyboard.instantiateViewController(withIdentifier: "EntryViewController") as? EntryViewController else { return }
         
-        window.rootViewController = entryVC
+        let navigationController = UINavigationController(rootViewController: entryVC)
+        window.rootViewController = navigationController
         window.makeKeyAndVisible()
     }
+
     
     @IBAction func nextButtonTapped(_ sender: UIButton) {
         viewModel.nextPage()

@@ -36,14 +36,10 @@ class EntryViewController: BaseViewController {
         entryCollectionView.delegate = self
         entryCollectionView.register(UINib(nibName: "EntryCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "EntryCollectionViewCell")
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 35, height: UIScreen.main.bounds.height / 5)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 35, height: UIScreen.main.bounds.height / 5.25)
         layout.minimumLineSpacing = 20
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         entryCollectionView.setCollectionViewLayout(layout, animated: true)
-    }
-    
-    @IBAction func navigateButtonTapped(_ sender: UIButton) {
-        viewModel.navigateToSecond()
     }
 }
 
@@ -62,6 +58,9 @@ extension EntryViewController: UICollectionViewDelegate, UICollectionViewDataSou
         cell.configure(with: sport)
         return cell
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.selectSport(at: indexPath.row)
+    }
 }
 
 //MARK: EntryViewControllerProtocol
@@ -72,15 +71,27 @@ extension EntryViewController: EntryViewModelDelegate {
     }
     
     func navigateToSecond() {
-        guard let window = view.window else { return }
-        let storyboard = UIStoryboard(name: "SecondViewController", bundle: nil)
+        let storyboard = UIStoryboard(name: "SecondView", bundle: nil)
         guard let secondVC = storyboard.instantiateViewController(withIdentifier: "SecondViewController") as? SecondViewController else { return }
         
         let secondViewModel = SecondViewModel(delegate: secondVC)
         secondVC.viewModel = secondViewModel
         
-        window.rootViewController = secondVC
-        window.makeKeyAndVisible()
+        if let navigationController = self.navigationController {
+            navigationController.pushViewController(secondVC, animated: true)
+        } else {
+            let navigationController = UINavigationController(rootViewController: self)
+            view.window?.rootViewController = navigationController
+            view.window?.makeKeyAndVisible()
+            DispatchQueue.main.async {
+                navigationController.pushViewController(secondVC, animated: true)
+            }
+        }
     }
+
+
+
+
+
 }
 
