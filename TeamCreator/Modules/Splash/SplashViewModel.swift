@@ -8,34 +8,34 @@
 import Foundation
 
 protocol SplashViewModelProtocol: AnyObject {
-    var onInternetStatusChecked: (() -> Void)? { get set }
-    var onNoInternet: (() -> Void)? { get set }
-    func checkInternetConnection()
+    var delegate: SplashViewControllerProtocol? { get set }
+    
+    func viewDidLoad()
+}
+
+enum SplashViewState {
+    case showOnboarding
+    case noInternetConnection
 }
 
 final class SplashViewModel: SplashViewModelProtocol {
     
-    weak var view: SplashViewControllerProtocol?
-    var coordinator: SplashCoordinatorProtocol?
+    weak var delegate: SplashViewControllerProtocol?
     
-    var onInternetStatusChecked: (() -> Void)?
-    var onNoInternet: (() -> Void)?
+    init() {}
     
-    init(view: SplashViewControllerProtocol, coordinator: SplashCoordinatorProtocol) {
-        self.view = view
-        self.coordinator = coordinator
-        
+    func viewDidLoad() {
+        checkInternetConnection()
     }
     
-    func checkInternetConnection() {
+    private func checkInternetConnection() {
         let internetStatus = API.shared.isConnectoInternet()
         if internetStatus {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                self.onInternetStatusChecked?()
-                print("internet bağlantısı mevcut")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+                self?.delegate?.updateUI(for: .showOnboarding)
             }
         } else {
-            onNoInternet?()
+            delegate?.updateUI(for: .noInternetConnection)
         }
     }
 }

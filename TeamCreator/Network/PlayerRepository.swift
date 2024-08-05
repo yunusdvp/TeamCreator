@@ -110,7 +110,7 @@ final class PlayerRepository: PlayerRepositoryProtocol {
         for _ in 0..<count {
             dispatchGroup.enter()
             let player = createRandomPlayer()
-            addPlayer(player: player, image: UIImage(named: "defaultProfileImage")!) { result in
+            addPlayer(player: player, image: UIImage(named:  "defaultProfileImage")!) { result in
                 switch result {
                 case .success:
                     break

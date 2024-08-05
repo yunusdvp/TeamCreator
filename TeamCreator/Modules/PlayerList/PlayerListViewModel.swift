@@ -6,21 +6,42 @@
 //
 
 import Foundation
-final class PlayerListViewModel {
+
+enum PlayerListCellType {
+    case player
+    case addButton
+}
+
+protocol PlayerListViewModelProtocol: AnyObject {
+    var delegate: PlayerListViewControllerProtocol? { get set }
     
-    enum PlayerListTableViewCell {
-        case player
-        case addButton
-        
-    }
+    func fetchData()
+    func getCellTypeCount() -> Int
+    func getCellType(at index: Int) -> PlayerListCellType
+}
+
+final class PlayerListViewModel: PlayerListViewModelProtocol {
     
-    
-    var celltypeList: [PlayerListTableViewCell]
+    weak var delegate: PlayerListViewControllerProtocol?
+    private var cellTypeList: [PlayerListCellType] = []
     
     init() {
-        self.celltypeList = [.player, .addButton]
+        self.cellTypeList = [.player, .addButton]
     }
-
+    
+    func fetchData() {
+        //firebase veri çekme fonksiyonu
+        delegate?.reloadTableView()
+    }
+    
+    func getCellTypeCount() -> Int {
+        return cellTypeList.count
+    }
+    
+    func getCellType(at index: Int) -> PlayerListCellType {
+        return cellTypeList[index]
+    }
 }
+
 
 

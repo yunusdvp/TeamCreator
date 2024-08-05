@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -47,7 +47,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="nextButtonClicked:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="3Uk-Kw-2Gw"/>
+                                    <action selector="nextButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="B55-gn-gIU"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -68,7 +68,7 @@
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="TlB-Sy-Eva" id="KIN-Vh-Vgd"/>
-                        <outlet property="nextButton" destination="a5v-8G-Y9n" id="yim-aQ-2fM"/>
+                        <outlet property="nextButton" destination="a5v-8G-Y9n" id="r2g-N0-kTI"/>
                         <outlet property="pageControl" destination="SWA-hI-bsn" id="niw-GA-iY1"/>
                     </connections>
                 </viewController>

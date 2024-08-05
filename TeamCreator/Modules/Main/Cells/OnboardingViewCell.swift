@@ -18,7 +18,7 @@ class OnboardingViewCell: UICollectionViewCell {
      
     }
     
-    func setupCell(_ slide: OnboardingSlide){
+    func setupCell(_ slide: OnboardingSlide) {
         imageview.image = slide.image
         mainTitleLabel.text = slide.title
         subjectLabel.text = slide.description

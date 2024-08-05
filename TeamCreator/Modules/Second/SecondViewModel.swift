@@ -8,24 +8,25 @@
 import Foundation
 
 protocol SecondViewModelProtocol: AnyObject {
-    var matches: [Matches] { get }
+    var delegate: SecondViewModelDelegate? { get set }
+    
     func fetchMatches()
+    func getMatchesCount() -> Int
+    func getMatch(at index: Int) -> Matches
 }
 
+protocol SecondViewModelDelegate: AnyObject {
+    func reloadCollectionView()
+    func navigateToSomewhere()
+}
 
-class SecondViewModel: SecondViewModelProtocol {
+final class SecondViewModel: SecondViewModelProtocol {
     
-    weak var view: SecondViewControllerProtocol?
-    var coordinator: SecondCoordinatorProtocol?
-    var matches: [Matches] = []
+    weak var delegate: SecondViewModelDelegate?
+    private var matches: [Matches] = []
     
-    init(view: SecondViewControllerProtocol,coordinator: SecondCoordinatorProtocol) {
-        self.view = view
-        self.coordinator = coordinator
-        
-    }
-    init(view: SecondViewControllerProtocol) {
-        self.view = view
+    init(delegate: SecondViewModelDelegate) {
+        self.delegate = delegate
     }
     
     func fetchMatches() {
@@ -33,7 +34,14 @@ class SecondViewModel: SecondViewModelProtocol {
         let create = Matches(category: "Create Match", backgroundImage: "createMatch")
         let myMatches = Matches(category: "My Matches", backgroundImage: "myMatches")
         matches.append(contentsOf: [players, create, myMatches])
-        view?.reloadCollectionView()
-        
+        delegate?.reloadCollectionView()
+    }
+    
+    func getMatchesCount() -> Int {
+        return matches.count
+    }
+    
+    func getMatch(at index: Int) -> Matches {
+        return matches[index]
     }
 }

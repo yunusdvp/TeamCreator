@@ -7,72 +7,90 @@
 
 import UIKit
 
-protocol OnboardViewControllerProtocol: AnyObject {
-    func updateUI()
-}
-
-final class OnboardViewController: BaseViewController {
-    
-    @IBOutlet private weak var collectionView: UICollectionView!
-    @IBOutlet private weak var nextButton: UIButton!
-    @IBOutlet private weak var pageControl: UIPageControl!
+class OnboardViewController: BaseViewController {
     
     var viewModel: OnboardViewModelProtocol!
     
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet weak var nextButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        viewModel = OnboardViewModel()
+        setupCollectionView()
+        setupPageControl()
+        bindViewModel()
+        viewModel.viewDidLoad()
+    }
+    
+    private func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
-        registerCell()
-        
-        pageControl.numberOfPages = viewModel.getNumberOfSlides()
-        pageControl.addTarget(self, action: #selector(pageControlTapped(_:)), for: .valueChanged)
-        
-        viewModel.updateUI = { [weak self] in
-            self?.updateUI()
-        }
-        
-        updateUI()
-    }
-    
-    @objc private func pageControlTapped(_ sender: UIPageControl) {
-        let indexPath = IndexPath(item: sender.currentPage, section: 0)
-        viewModel.setCurrentPage(sender.currentPage)
-        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-    }
-    
-    private func registerCell() {
         collectionView.register(cellType: OnboardViewCell.self)
     }
     
-    @IBAction func nextButtonClicked(_ sender: UIButton) {
-        if viewModel.isLastPage() {
-            navigateToEntry()
-        } else {
-            viewModel.nextPage()
-            collectionView.reloadData()
-            let indexPath = IndexPath(item: viewModel.getCurrentPage(), section: 0)
-            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+    private func setupPageControl() {
+        pageControl.numberOfPages = viewModel.getNumberOfSlides()
+    }
+    
+    private func bindViewModel() {
+        viewModel.updateUI = { [weak self] state in
+            self?.updateUI(for: state)
         }
     }
     
-    func navigateToEntry() {
-        (viewModel as? OnboardViewModel)?.coordinator?.navigateToEntry()
+    private func updateUI(for state: OnboardViewState) {
+        switch state {
+        case .updateSlides:
+            collectionView.reloadData()
+            pageControl.currentPage = viewModel.getCurrentPage()
+        case .navigateToEntry:
+            navigateToEntry()
+        case .noInternetConnection:
+            showAlert("Error", "No Internet connection, please check your connection")
+        }
     }
     
+    private func navigateToEntry() {
+        guard let window = view.window else { return }
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let entryVC = storyboard.instantiateViewController(withIdentifier: "EntryViewController") as? EntryViewController else { return }
+        
+        let navigationController = UINavigationController(rootViewController: entryVC)
+        window.rootViewController = navigationController
+        window.makeKeyAndVisible()
+    }
+
+    
+    @IBAction func nextButtonTapped(_ sender: UIButton) {
+        viewModel.nextPage()
+        
+        let nextIndexPath = IndexPath(item: viewModel.getCurrentPage(), section: 0)
+        collectionView.scrollToItem(at: nextIndexPath, at: .centeredHorizontally, animated: true)
+        
+        if viewModel.isLastPage() {
+            nextButton.setTitle("Get Started", for: .normal)
+        } else {
+            nextButton.setTitle("Next", for: .normal)
+        }
+    }
 }
 
-extension OnboardViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    
+extension OnboardViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.getNumberOfSlides()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueCell(with: OnboardViewCell.self, for: indexPath)
-        cell?.setupCell(viewModel.getSlide(at: indexPath.item))
-        return cell ?? UICollectionViewCell()
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OnboardViewCell", for: indexPath) as? OnboardViewCell else {
+            return UICollectionViewCell()
+        }
+        
+        let slide = viewModel.getSlide(at: indexPath.row)
+        cell.setupCell(with: slide)
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -80,16 +98,7 @@ extension OnboardViewController: UICollectionViewDataSource, UICollectionViewDel
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let width = scrollView.frame.width
-        let currentPage = Int(scrollView.contentOffset.x / width)
-        viewModel.setCurrentPage(currentPage)
-    }
-}
-
-extension OnboardViewController: OnboardViewControllerProtocol {
-    func updateUI() {
-        pageControl.currentPage = viewModel.getCurrentPage()
-        let buttonTitle = viewModel.isLastPage() ? "Get Started" : "Next"
-        nextButton.setTitle(buttonTitle, for: .normal)
+        let pageIndex = Int(scrollView.contentOffset.x / collectionView.frame.width)
+        viewModel.setCurrentPage(pageIndex)
     }
 }

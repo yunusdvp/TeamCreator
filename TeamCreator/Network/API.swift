@@ -43,9 +43,9 @@ final class API {
     }
 }
 
-extension API{
+extension API {
     
-    func isConnectoInternet() -> Bool{
+    func isConnectoInternet() -> Bool {
         Reachability.isConnectedToNetwork()
     }
     
