@@ -37,6 +37,11 @@
 		46AE958E2C610DE800BE923A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 46AE958D2C610DE800BE923A /* Alamofire */; };
 		46AE95902C610E0600BE923A /* GeminiApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AE958F2C610E0600BE923A /* GeminiApiService.swift */; };
 		46AE95932C610F0800BE923A /* GoogleGenerativeAI in Frameworks */ = {isa = PBXBuildFile; productRef = 46AE95922C610F0800BE923A /* GoogleGenerativeAI */; };
+		46AE95992C6151D500BE923A /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AE95982C6151D500BE923A /* WeatherResponse.swift */; };
+		46AE959F2C61528600BE923A /* PlayerListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46AE959A2C61528600BE923A /* PlayerListViewController.storyboard */; };
+		46AE95A02C61528600BE923A /* PlayerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AE959B2C61528600BE923A /* PlayerListViewController.swift */; };
+		46AE95A12C61528600BE923A /* PlayerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AE959C2C61528600BE923A /* PlayerListViewModel.swift */; };
+		46AE95A22C61528600BE923A /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AE959D2C61528600BE923A /* PlayerViewController.swift */; };
 		46E171272C5B8B35003D9C74 /* PlayerCRUDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E171262C5B8B35003D9C74 /* PlayerCRUDViewController.swift */; };
 		46E1712B2C5B8B59003D9C74 /* PlayerCRUDViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E1712A2C5B8B59003D9C74 /* PlayerCRUDViewModel.swift */; };
 		46E1712D2C5B8B6E003D9C74 /* PlayerCRUDModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E1712C2C5B8B6E003D9C74 /* PlayerCRUDModule.swift */; };
@@ -121,6 +126,11 @@
 		468C7BBC2C5A24CF0006AD51 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		46AE958A2C60C1A600BE923A /* SelectedSport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedSport.swift; sourceTree = "<group>"; };
 		46AE958F2C610E0600BE923A /* GeminiApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiApiService.swift; sourceTree = "<group>"; };
+		46AE95982C6151D500BE923A /* WeatherResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherResponse.swift; sourceTree = "<group>"; };
+		46AE959A2C61528600BE923A /* PlayerListViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlayerListViewController.storyboard; sourceTree = "<group>"; };
+		46AE959B2C61528600BE923A /* PlayerListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerListViewController.swift; sourceTree = "<group>"; };
+		46AE959C2C61528600BE923A /* PlayerListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerListViewModel.swift; sourceTree = "<group>"; };
+		46AE959D2C61528600BE923A /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		46E171262C5B8B35003D9C74 /* PlayerCRUDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCRUDViewController.swift; sourceTree = "<group>"; };
 		46E1712A2C5B8B59003D9C74 /* PlayerCRUDViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCRUDViewModel.swift; sourceTree = "<group>"; };
 		46E1712C2C5B8B6E003D9C74 /* PlayerCRUDModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCRUDModule.swift; sourceTree = "<group>"; };
@@ -230,6 +240,7 @@
 		462F564D2C58183D00081988 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				46AE959E2C61528600BE923A /* Player */,
 				545D3C432C5D724C00EAB40D /* PlayerList */,
 				46E171252C5B8B00003D9C74 /* PlayerCRUD */,
 				C42C28672C5A3D2600E6586E /* Second */,
@@ -362,6 +373,7 @@
 		464607592C57AB130032DC89 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				46AE95982C6151D500BE923A /* WeatherResponse.swift */,
 				4646075A2C57AB250032DC89 /* Sport.swift */,
 				C42C286B2C5A3D4400E6586E /* Matches.swift */,
 				46E171332C5BA92B003D9C74 /* Player.swift */,
@@ -387,6 +399,17 @@
 				46AE958A2C60C1A600BE923A /* SelectedSport.swift */,
 			);
 			path = Enums;
+			sourceTree = "<group>";
+		};
+		46AE959E2C61528600BE923A /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				46AE959A2C61528600BE923A /* PlayerListViewController.storyboard */,
+				46AE959B2C61528600BE923A /* PlayerListViewController.swift */,
+				46AE959C2C61528600BE923A /* PlayerListViewModel.swift */,
+				46AE959D2C61528600BE923A /* PlayerViewController.swift */,
+			);
+			path = Player;
 			sourceTree = "<group>";
 		};
 		46E171252C5B8B00003D9C74 /* PlayerCRUD */ = {
@@ -600,6 +623,7 @@
 				464606EB2C53FF0D0032DC89 /* Assets.xcassets in Resources */,
 				545D3C692C5D7BDD00EAB40D /* PlayerListViewController.storyboard in Resources */,
 				C42C286A2C5A3D2600E6586E /* SecondView.storyboard in Resources */,
+				46AE959F2C61528600BE923A /* PlayerListViewController.storyboard in Resources */,
 				542A79852C5D8CDD0033C7D1 /* SplashViewController.storyboard in Resources */,
 				545D3C5B2C5D726D00EAB40D /* PlayerListTableViewCell.xib in Resources */,
 				54A5D4522C58CB8B00EF405C /* OnboardViewCell.xib in Resources */,
@@ -661,6 +685,7 @@
 				C42C286E2C5A3F2D00E6586E /* SecondViewModel.swift in Sources */,
 				C42C28702C5A3F3E00E6586E /* SecondViewController.swift in Sources */,
 				464606E32C53FF0B0032DC89 /* ViewController.swift in Sources */,
+				46AE95992C6151D500BE923A /* WeatherResponse.swift in Sources */,
 				46E1712B2C5B8B59003D9C74 /* PlayerCRUDViewModel.swift in Sources */,
 				545D3C5A2C5D726D00EAB40D /* PlayerListTableViewCell.swift in Sources */,
 				464607502C57A2E70032DC89 /* EntryViewController.swift in Sources */,
@@ -679,6 +704,7 @@
 				462F56612C5824BA00081988 /* SplashViewModel.swift in Sources */,
 				54A3D5E32C583D9900AD457C /* OnboardSlide.swift in Sources */,
 				462F56582C581D8100081988 /* UICollectionView.swift in Sources */,
+				46AE95A02C61528600BE923A /* PlayerListViewController.swift in Sources */,
 				46E171382C5BB35E003D9C74 /* ImageStorage.swift in Sources */,
 				46E171342C5BA92B003D9C74 /* Player.swift in Sources */,
 				545D3C582C5D726D00EAB40D /* AddPlayerButtonTableViewCell.swift in Sources */,
@@ -691,9 +717,11 @@
 				46E171272C5B8B35003D9C74 /* PlayerCRUDViewController.swift in Sources */,
 				545D3C5E2C5D72A000EAB40D /* UITableView.swift in Sources */,
 				462F565F2C5824AC00081988 /* SplashViewController.swift in Sources */,
+				46AE95A12C61528600BE923A /* PlayerListViewModel.swift in Sources */,
 				462F56502C58191800081988 /* BaseViewController.swift in Sources */,
 				54A3D5DF2C58391100AD457C /* UIView.swift in Sources */,
 				464606E92C53FF0B0032DC89 /* TeamCreator.xcdatamodeld in Sources */,
+				46AE95A22C61528600BE923A /* PlayerViewController.swift in Sources */,
 				54A3D5E12C5839DD00AD457C /* OnboardViewModel.swift in Sources */,
 				462F565A2C58244500081988 /* Reachibility.swift in Sources */,
 				46E1713C2C5BB72B003D9C74 /* Match.swift in Sources */,
