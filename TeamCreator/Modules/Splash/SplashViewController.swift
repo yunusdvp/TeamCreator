@@ -17,7 +17,7 @@ class SplashViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .blue
+       view.backgroundColor = .blue
         bindViewModel()
         viewModel.checkInternetConnection()
     }
