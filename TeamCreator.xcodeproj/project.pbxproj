@@ -36,7 +36,6 @@
 		468C7BC02C5A25BA0006AD51 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 468C7BBF2C5A25BA0006AD51 /* FirebaseFirestore */; };
 		468C7BC22C5A25BA0006AD51 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 468C7BC12C5A25BA0006AD51 /* FirebaseStorage */; };
 		46E171272C5B8B35003D9C74 /* PlayerCRUDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E171262C5B8B35003D9C74 /* PlayerCRUDViewController.swift */; };
-		46E171292C5B8B45003D9C74 /* PlayerCRUD.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46E171282C5B8B45003D9C74 /* PlayerCRUD.storyboard */; };
 		46E1712B2C5B8B59003D9C74 /* PlayerCRUDViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E1712A2C5B8B59003D9C74 /* PlayerCRUDViewModel.swift */; };
 		46E1712D2C5B8B6E003D9C74 /* PlayerCRUDModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E1712C2C5B8B6E003D9C74 /* PlayerCRUDModule.swift */; };
 		46E171302C5B8B84003D9C74 /* PlayerCRUDCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E1712F2C5B8B84003D9C74 /* PlayerCRUDCoordinator.swift */; };
@@ -53,6 +52,7 @@
 		542A79812C5D88EA0033C7D1 /* PlayerListModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542A79802C5D88EA0033C7D1 /* PlayerListModule.swift */; };
 		542A79832C5D88F80033C7D1 /* PlayerListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542A79822C5D88F80033C7D1 /* PlayerListCoordinator.swift */; };
 		542A79852C5D8CDD0033C7D1 /* SplashViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 542A79842C5D8CDD0033C7D1 /* SplashViewController.storyboard */; };
+		542A79872C5FB7020033C7D1 /* PlayerCRUDViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 542A79862C5FB7020033C7D1 /* PlayerCRUDViewController.storyboard */; };
 		545D3C572C5D726D00EAB40D /* PlayerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D3C4F2C5D726D00EAB40D /* PlayerListViewModel.swift */; };
 		545D3C582C5D726D00EAB40D /* AddPlayerButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545D3C502C5D726D00EAB40D /* AddPlayerButtonTableViewCell.swift */; };
 		545D3C592C5D726D00EAB40D /* AddPlayerButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 545D3C512C5D726D00EAB40D /* AddPlayerButtonTableViewCell.xib */; };
@@ -128,7 +128,6 @@
 		4646075A2C57AB250032DC89 /* Sport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sport.swift; sourceTree = "<group>"; };
 		468C7BBC2C5A24CF0006AD51 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		46E171262C5B8B35003D9C74 /* PlayerCRUDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCRUDViewController.swift; sourceTree = "<group>"; };
-		46E171282C5B8B45003D9C74 /* PlayerCRUD.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlayerCRUD.storyboard; sourceTree = "<group>"; };
 		46E1712A2C5B8B59003D9C74 /* PlayerCRUDViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCRUDViewModel.swift; sourceTree = "<group>"; };
 		46E1712C2C5B8B6E003D9C74 /* PlayerCRUDModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCRUDModule.swift; sourceTree = "<group>"; };
 		46E1712F2C5B8B84003D9C74 /* PlayerCRUDCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCRUDCoordinator.swift; sourceTree = "<group>"; };
@@ -145,6 +144,7 @@
 		542A79802C5D88EA0033C7D1 /* PlayerListModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListModule.swift; sourceTree = "<group>"; };
 		542A79822C5D88F80033C7D1 /* PlayerListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListCoordinator.swift; sourceTree = "<group>"; };
 		542A79842C5D8CDD0033C7D1 /* SplashViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplashViewController.storyboard; sourceTree = "<group>"; };
+		542A79862C5FB7020033C7D1 /* PlayerCRUDViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlayerCRUDViewController.storyboard; sourceTree = "<group>"; };
 		545D3C4F2C5D726D00EAB40D /* PlayerListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerListViewModel.swift; sourceTree = "<group>"; };
 		545D3C502C5D726D00EAB40D /* AddPlayerButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlayerButtonTableViewCell.swift; sourceTree = "<group>"; };
 		545D3C512C5D726D00EAB40D /* AddPlayerButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddPlayerButtonTableViewCell.xib; sourceTree = "<group>"; };
@@ -399,7 +399,7 @@
 			isa = PBXGroup;
 			children = (
 				46E171262C5B8B35003D9C74 /* PlayerCRUDViewController.swift */,
-				46E171282C5B8B45003D9C74 /* PlayerCRUD.storyboard */,
+				542A79862C5FB7020033C7D1 /* PlayerCRUDViewController.storyboard */,
 				46E1712A2C5B8B59003D9C74 /* PlayerCRUDViewModel.swift */,
 				46E1712C2C5B8B6E003D9C74 /* PlayerCRUDModule.swift */,
 				46E1712F2C5B8B84003D9C74 /* PlayerCRUDCoordinator.swift */,
@@ -610,11 +610,11 @@
 				C42C286A2C5A3D2600E6586E /* SecondView.storyboard in Resources */,
 				542A79852C5D8CDD0033C7D1 /* SplashViewController.storyboard in Resources */,
 				545D3C5B2C5D726D00EAB40D /* PlayerListTableViewCell.xib in Resources */,
-				46E171292C5B8B45003D9C74 /* PlayerCRUD.storyboard in Resources */,
 				54A5D4522C58CB8B00EF405C /* OnboardViewCell.xib in Resources */,
 				464607562C57A32E0032DC89 /* EntryCollectionViewCell.xib in Resources */,
 				464606EE2C53FF0D0032DC89 /* Base in Resources */,
 				545D3C592C5D726D00EAB40D /* AddPlayerButtonTableViewCell.xib in Resources */,
+				542A79872C5FB7020033C7D1 /* PlayerCRUDViewController.storyboard in Resources */,
 				54A5D4562C5917F200EF405C /* OnboardViewController.storyboard in Resources */,
 				468C7BBD2C5A24CF0006AD51 /* GoogleService-Info.plist in Resources */,
 				464606E62C53FF0B0032DC89 /* Base in Resources */,

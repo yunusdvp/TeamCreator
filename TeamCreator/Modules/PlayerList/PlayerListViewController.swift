@@ -31,6 +31,7 @@ final class PlayerListViewController: UIViewController {
 }
 
 extension PlayerListViewController: UITableViewDelegate,UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.celltypeList.count
     }
@@ -39,7 +40,7 @@ extension PlayerListViewController: UITableViewDelegate,UITableViewDataSource {
         let celltypeList = viewModel.celltypeList
         switch celltypeList[section] {
         case .player:
-            return 2
+            return 1
         case .addButton:
             return 1
         }
