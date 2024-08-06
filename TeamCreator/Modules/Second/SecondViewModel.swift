@@ -13,11 +13,12 @@ protocol SecondViewModelProtocol: AnyObject {
     func fetchMatches()
     func getMatchesCount() -> Int
     func getMatch(at index: Int) -> Matches
+    func selectMatch(at index: Int)
 }
 
 protocol SecondViewModelDelegate: AnyObject {
     func reloadCollectionView()
-    func navigateToSomewhere()
+    func navigateToMatchCreate()
 }
 
 final class SecondViewModel: SecondViewModelProtocol {
@@ -44,4 +45,10 @@ final class SecondViewModel: SecondViewModelProtocol {
     func getMatch(at index: Int) -> Matches {
         return matches[index]
     }
+    func selectMatch(at index: Int) {
+        if index == 1 {
+            delegate?.navigateToMatchCreate()
+        }
+    }
+    
 }

@@ -1,0 +1,231 @@
+{
+    "stadiums": [
+        {
+            "name": "Atatürk Olimpiyat Stadyumu",
+            "city": "İstanbul",
+            "capacity": 74753,
+            "coordinates": {
+                "latitude": 41.0731,
+                "longitude": 28.728
+            }
+        },
+        {
+            "name": "Türk Telekom Stadyumu (Ali Sami Yen Spor Kompleksi)",
+            "city": "İstanbul",
+            "capacity": 52280,
+            "coordinates": {
+                "latitude": 41.1036,
+                "longitude": 28.9902
+            }
+        },
+        {
+            "name": "Şükrü Saracoğlu Stadyumu",
+            "city": "İstanbul",
+            "capacity": 47834,
+            "coordinates": {
+                "latitude": 40.987,
+                "longitude": 29.0365
+            }
+        },
+        {
+            "name": "Vodafone Park",
+            "city": "İstanbul",
+            "capacity": 41903,
+            "coordinates": {
+                "latitude": 41.039,
+                "longitude": 28.9942
+            }
+        },
+        {
+            "name": "Konya Büyükşehir Belediye Stadyumu",
+            "city": "Konya",
+            "capacity": 41981,
+            "coordinates": {
+                "latitude": 37.9511,
+                "longitude": 32.5013
+            }
+        },
+        {
+            "name": "Yeni Adana Stadyumu",
+            "city": "Adana",
+            "capacity": 33543,
+            "coordinates": {
+                "latitude": 37.0384,
+                "longitude": 35.2177
+            }
+        },
+        {
+            "name": "Trabzonspor Medical Park Stadyumu",
+            "city": "Trabzon",
+            "capacity": 41461,
+            "coordinates": {
+                "latitude": 41.0158,
+                "longitude": 39.7229
+            }
+        },
+        {
+            "name": "Antalya Stadyumu",
+            "city": "Antalya",
+            "capacity": 33032,
+            "coordinates": {
+                "latitude": 36.8882,
+                "longitude": 30.6741
+            }
+        },
+        {
+            "name": "Gaziantep Stadyumu",
+            "city": "Gaziantep",
+            "capacity": 35574,
+            "coordinates": {
+                "latitude": 37.0638,
+                "longitude": 37.3837
+            }
+        },
+        {
+            "name": "Eskişehir Yeni Stadyumu",
+            "city": "Eskişehir",
+            "capacity": 34500,
+            "coordinates": {
+                "latitude": 39.7552,
+                "longitude": 30.5191
+            }
+        }
+    ],
+    "indoorSportsHalls": [
+        {
+            "name": "Sinan Erdem Spor Salonu",
+            "city": "İstanbul",
+            "capacity": 22500,
+            "coordinates": {
+                "latitude": 40.9979,
+                "longitude": 28.8887
+            }
+        },
+        {
+            "name": "Ülker Spor ve Etkinlik Salonu",
+            "city": "İstanbul",
+            "capacity": 13800,
+            "coordinates": {
+                "latitude": 40.9877,
+                "longitude": 29.0333
+            }
+        },
+        {
+            "name": "Ankara Spor Salonu",
+            "city": "Ankara",
+            "capacity": 13000,
+            "coordinates": {
+                "latitude": 39.9334,
+                "longitude": 32.8597
+            }
+        },
+        {
+            "name": "Antalya Spor Salonu",
+            "city": "Antalya",
+            "capacity": 10000,
+            "coordinates": {
+                "latitude": 36.8873,
+                "longitude": 30.7072
+            }
+        },
+        {
+            "name": "Tofaş Spor Salonu",
+            "city": "Bursa",
+            "capacity": 7500,
+            "coordinates": {
+                "latitude": 40.1829,
+                "longitude": 29.0614
+            }
+        },
+        {
+            "name": "Başkent Voleybol Salonu",
+            "city": "Ankara",
+            "capacity": 7600,
+            "coordinates": {
+                "latitude": 39.9334,
+                "longitude": 32.8597
+            }
+        },
+        {
+            "name": "Servet Tazegül Spor Salonu",
+            "city": "Mersin",
+            "capacity": 7500,
+            "coordinates": {
+                "latitude": 36.8,
+                "longitude": 34.6122
+            }
+        },
+        {
+            "name": "Kadir Has Spor Salonu",
+            "city": "Kayseri",
+            "capacity": 7500,
+            "coordinates": {
+                "latitude": 38.735,
+                "longitude": 35.4713
+            }
+        },
+        {
+            "name": "Yaşar Doğu Spor Salonu",
+            "city": "Samsun",
+            "capacity": 7500,
+            "coordinates": {
+                "latitude": 41.2867,
+                "longitude": 36.33
+            }
+        },
+        {
+            "name": "Pamukkale Üniversitesi Spor Salonu",
+            "city": "Denizli",
+            "capacity": 5000,
+            "coordinates": {
+                "latitude": 37.7833,
+                "longitude": 29.0965
+            }
+        },
+        {
+            "name": "Anadolu Üniversitesi Spor Salonu",
+            "city": "Eskişehir",
+            "capacity": 5000,
+            "coordinates": {
+                "latitude": 39.7677,
+                "longitude": 30.5224
+            }
+        },
+        {
+            "name": "İzmir Halkapınar Spor Salonu",
+            "city": "İzmir",
+            "capacity": 10000,
+            "coordinates": {
+                "latitude": 38.4281,
+                "longitude": 27.1428
+            }
+        },
+        {
+            "name": "Karataş Şahinbey Spor Salonu",
+            "city": "Gaziantep",
+            "capacity": 6400,
+            "coordinates": {
+                "latitude": 37.0662,
+                "longitude": 37.3833
+            }
+        },
+        {
+            "name": "BJK Akatlar Arena",
+            "city": "İstanbul",
+            "capacity": 4500,
+            "coordinates": {
+                "latitude": 41.0669,
+                "longitude": 29.0278
+            }
+        },
+        {
+            "name": "Volkswagen Arena",
+            "city": "İstanbul",
+            "capacity": 5240,
+            "coordinates": {
+                "latitude": 41.1103,
+                "longitude": 29.0195
+            }
+        }
+    ]
+}
