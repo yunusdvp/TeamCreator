@@ -15,6 +15,12 @@
 		462F565C2C58248100081988 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462F565B2C58248100081988 /* API.swift */; };
 		462F565F2C5824AC00081988 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462F565E2C5824AC00081988 /* SplashViewController.swift */; };
 		462F56612C5824BA00081988 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462F56602C5824BA00081988 /* SplashViewModel.swift */; };
+		4631016E2C620AD5005C569E /* onboard_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 4631016D2C620AD5005C569E /* onboard_data.json */; };
+		463101702C6213D6005C569E /* turkey_sports_facilities.json in Resources */ = {isa = PBXBuildFile; fileRef = 4631016F2C6213D6005C569E /* turkey_sports_facilities.json */; };
+		463101722C62152B005C569E /* Stadium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463101712C62152B005C569E /* Stadium.swift */; };
+		463101742C621562005C569E /* IndoorSportsHall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463101732C621562005C569E /* IndoorSportsHall.swift */; };
+		463101762C621581005C569E /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463101752C621581005C569E /* Coordinates.swift */; };
+		463101782C6217DF005C569E /* SportsFacilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463101772C6217DF005C569E /* SportsFacilities.swift */; };
 		464606DF2C53FF0B0032DC89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464606DE2C53FF0B0032DC89 /* AppDelegate.swift */; };
 		464606E12C53FF0B0032DC89 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464606E02C53FF0B0032DC89 /* SceneDelegate.swift */; };
 		464606E32C53FF0B0032DC89 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464606E22C53FF0B0032DC89 /* ViewController.swift */; };
@@ -44,6 +50,7 @@
 		46AE95AC2C615E7D00BE923A /* MatchCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AE95AB2C615E7D00BE923A /* MatchCreateViewController.swift */; };
 		46AE95AE2C615E9600BE923A /* MatchCreateViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46AE95AD2C615E9500BE923A /* MatchCreateViewController.storyboard */; };
 		46AE95B02C615EAA00BE923A /* MatchCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AE95AF2C615EAA00BE923A /* MatchCreateViewModel.swift */; };
+		46AE95B22C61FC6F00BE923A /* SelectedSportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AE95B12C61FC6F00BE923A /* SelectedSportManager.swift */; };
 		46E171272C5B8B35003D9C74 /* PlayerCRUDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E171262C5B8B35003D9C74 /* PlayerCRUDViewController.swift */; };
 		46E1712B2C5B8B59003D9C74 /* PlayerCRUDViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E1712A2C5B8B59003D9C74 /* PlayerCRUDViewModel.swift */; };
 		46E1712D2C5B8B6E003D9C74 /* PlayerCRUDModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E1712C2C5B8B6E003D9C74 /* PlayerCRUDModule.swift */; };
@@ -106,6 +113,12 @@
 		462F565B2C58248100081988 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		462F565E2C5824AC00081988 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		462F56602C5824BA00081988 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
+		4631016D2C620AD5005C569E /* onboard_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = onboard_data.json; sourceTree = "<group>"; };
+		4631016F2C6213D6005C569E /* turkey_sports_facilities.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = turkey_sports_facilities.json; sourceTree = "<group>"; };
+		463101712C62152B005C569E /* Stadium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stadium.swift; sourceTree = "<group>"; };
+		463101732C621562005C569E /* IndoorSportsHall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndoorSportsHall.swift; sourceTree = "<group>"; };
+		463101752C621581005C569E /* Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
+		463101772C6217DF005C569E /* SportsFacilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsFacilities.swift; sourceTree = "<group>"; };
 		464606DB2C53FF0B0032DC89 /* TeamCreator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeamCreator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		464606DE2C53FF0B0032DC89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		464606E02C53FF0B0032DC89 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -135,6 +148,7 @@
 		46AE95AB2C615E7D00BE923A /* MatchCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchCreateViewController.swift; sourceTree = "<group>"; };
 		46AE95AD2C615E9500BE923A /* MatchCreateViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MatchCreateViewController.storyboard; sourceTree = "<group>"; };
 		46AE95AF2C615EAA00BE923A /* MatchCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchCreateViewModel.swift; sourceTree = "<group>"; };
+		46AE95B12C61FC6F00BE923A /* SelectedSportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedSportManager.swift; sourceTree = "<group>"; };
 		46E171262C5B8B35003D9C74 /* PlayerCRUDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCRUDViewController.swift; sourceTree = "<group>"; };
 		46E1712A2C5B8B59003D9C74 /* PlayerCRUDViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCRUDViewModel.swift; sourceTree = "<group>"; };
 		46E1712C2C5B8B6E003D9C74 /* PlayerCRUDModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCRUDModule.swift; sourceTree = "<group>"; };
@@ -221,6 +235,7 @@
 		462F564B2C58181A00081988 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				46AE95B32C62069400BE923A /* JsonFiles */,
 				462F56542C58199400081988 /* View */,
 				464606EA2C53FF0D0032DC89 /* Assets.xcassets */,
 			);
@@ -269,6 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				462F56522C58196C00081988 /* LoadingShowable.swift */,
+				46AE95B12C61FC6F00BE923A /* SelectedSportManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -383,6 +399,10 @@
 				C42C286B2C5A3D4400E6586E /* Matches.swift */,
 				46E171332C5BA92B003D9C74 /* Player.swift */,
 				46E1713B2C5BB72B003D9C74 /* Match.swift */,
+				463101712C62152B005C569E /* Stadium.swift */,
+				463101732C621562005C569E /* IndoorSportsHall.swift */,
+				463101752C621581005C569E /* Coordinates.swift */,
+				463101772C6217DF005C569E /* SportsFacilities.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -424,6 +444,15 @@
 				46AE95AF2C615EAA00BE923A /* MatchCreateViewModel.swift */,
 			);
 			path = MatchCreate;
+			sourceTree = "<group>";
+		};
+		46AE95B32C62069400BE923A /* JsonFiles */ = {
+			isa = PBXGroup;
+			children = (
+				4631016D2C620AD5005C569E /* onboard_data.json */,
+				4631016F2C6213D6005C569E /* turkey_sports_facilities.json */,
+			);
+			path = JsonFiles;
 			sourceTree = "<group>";
 		};
 		46E171252C5B8B00003D9C74 /* PlayerCRUD */ = {
@@ -634,6 +663,7 @@
 			files = (
 				C42C28692C5A3D2600E6586E /* SecondCollectionViewCell.xib in Resources */,
 				464606EB2C53FF0D0032DC89 /* Assets.xcassets in Resources */,
+				4631016E2C620AD5005C569E /* onboard_data.json in Resources */,
 				545D3C692C5D7BDD00EAB40D /* PlayerListViewController.storyboard in Resources */,
 				C42C286A2C5A3D2600E6586E /* SecondView.storyboard in Resources */,
 				542A79852C5D8CDD0033C7D1 /* SplashViewController.storyboard in Resources */,
@@ -644,6 +674,7 @@
 				464606EE2C53FF0D0032DC89 /* Base in Resources */,
 				545D3C592C5D726D00EAB40D /* AddPlayerButtonTableViewCell.xib in Resources */,
 				46AE95AE2C615E9600BE923A /* MatchCreateViewController.storyboard in Resources */,
+				463101702C6213D6005C569E /* turkey_sports_facilities.json in Resources */,
 				542A79872C5FB7020033C7D1 /* PlayerCRUDViewController.storyboard in Resources */,
 				54A5D4562C5917F200EF405C /* OnboardViewController.storyboard in Resources */,
 				468C7BBD2C5A24CF0006AD51 /* GoogleService-Info.plist in Resources */,
@@ -672,7 +703,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				463101782C6217DF005C569E /* SportsFacilities.swift in Sources */,
 				C42C286E2C5A3F2D00E6586E /* SecondViewModel.swift in Sources */,
+				46AE95B22C61FC6F00BE923A /* SelectedSportManager.swift in Sources */,
 				C42C28702C5A3F3E00E6586E /* SecondViewController.swift in Sources */,
 				464606E32C53FF0B0032DC89 /* ViewController.swift in Sources */,
 				46AE95992C6151D500BE923A /* WeatherResponse.swift in Sources */,
@@ -696,6 +729,7 @@
 				46AE95AC2C615E7D00BE923A /* MatchCreateViewController.swift in Sources */,
 				462F56582C581D8100081988 /* UICollectionView.swift in Sources */,
 				46E171382C5BB35E003D9C74 /* ImageStorage.swift in Sources */,
+				463101722C62152B005C569E /* Stadium.swift in Sources */,
 				46E171342C5BA92B003D9C74 /* Player.swift in Sources */,
 				545D3C582C5D726D00EAB40D /* AddPlayerButtonTableViewCell.swift in Sources */,
 				C42C28682C5A3D2600E6586E /* SecondCollectionViewCell.swift in Sources */,
@@ -705,12 +739,14 @@
 				C42C286C2C5A3D4400E6586E /* Matches.swift in Sources */,
 				46E171322C5BA3EF003D9C74 /* NetworkService.swift in Sources */,
 				46AE95A92C6154CA00BE923A /* TeamViewModel.swift in Sources */,
+				463101762C621581005C569E /* Coordinates.swift in Sources */,
 				46E171272C5B8B35003D9C74 /* PlayerCRUDViewController.swift in Sources */,
 				46AE95B02C615EAA00BE923A /* MatchCreateViewModel.swift in Sources */,
 				545D3C5E2C5D72A000EAB40D /* UITableView.swift in Sources */,
 				462F565F2C5824AC00081988 /* SplashViewController.swift in Sources */,
 				46AE95A82C6154CA00BE923A /* TeamViewController.swift in Sources */,
 				462F56502C58191800081988 /* BaseViewController.swift in Sources */,
+				463101742C621562005C569E /* IndoorSportsHall.swift in Sources */,
 				54A3D5DF2C58391100AD457C /* UIView.swift in Sources */,
 				464606E92C53FF0B0032DC89 /* TeamCreator.xcdatamodeld in Sources */,
 				54A3D5E12C5839DD00AD457C /* OnboardViewModel.swift in Sources */,

@@ -14,7 +14,6 @@ protocol EntryViewModelProtocol: AnyObject {
     func getSportsCount() -> Int
     func getSport(at index: Int) -> Sport
     func selectSport(at index: Int)
-    //func navigateToSecond()
 }
 
 protocol EntryViewModelDelegate: AnyObject {
@@ -28,7 +27,7 @@ final class EntryViewModel: EntryViewModelProtocol {
     
     weak var delegate: EntryViewModelDelegate?
     private var sports: [Sport] = []
-    private(set) var selectedSport: SelectedSport?
+    //private(set) var selectedSport: SelectedSport?
     
     init() {
         
@@ -51,8 +50,8 @@ final class EntryViewModel: EntryViewModelProtocol {
     }
     
     func selectSport(at index: Int) {
-        selectedSport = sports[index].type
-        print(selectedSport ?? "")
+        SelectedSportManager.shared.selectedSport = sports[index].type
+        print(SelectedSportManager.shared.selectedSport as Any)
         delegate?.navigateToSecond()
     }
     

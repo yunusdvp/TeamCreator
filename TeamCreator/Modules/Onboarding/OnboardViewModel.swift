@@ -28,11 +28,7 @@ final class OnboardViewModel: OnboardViewModelProtocol {
     
     var updateUI: ((OnboardViewState) -> Void)?
     
-    var slides: [OnboardSlide] = [
-        OnboardSlide(title: "Creating a team has never been easier.\n Get started today and create your own team!", description: "Welcome to TeamCreator!", imageName: "creative"),
-        OnboardSlide(title: "Choose your favorite sport and create your teams.", description: "Now Select Date and Time Easily! Reservation Has Never Been This Fast and Smooth.", imageName: "add-friend"),
-        OnboardSlide(title: "Create a match and select your players.", description: "Once you have created your team, easily organize and manage matches. Get started and enjoy the game!", imageName: "team"),
-    ]
+    var slides: [OnboardSlide] = []
     
     private var currentPage: Int = 0 {
         didSet {
@@ -41,6 +37,7 @@ final class OnboardViewModel: OnboardViewModelProtocol {
     }
     
     func viewDidLoad() {
+        loadSlidesFromJSON()
         checkInternetConnection()
     }
     
@@ -82,4 +79,19 @@ final class OnboardViewModel: OnboardViewModelProtocol {
             updateUI?(.noInternetConnection)
         }
     }
+    private func loadSlidesFromJSON() {
+        guard let url = Bundle.main.url(forResource: "onboard_data", withExtension: "json") else {
+            print("JSON file not found")
+            return
+        }
+
+        do {
+            let data = try Data(contentsOf: url)
+            let onboardData = try JSONDecoder().decode(OnboardData.self, from: data)
+            self.slides = onboardData.screens
+        } catch {
+            print("Error decoding JSON: \(error)")
+        }
+    }
+
 }

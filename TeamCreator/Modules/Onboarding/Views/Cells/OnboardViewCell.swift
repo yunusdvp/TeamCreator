@@ -20,8 +20,8 @@ class OnboardViewCell: UICollectionViewCell {
     }
     
     func setupCell(with slide: OnboardSlide) {
-        subjectLabel.text = slide.title
-        titleLabel.text = slide.description
+        subjectLabel.text = slide.description
+        titleLabel.text = slide.title
         imageView.image = UIImage(named: slide.imageName)
         
     }
