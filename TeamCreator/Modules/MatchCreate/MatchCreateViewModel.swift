@@ -57,7 +57,6 @@ final class MatchCreateViewModel: MatchCreateViewModelProtocol {
     }
     
     func fetchLocations() {
-            // JSON'dan lokasyonları seçilen spora göre yükle
             guard let sport = selectedSport else { return }
             loadJsonData { [weak self] stadiums, indoorSportsHalls in
                 switch sport {
@@ -70,7 +69,6 @@ final class MatchCreateViewModel: MatchCreateViewModelProtocol {
             }
         }
     private func loadJsonData(completion: @escaping ([Stadium], [IndoorSportsHall]) -> Void) {
-            // JSON dosyasını proje içerisinden yükleme ve parse etme işlemi
             if let url = Bundle.main.url(forResource: "turkey_sports_facilities", withExtension: "json") {
                 do {
                     let data = try Data(contentsOf: url)
