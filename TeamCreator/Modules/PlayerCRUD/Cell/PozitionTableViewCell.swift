@@ -9,12 +9,14 @@ import UIKit
 protocol PozitionTableViewCellDelegate: AnyObject {
     func didTapPozitionTextField(cell: PozitionTableViewCell)
     func getPositions() -> [String]
-        func setSelectedPosition(_ position: String)
+    func setSelectedPosition(_ position: String)
+    func didChangeSkillPoint(_ skillPoint: Int)
 }
-import UIKit
 
-class PozitionTableViewCell: UITableViewCell {
-    
+
+class PozitionTableViewCell: UITableViewCell, UITextFieldDelegate {
+    weak var delegate: PozitionTableViewCellDelegate?
+    var viewModel: PlayerCRUDViewModelProtocol?
     @IBOutlet private weak var skillPointLabel: UILabel!
     @IBOutlet private weak var pozitionLabel: UILabel!
     @IBOutlet private weak var pozitionNameTextField: UITextField!
@@ -43,7 +45,9 @@ class PozitionTableViewCell: UITableViewCell {
         setupToolbar()
         pozitionNameTextField.inputView = pickerView
         pozitionNameTextField.inputAccessoryView = toolbar
-    }
+        skillPointTextField.delegate = self
+                skillPointTextField.addTarget(self, action: #selector(skillPointTextFieldDidChange), for: .editingChanged)
+            }
     
     private func setupPickerView() {
         pickerView = UIPickerView()
@@ -62,6 +66,11 @@ class PozitionTableViewCell: UITableViewCell {
     @objc private func doneTapped() {
         pozitionNameTextField.resignFirstResponder()
     }
+    @objc private func skillPointTextFieldDidChange() {
+            if let skillPointText = skillPointTextField.text, let skillPoint = Int(skillPointText) {
+                viewModel?.updateSkillPoint(skillPoint)  // Direk ViewModel'i Güncelle
+            }
+        }
 }
 
 extension PozitionTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {

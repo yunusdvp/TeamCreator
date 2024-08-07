@@ -23,6 +23,13 @@ final class PlayerCRUDViewController: UIViewController {
         }
     }
     
+    //    let playerRepository = NetworkManager.shared.playerRepository
+    //    let imageStorage = NetworkManager.shared.imageStorage
+    //
+    //    let player1 = Player(id: nil, name: "Ceren",age: 20,position: "forward",skillRating: 100,gender: "male",profilePhotoURL: nil)
+    //
+    //    let image1 = UIImage(named: "fc")!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,9 +41,18 @@ final class PlayerCRUDViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        viewModel?.fetchData()
+        
         
         imagePicker.delegate = self
+        
+        //        playerRepository.addPlayer(player: player1, image: image1) { result in
+        //            switch result {
+        //            case .success:
+        //                print("Oyuncu eklendi")
+        //            case .failure(let error):
+        //                print("Hata eklenemedi \(error.localizedDescription)")
+        //            }
+        //        }
     }
     
     private func registerCells() {
@@ -52,6 +68,7 @@ final class PlayerCRUDViewController: UIViewController {
         imagePicker.allowsEditing = false
         present(imagePicker, animated: true, completion: nil)
     }
+    
 }
 
 extension PlayerCRUDViewController: UITableViewDelegate, UITableViewDataSource {
@@ -76,22 +93,39 @@ extension PlayerCRUDViewController: UITableViewDelegate, UITableViewDataSource {
             return cell ?? UITableViewCell()
         case .playerName:
             let cell = tableView.dequeueCell(with: PlayerNameTableViewCell.self, for: indexPath)
+            cell?.onNameChange = { [weak self] name in
+                self?.viewModel?.updatePlayerName(name)
+            }
             return cell ?? UITableViewCell()
         case .playerGender:
             let cell = tableView.dequeueCell(with: GenderTableViewCell.self, for: indexPath)
-            return cell ?? UITableViewCell()
+                    cell?.onGenderSelected = { [weak self] gender in
+                        self?.viewModel?.updatePlayerGender(gender)
+                    }
+                    return cell ?? UITableViewCell()
         case .playerPozition:
-            guard let cell = tableView.dequeueCell(with: PozitionTableViewCell.self, for: indexPath) else {
-                return UITableViewCell()
-            }
-            cell.positions = viewModel.getPositions()
-            cell.selectedPosition = viewModel.getSelectedPosition()
-            cell.onPositionSelected = { [weak self] position in
-                self?.viewModel?.setSelectedPosition(position)
-            }
-            return cell
+                   guard let cell = tableView.dequeueCell(with: PozitionTableViewCell.self, for: indexPath) else {
+                       return UITableViewCell()
+                   }
+                   cell.positions = viewModel.getPositions()
+                   cell.selectedPosition = viewModel.getSelectedPosition()
+                   cell.viewModel = viewModel  // ViewModel'i doğrudan ata
+                   cell.onPositionSelected = { [weak self] position in
+                       self?.viewModel?.setSelectedPosition(position)
+                   }
+                   return cell
         case .playerAddButton:
             let cell = tableView.dequeueCell(with: AddButtonTableViewCell.self, for: indexPath)
+            cell?.onAddButtonTapped = { [weak self] in
+                self?.viewModel?.addPlayerToFirebase { result in
+                    switch result {
+                    case .success:
+                        print("Player successfully added")
+                    case .failure(let error):
+                        print("Error adding player: \(error.localizedDescription)")
+                    }
+                }
+            }
             return cell ?? UITableViewCell()
         }
     }
@@ -103,7 +137,7 @@ extension PlayerCRUDViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return section == 1 ? 30 : 0
     }
-
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 1 {
             let headerView = UIView()
@@ -113,7 +147,7 @@ extension PlayerCRUDViewController: UITableViewDelegate, UITableViewDataSource {
             return nil
         }
     }
-
+    
 }
 
 
@@ -125,15 +159,27 @@ extension PlayerCRUDViewController: PlayerCRUDViewControllerProtocol {
 
 extension PlayerCRUDViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let selectedImage = info[.originalImage] as? UIImage {
-            if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? PlayerImageTableViewCell {
-                cell.profileImageView.image = selectedImage
+            if let selectedImage = info[.originalImage] as? UIImage {
+                if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? PlayerImageTableViewCell {
+                    cell.profileImageView.image = selectedImage
+                }
+                if let imageData = selectedImage.jpegData(compressionQuality: 0.8) {
+                    viewModel?.updatePlayerImageData(imageData) 
+                }
             }
+            dismiss(animated: true, completion: nil)
         }
-        dismiss(animated: true, completion: nil)
-    }
+        
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            dismiss(animated: true, completion: nil)
+        }
     
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
+}
+
+
+extension PlayerCRUDViewController: PlayerCRUDViewModelDelegate {
+    func fetchData() {
+        viewModel?.fetchData()
     }
 }
+
