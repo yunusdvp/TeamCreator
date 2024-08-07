@@ -2,158 +2,138 @@
 //  PlayerCRUDViewController.swift
 //  TeamCreator
 //
-//  Created by Yunus Emre ÖZŞAHİN on 1.08.2024.
+//  Created by Ceren Uludoğan on 7.08.2024.
 //
 
 import UIKit
 
-class PlayerCRUDViewController: UIViewController {
+protocol PlayerCRUDViewControllerProtocol: AnyObject {
+    func reloadTableView()
+}
+
+final class PlayerCRUDViewController: UIViewController {
     
-    @IBOutlet weak var personNameLabel: UILabel!
-    @IBOutlet weak var addPlayerButton: UIButton!
-    @IBOutlet weak var weightPickerView: UIPickerView!
-    @IBOutlet weak var heightPickerView: UIPickerView!
-    @IBOutlet weak var agePickerView: UIPickerView!
-    @IBOutlet weak var countryPickerView: UIPickerView!
-    @IBOutlet weak var pozitionPickerView: UIPickerView!
-    @IBOutlet weak var personImageView: UIImageView!
-    @IBOutlet weak var genderSegmentedControl: UISegmentedControl!
+    @IBOutlet private weak var tableView: UITableView!
     
-    private var viewModel = PlayerCRUDViewModel()
+    private let imagePicker = UIImagePickerController()
+    
+    var viewModel: PlayerCRUDViewModelProtocol? {
+        didSet {
+            viewModel?.delegate = self
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        genderSegmentedControl.selectedSegmentIndex = 0
         
-        updateGenderLabel()
-        configurePickerView()
+        viewModel = PlayerCRUDViewModel()
+        viewModel?.delegate = self
         
+        registerCells()
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
-        personImageView.isUserInteractionEnabled = true
-        personImageView.addGestureRecognizer(tapGestureRecognizer)
+        tableView.delegate = self
+        tableView.dataSource = self
         
+        viewModel?.fetchData()
+        
+        imagePicker.delegate = self
     }
     
-    func configurePickerView() {
-        pozitionPickerView.delegate = self
-        pozitionPickerView.dataSource = self
-        countryPickerView.delegate = self
-        countryPickerView.dataSource = self
-        agePickerView.delegate = self
-        agePickerView.dataSource = self
-        heightPickerView.delegate = self
-        heightPickerView.dataSource = self
-        weightPickerView.delegate = self
-        weightPickerView.dataSource = self
+    private func registerCells() {
+        tableView.register(cellType: PlayerImageTableViewCell.self)
+        tableView.register(cellType: PlayerNameTableViewCell.self)
+        tableView.register(cellType: GenderTableViewCell.self)
+        tableView.register(cellType: PozitionTableViewCell.self)
+        tableView.register(cellType: AddButtonTableViewCell.self)
     }
     
-    @IBAction func addPlayerButtonClciked(_ sender: UIButton) {
-        let selectedPosition = viewModel.getSelectedPosition()
-        let selectedCountry = viewModel.getSelectedCountry()
-        let selectedAge = viewModel.getSelectedAge()
-        let selectedHeight = viewModel.getSelectedHeight()
-        let selectedWeight = viewModel.getSelectedWeight()
-        let personName = personNameLabel.text ?? ""
-           
-        print("Name: \(personName)")
-        print("Selected position: \(selectedPosition)")
-        print("Selected country: \(selectedCountry)")
-        print("Selected age: \(selectedAge)")
-        print("Selected height: \(selectedHeight)")
-        print("Selected weight: \(selectedWeight)")
-    }
-    
-    @objc func imageTapped() {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        imagePickerController.sourceType = .photoLibrary
-        present(imagePickerController, animated: true, completion: nil)
-    }
-        
-    @IBAction func genderChanged(_ sender: UISegmentedControl) {
-        updateGenderLabel()
-    }
-    
-    @IBAction func createOrUpdatedButtonTapped(_ sender: UIButton) {
-    }
-    
-
-    private func updateGenderLabel() {
-        let selectedGender = genderSegmentedControl.titleForSegment(at:genderSegmentedControl.selectedSegmentIndex)
-        
+    private func openImagePicker() {
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.allowsEditing = false
+        present(imagePicker, animated: true, completion: nil)
     }
 }
 
-
-extension PlayerCRUDViewController: UIPickerViewDelegate,UIPickerViewDataSource,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension PlayerCRUDViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        guard let viewModel = viewModel else { return 0 }
+        return viewModel.getCellTypeCount()
+    }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let viewModel = viewModel else { return UITableViewCell() }
+        let cellType = viewModel.getCellType(at: indexPath.section)
+        switch cellType {
+        case .playerImage:
+            let cell = tableView.dequeueCell(with: PlayerImageTableViewCell.self, for: indexPath)
+            cell?.onImageTapped = { [weak self] in
+                self?.openImagePicker()
+            }
+            return cell ?? UITableViewCell()
+        case .playerName:
+            let cell = tableView.dequeueCell(with: PlayerNameTableViewCell.self, for: indexPath)
+            return cell ?? UITableViewCell()
+        case .playerGender:
+            let cell = tableView.dequeueCell(with: GenderTableViewCell.self, for: indexPath)
+            return cell ?? UITableViewCell()
+        case .playerPozition:
+            guard let cell = tableView.dequeueCell(with: PozitionTableViewCell.self, for: indexPath) else {
+                return UITableViewCell()
+            }
+            cell.positions = viewModel.getPositions()
+            cell.selectedPosition = viewModel.getSelectedPosition()
+            cell.onPositionSelected = { [weak self] position in
+                self?.viewModel?.setSelectedPosition(position)
+            }
+            return cell
+        case .playerAddButton:
+            let cell = tableView.dequeueCell(with: AddButtonTableViewCell.self, for: indexPath)
+            return cell ?? UITableViewCell()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return indexPath.section == 0 ? 250 : 100
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return section == 1 ? 30 : 0
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 1 {
+            let headerView = UIView()
+            headerView.backgroundColor = .clear
+            return headerView
+        } else {
+            return nil
+        }
+    }
+
+}
+
+
+extension PlayerCRUDViewController: PlayerCRUDViewControllerProtocol {
+    func reloadTableView() {
+        tableView.reloadData()
+    }
+}
+
+extension PlayerCRUDViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage = info[.originalImage] as? UIImage {
-            personImageView.image = selectedImage
+            if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? PlayerImageTableViewCell {
+                cell.profileImageView.image = selectedImage
+            }
         }
         dismiss(animated: true, completion: nil)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
-    }
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView == pozitionPickerView {
-            return viewModel.getPositions().count
-        } else if pickerView == countryPickerView {
-            return viewModel.getCountries().count
-        } else if pickerView == agePickerView {
-            return viewModel.getAges().count
-        } else if pickerView == heightPickerView {
-            return viewModel.getHeights().count
-        } else if pickerView == weightPickerView {
-            return viewModel.getWeights().count
-        }
-        return 0
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView == pozitionPickerView {
-            return viewModel.getPositions()[row]
-        } else if pickerView == countryPickerView {
-            return viewModel.getCountries()[row]
-        } else if pickerView == agePickerView {
-            return String(viewModel.getAges()[row])
-        } else if pickerView == heightPickerView {
-            return String(viewModel.getHeights()[row])
-        } else if pickerView == weightPickerView {
-            return String(viewModel.getWeights()[row])
-        }
-        return nil
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView == pozitionPickerView {
-            let selectedPosition = viewModel.getPositions()[row]
-            viewModel.setSelectedPosition(selectedPosition)
-            print("Selected position: \(selectedPosition)")
-        } else if pickerView == countryPickerView {
-            let selectedCountry = viewModel.getCountries()[row]
-            viewModel.setSelectedCountry(selectedCountry)
-            print("Selected country: \(selectedCountry)")
-        } else if pickerView == agePickerView {
-            let selectedAge = viewModel.getAges()[row]
-            viewModel.setSelectedAge(selectedAge)
-            print("Selected age: \(selectedAge)")
-        } else if pickerView == heightPickerView {
-            let selectedHeight = viewModel.getHeights()[row]
-            viewModel.setSelectedHeight(selectedHeight)
-            print("Selected height: \(selectedHeight)")
-        } else if pickerView == weightPickerView {
-            let selectedWeight = viewModel.getWeights()[row]
-            viewModel.setSelectedWeight(selectedWeight)
-            print("Selected weight: \(selectedWeight)")
-        }
     }
 }
