@@ -18,10 +18,16 @@ enum PlayerFilter {
 
 protocol PlayerRepositoryProtocol {
     func fetchPlayers(withFilters filters: [PlayerFilter], completion: @escaping (Result<[Player], Error>) -> Void)
-    func addPlayer(player: Player, image: UIImage, completion: @escaping (Result<Void, Error>) -> Void)
+    func addPlayer(player: Player, imageData: Data, completion: @escaping (Result<Void, Error>) -> Void)
+
+//    func addPlayer(player: Player, image: UIImage, completion: @escaping (Result<Void, Error>) -> Void)
     func removePlayer(playerId: String, completion: @escaping (Result<Void, Error>) -> Void)
+//    func addRandomPlayers(count: Int, completion: @escaping (Result<Void, Error>) -> Void)
     func addRandomPlayers(count: Int, completion: @escaping (Result<Void, Error>) -> Void)
-    func updatePlayer(playerId: String, name: String?, position: String?, skillRating: Int?, age: Int?, gender: Bool?, newImage: UIImage?, completion: @escaping (Result<Void, Error>) -> Void)
+
+//    func updatePlayer(playerId: String, name: String?, position: String?, skillRating: Int?, age: Int?, gender: String?, newImage: UIImage?, completion: @escaping (Result<Void, Error>) -> Void)
+    func updatePlayer(playerId: String, name: String?, position: String?, skillRating: Int?, age: Int?, gender: String?, newImageData: Data?, completion: @escaping (Result<Void, Error>) -> Void)
+
 }
 
 final class PlayerRepository: PlayerRepositoryProtocol {
@@ -57,31 +63,31 @@ final class PlayerRepository: PlayerRepositoryProtocol {
             }
         }
     }
+   
+    func addPlayer(player: Player, imageData: Data, completion: @escaping (Result<Void, Error>) -> Void) {
+            var player = player
+            player.id = UUID().uuidString
 
-    func addPlayer(player: Player, image: UIImage, completion: @escaping (Result<Void, Error>) -> Void) {
-        var player = player
-        player.id = UUID().uuidString
-
-        imageStorage.uploadProfileImage(image: image) { result in
-            switch result {
-            case .success(let url):
-                player.profilePhotoURL = url
-                do {
-                    let _ = try self.db.collection("players").document(player.id).setData(from: player) { error in
-                        if let error = error {
-                            completion(.failure(error))
-                        } else {
-                            completion(.success(()))
+            imageStorage.uploadProfileImage(imageData: imageData) { result in
+                switch result {
+                case .success(let url):
+                    player.profilePhotoURL = url
+                    do {
+                        let _ = try self.db.collection("players").document(player.id ?? "").setData(from: player) { error in
+                            if let error = error {
+                                completion(.failure(error))
+                            } else {
+                                completion(.success(()))
+                            }
                         }
+                    } catch {
+                        completion(.failure(error))
                     }
-                } catch {
+                case .failure(let error):
                     completion(.failure(error))
                 }
-            case .failure(let error):
-                completion(.failure(error))
             }
         }
-    }
 
     func removePlayer(playerId: String, completion: @escaping (Result<Void, Error>) -> Void) {
         db.collection("players").document(playerId).delete { error in
@@ -95,108 +101,205 @@ final class PlayerRepository: PlayerRepositoryProtocol {
 
     func createRandomPlayer() -> Player {
         let sports = ["football": Bool.random(), "volleyball": Bool.random()]
+        let genders = ["Male", "Female", "Other"]
+        let randomGender = genders.randomElement() ?? "Other"
         return Player(id: UUID().uuidString,
-            name: "Player \(Int.random(in: 1...100))",
-            age: Int.random(in: 18...40), position: "Position \(Int.random(in: 1...10))",
-            team: "", skillRating: Int.random(in: 1...100),
-            gender: Bool.random() ? true : false,
-            profilePhotoURL: "https://example.com/photo.jpg")
+                      name: "Player \(Int.random(in: 1...100))",
+                      age: Int.random(in: 18...40), position: "Position \(Int.random(in: 1...10))",
+                      gender: randomGender,
+                      profilePhotoURL: "https://example.com/photo.jpg")
     }
 
+//    func addRandomPlayers(count: Int, completion: @escaping (Result<Void, Error>) -> Void) {
+//        var errors: [Error] = []
+//        let dispatchGroup = DispatchGroup()
+//
+//        for _ in 0..<count {
+//            dispatchGroup.enter()
+//            let player = createRandomPlayer()
+//            addPlayer(player: player, image: UIImage(named:  "defaultProfileImage")!) { result in
+//                switch result {
+//                case .success:
+//                    break
+//                case .failure(let error):
+//                    errors.append(error)
+//                }
+//                dispatchGroup.leave()
+//            }
+//        }
+//
+//        dispatchGroup.notify(queue: .main) {
+//            if errors.isEmpty {
+//                completion(.success(()))
+//            } else {
+//                completion(.failure(errors.first!))
+//            }
+//        }
+//    }
     func addRandomPlayers(count: Int, completion: @escaping (Result<Void, Error>) -> Void) {
-        var errors: [Error] = []
-        let dispatchGroup = DispatchGroup()
+            var errors: [Error] = []
+            let dispatchGroup = DispatchGroup()
 
-        for _ in 0..<count {
-            dispatchGroup.enter()
-            let player = createRandomPlayer()
-            addPlayer(player: player, image: UIImage(named:  "defaultProfileImage")!) { result in
-                switch result {
-                case .success:
-                    break
-                case .failure(let error):
-                    errors.append(error)
-                }
-                dispatchGroup.leave()
-            }
-        }
-
-        dispatchGroup.notify(queue: .main) {
-            if errors.isEmpty {
-                completion(.success(()))
-            } else {
-                completion(.failure(errors.first!))
-            }
-        }
-    }
-
-    func updatePlayer(playerId: String, name: String?, position: String?, skillRating: Int?, age: Int?, gender: Bool?, newImage: UIImage?, completion: @escaping (Result<Void, Error>) -> Void) {
-
-        let playerRef = db.collection("players").document(playerId)
-
-        playerRef.getDocument { document, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-
-            guard let document = document, document.exists else {
-                completion(.failure(NSError(domain: "PlayerNotFoundError", code: 0, userInfo: nil)))
-                return
-            }
-
-            do {
-                var player = try document.data(as: Player.self)
-
-                if let name = name {
-                    player.name = name
-                }
-                if let position = position {
-                    player.position = position
-                }
-                if let skillRating = skillRating {
-                    player.skillRating = skillRating
-                }
-                if let age = age {
-                    player.age = age
-                }
-                if let gender = gender {
-                    player.gender = gender
-                }
-
-                let updatePlayerInFirestore: (String?) -> Void = { imageURL in
-                    if let imageURL = imageURL {
-                        player.profilePhotoURL = imageURL
+            for _ in 0..<count {
+                dispatchGroup.enter()
+                let player = createRandomPlayer()
+                addPlayer(player: player, imageData: UIImage(named: "defaultProfileImage")!.pngData()!) { result in
+                    switch result {
+                    case .success:
+                        break
+                    case .failure(let error):
+                        errors.append(error)
                     }
-                    do {
-                        let _ = try playerRef.setData(from: player) { error in
-                            if let error = error {
-                                completion(.failure(error))
-                            } else {
-                                completion(.success(()))
-                            }
+                    dispatchGroup.leave()
+                }
+            }
+
+            dispatchGroup.notify(queue: .main) {
+                if errors.isEmpty {
+                    completion(.success(()))
+                } else {
+                    completion(.failure(errors.first!))
+                }
+            }
+        }
+
+//    func updatePlayer(playerId: String, name: String?, position: String?, skillRating: Int?, age: Int?, gender: String?, newImage: UIImage?, completion: @escaping (Result<Void, Error>) -> Void) {
+//
+//        let playerRef = db.collection("players").document(playerId)
+//
+//        playerRef.getDocument { document, error in
+//            if let error = error {
+//                completion(.failure(error))
+//                return
+//            }
+//
+//            guard let document = document, document.exists else {
+//                completion(.failure(NSError(domain: "PlayerNotFoundError", code: 0, userInfo: nil)))
+//                return
+//            }
+//
+//            do {
+//                var player = try document.data(as: Player.self)
+//
+//                if let name = name {
+//                    player.name = name
+//                }
+//                if let position = position {
+//                    player.position = position
+//                }
+//                if let skillRating = skillRating {
+//                    player.skillRating = skillRating
+//                }
+//                if let age = age {
+//                    player.age = age
+//                }
+//                if let gender = gender {
+//                    player.gender = gender
+//                }
+//
+//                let updatePlayerInFirestore: (String?) -> Void = { imageURL in
+//                    if let imageURL = imageURL {
+//                        player.profilePhotoURL = imageURL
+//                    }
+//                    do {
+//                        let _ = try playerRef.setData(from: player) { error in
+//                            if let error = error {
+//                                completion(.failure(error))
+//                            } else {
+//                                completion(.success(()))
+//                            }
+//                        }
+//                    } catch {
+//                        completion(.failure(error))
+//                    }
+//                }
+//
+//                if let newImage = newImage {
+//                    self.imageStorage.uploadProfileImage(image: newImage) { result in
+//                        switch result {
+//                        case .success(let url):
+//                            updatePlayerInFirestore(url)
+//                        case .failure(let error):
+//                            completion(.failure(error))
+//                        }
+//                    }
+//                } else {
+//                    updatePlayerInFirestore(nil)
+//                }
+//
+//            } catch {
+//                completion(.failure(error))
+//            }
+//        }
+//    }
+    func updatePlayer(playerId: String, name: String?, position: String?, skillRating: Int?, age: Int?, gender: String?, newImageData: Data?, completion: @escaping (Result<Void, Error>) -> Void) {
+
+            let playerRef = db.collection("players").document(playerId)
+
+            playerRef.getDocument { document, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+
+                guard let document = document, document.exists else {
+                    completion(.failure(NSError(domain: "PlayerNotFoundError", code: 0, userInfo: nil)))
+                    return
+                }
+
+                do {
+                    var player = try document.data(as: Player.self)
+
+                    if let name = name {
+                        player.name = name
+                    }
+                    if let position = position {
+                        player.position = position
+                    }
+                    if let skillRating = skillRating {
+                        player.skillRating = skillRating
+                    }
+                    if let age = age {
+                        player.age = age
+                    }
+                    if let gender = gender {
+                        player.gender = gender
+                    }
+
+                    let updatePlayerInFirestore: (String?) -> Void = { imageURL in
+                        if let imageURL = imageURL {
+                            player.profilePhotoURL = imageURL
                         }
-                    } catch {
-                        completion(.failure(error))
-                    }
-                }
-
-                if let newImage = newImage {
-                    self.imageStorage.uploadProfileImage(image: newImage) { result in
-                        switch result {
-                        case .success(let url):
-                            updatePlayerInFirestore(url)
-                        case .failure(let error):
+                        do {
+                            let _ = try playerRef.setData(from: player) { error in
+                                if let error = error {
+                                    completion(.failure(error))
+                                } else {
+                                    completion(.success(()))
+                                }
+                            }
+                        } catch {
                             completion(.failure(error))
                         }
                     }
-                } else {
-                    updatePlayerInFirestore(nil)
-                }
 
-            } catch {
-                completion(.failure(error))
+                    if let newImageData = newImageData {
+                        self.imageStorage.uploadProfileImage(imageData: newImageData) { result in
+                            switch result {
+                            case .success(let url):
+                                updatePlayerInFirestore(url)
+                            case .failure(let error):
+                                completion(.failure(error))
+                            }
+                        }
+                    } else {
+                        updatePlayerInFirestore(nil)
+                    }
+
+                } catch {
+                    completion(.failure(error))
+                }
             }
         }
     }
-}
+
