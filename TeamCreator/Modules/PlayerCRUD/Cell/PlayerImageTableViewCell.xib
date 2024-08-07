@@ -21,13 +21,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="221" height="107"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="N4G-wG-BVt">
-                                <rect key="frame" x="10.666666666666671" y="-46.666666666666664" width="200" height="200.33333333333334"/>
+                                <rect key="frame" x="60.666666666666657" y="3.6666666666666643" width="100" height="100"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="oDC-ed-SGJ">
-                                        <rect key="frame" x="0.0" y="1.3333333333333286" width="200" height="197.66666666666674"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="oDC-ed-SGJ">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="200" id="fLI-Ll-96b"/>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="inh-Aw-gT3"/>
+                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="100" id="Dku-Ju-QTa"/>
+                                            <constraint firstAttribute="width" constant="100" id="OjM-wh-ovZ"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="uDC-xM-VDL"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
@@ -61,7 +61,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="person" catalog="system" width="128" height="121"/>
+        <image name="profile" width="512" height="512"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

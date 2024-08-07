@@ -82,11 +82,13 @@
 		54CEF5C62C636CC9009687DF /* PlayerNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CEF5C32C636CC9009687DF /* PlayerNameTableViewCell.swift */; };
 		54CEF5C92C636F1E009687DF /* GenderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54CEF5C82C636F1E009687DF /* GenderTableViewCell.xib */; };
 		54CEF5CA2C636F1E009687DF /* GenderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CEF5C72C636F1E009687DF /* GenderTableViewCell.swift */; };
-		54CEF5CD2C636FBC009687DF /* PozitionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54CEF5CC2C636FBC009687DF /* PozitionTableViewCell.xib */; };
-		54CEF5CE2C636FBC009687DF /* PozitionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CEF5CB2C636FBC009687DF /* PozitionTableViewCell.swift */; };
+		54CEF5CD2C636FBC009687DF /* PositionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54CEF5CC2C636FBC009687DF /* PositionTableViewCell.xib */; };
+		54CEF5CE2C636FBC009687DF /* PositionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CEF5CB2C636FBC009687DF /* PositionTableViewCell.swift */; };
 		54CEF5D12C637066009687DF /* AddButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54CEF5D02C637066009687DF /* AddButtonTableViewCell.xib */; };
 		54CEF5D22C637066009687DF /* AddButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CEF5CF2C637066009687DF /* AddButtonTableViewCell.swift */; };
 		54CEF5D42C638B9C009687DF /* PlayerCRUDViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CEF5D32C638B9C009687DF /* PlayerCRUDViewModel.swift */; };
+		54CEF5DF2C63FB4B009687DF /* PlayerOtherPropertyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CEF5DD2C63FB4B009687DF /* PlayerOtherPropertyTableViewCell.swift */; };
+		54CEF5E02C63FB4B009687DF /* PlayerOtherPropertyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54CEF5DE2C63FB4B009687DF /* PlayerOtherPropertyTableViewCell.xib */; };
 		C42C28682C5A3D2600E6586E /* SecondCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C28622C5A3D2600E6586E /* SecondCollectionViewCell.swift */; };
 		C42C28692C5A3D2600E6586E /* SecondCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C42C28632C5A3D2600E6586E /* SecondCollectionViewCell.xib */; };
 		C42C286A2C5A3D2600E6586E /* SecondView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42C28662C5A3D2600E6586E /* SecondView.storyboard */; };
@@ -188,11 +190,13 @@
 		54CEF5C42C636CC9009687DF /* PlayerNameTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerNameTableViewCell.xib; sourceTree = "<group>"; };
 		54CEF5C72C636F1E009687DF /* GenderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderTableViewCell.swift; sourceTree = "<group>"; };
 		54CEF5C82C636F1E009687DF /* GenderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GenderTableViewCell.xib; sourceTree = "<group>"; };
-		54CEF5CB2C636FBC009687DF /* PozitionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PozitionTableViewCell.swift; sourceTree = "<group>"; };
-		54CEF5CC2C636FBC009687DF /* PozitionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PozitionTableViewCell.xib; sourceTree = "<group>"; };
+		54CEF5CB2C636FBC009687DF /* PositionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionTableViewCell.swift; sourceTree = "<group>"; };
+		54CEF5CC2C636FBC009687DF /* PositionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PositionTableViewCell.xib; sourceTree = "<group>"; };
 		54CEF5CF2C637066009687DF /* AddButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButtonTableViewCell.swift; sourceTree = "<group>"; };
 		54CEF5D02C637066009687DF /* AddButtonTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddButtonTableViewCell.xib; sourceTree = "<group>"; };
 		54CEF5D32C638B9C009687DF /* PlayerCRUDViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCRUDViewModel.swift; sourceTree = "<group>"; };
+		54CEF5DD2C63FB4B009687DF /* PlayerOtherPropertyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerOtherPropertyTableViewCell.swift; sourceTree = "<group>"; };
+		54CEF5DE2C63FB4B009687DF /* PlayerOtherPropertyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerOtherPropertyTableViewCell.xib; sourceTree = "<group>"; };
 		C42C28622C5A3D2600E6586E /* SecondCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondCollectionViewCell.swift; sourceTree = "<group>"; };
 		C42C28632C5A3D2600E6586E /* SecondCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondCollectionViewCell.xib; sourceTree = "<group>"; };
 		C42C28662C5A3D2600E6586E /* SecondView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SecondView.storyboard; sourceTree = "<group>"; };
@@ -542,10 +546,12 @@
 				54CEF5C42C636CC9009687DF /* PlayerNameTableViewCell.xib */,
 				54CEF5C72C636F1E009687DF /* GenderTableViewCell.swift */,
 				54CEF5C82C636F1E009687DF /* GenderTableViewCell.xib */,
-				54CEF5CB2C636FBC009687DF /* PozitionTableViewCell.swift */,
-				54CEF5CC2C636FBC009687DF /* PozitionTableViewCell.xib */,
+				54CEF5CB2C636FBC009687DF /* PositionTableViewCell.swift */,
+				54CEF5CC2C636FBC009687DF /* PositionTableViewCell.xib */,
 				54CEF5CF2C637066009687DF /* AddButtonTableViewCell.swift */,
 				54CEF5D02C637066009687DF /* AddButtonTableViewCell.xib */,
+				54CEF5DD2C63FB4B009687DF /* PlayerOtherPropertyTableViewCell.swift */,
+				54CEF5DE2C63FB4B009687DF /* PlayerOtherPropertyTableViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -699,7 +705,7 @@
 				464606EB2C53FF0D0032DC89 /* Assets.xcassets in Resources */,
 				54CEF5BC2C636A37009687DF /* PlayerCRUDViewController.storyboard in Resources */,
 				4631016E2C620AD5005C569E /* onboard_data.json in Resources */,
-				54CEF5CD2C636FBC009687DF /* PozitionTableViewCell.xib in Resources */,
+				54CEF5CD2C636FBC009687DF /* PositionTableViewCell.xib in Resources */,
 				545D3C692C5D7BDD00EAB40D /* PlayerListViewController.storyboard in Resources */,
 				C42C286A2C5A3D2600E6586E /* SecondView.storyboard in Resources */,
 				542A79852C5D8CDD0033C7D1 /* SplashViewController.storyboard in Resources */,
@@ -713,6 +719,7 @@
 				545D3C592C5D726D00EAB40D /* AddPlayerButtonTableViewCell.xib in Resources */,
 				46AE95AE2C615E9600BE923A /* MatchCreateViewController.storyboard in Resources */,
 				463101702C6213D6005C569E /* turkey_sports_facilities.json in Resources */,
+				54CEF5E02C63FB4B009687DF /* PlayerOtherPropertyTableViewCell.xib in Resources */,
 				54A5D4562C5917F200EF405C /* OnboardViewController.storyboard in Resources */,
 				468C7BBD2C5A24CF0006AD51 /* GoogleService-Info.plist in Resources */,
 				464606E62C53FF0B0032DC89 /* Base in Resources */,
@@ -767,6 +774,7 @@
 				54A3D5E32C583D9900AD457C /* OnboardSlide.swift in Sources */,
 				46AE95AC2C615E7D00BE923A /* MatchCreateViewController.swift in Sources */,
 				462F56582C581D8100081988 /* UICollectionView.swift in Sources */,
+				54CEF5DF2C63FB4B009687DF /* PlayerOtherPropertyTableViewCell.swift in Sources */,
 				46E171382C5BB35E003D9C74 /* ImageStorage.swift in Sources */,
 				463101722C62152B005C569E /* Stadium.swift in Sources */,
 				46E171342C5BA92B003D9C74 /* Player.swift in Sources */,
@@ -785,7 +793,7 @@
 				54CEF5C22C636BCD009687DF /* PlayerImageTableViewCell.swift in Sources */,
 				462F56502C58191800081988 /* BaseViewController.swift in Sources */,
 				463101742C621562005C569E /* IndoorSportsHall.swift in Sources */,
-				54CEF5CE2C636FBC009687DF /* PozitionTableViewCell.swift in Sources */,
+				54CEF5CE2C636FBC009687DF /* PositionTableViewCell.swift in Sources */,
 				54A3D5DF2C58391100AD457C /* UIView.swift in Sources */,
 				464606E92C53FF0B0032DC89 /* TeamCreator.xcdatamodeld in Sources */,
 				54A3D5E12C5839DD00AD457C /* OnboardViewModel.swift in Sources */,

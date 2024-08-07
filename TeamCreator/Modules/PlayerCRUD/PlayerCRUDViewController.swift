@@ -23,13 +23,6 @@ final class PlayerCRUDViewController: UIViewController {
         }
     }
     
-    //    let playerRepository = NetworkManager.shared.playerRepository
-    //    let imageStorage = NetworkManager.shared.imageStorage
-    //
-    //    let player1 = Player(id: nil, name: "Ceren",age: 20,position: "forward",skillRating: 100,gender: "male",profilePhotoURL: nil)
-    //
-    //    let image1 = UIImage(named: "fc")!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,25 +34,24 @@ final class PlayerCRUDViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        
-        
         imagePicker.delegate = self
-        
-        //        playerRepository.addPlayer(player: player1, image: image1) { result in
-        //            switch result {
-        //            case .success:
-        //                print("Oyuncu eklendi")
-        //            case .failure(let error):
-        //                print("Hata eklenemedi \(error.localizedDescription)")
-        //            }
-        //        }
+        setupTapGesture()
     }
-    
+    private func setupTapGesture() {
+          let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
+          tapGesture.cancelsTouchesInView = false
+          view.addGestureRecognizer(tapGesture)
+      }
+      
+      @objc private func handleTapGesture() {
+          view.endEditing(true)
+      }
     private func registerCells() {
         tableView.register(cellType: PlayerImageTableViewCell.self)
         tableView.register(cellType: PlayerNameTableViewCell.self)
         tableView.register(cellType: GenderTableViewCell.self)
-        tableView.register(cellType: PozitionTableViewCell.self)
+        tableView.register(cellType: PositionTableViewCell.self)
+        tableView.register(cellType: PlayerOtherPropertyTableViewCell.self)
         tableView.register(cellType: AddButtonTableViewCell.self)
     }
     
@@ -68,6 +60,11 @@ final class PlayerCRUDViewController: UIViewController {
         imagePicker.allowsEditing = false
         present(imagePicker, animated: true, completion: nil)
     }
+    
+     func validateForm() -> Bool {
+            guard let viewModel = viewModel else { return false }
+            return viewModel.isFormValid()
+        }
     
 }
 
@@ -99,21 +96,25 @@ extension PlayerCRUDViewController: UITableViewDelegate, UITableViewDataSource {
             return cell ?? UITableViewCell()
         case .playerGender:
             let cell = tableView.dequeueCell(with: GenderTableViewCell.self, for: indexPath)
-                    cell?.onGenderSelected = { [weak self] gender in
-                        self?.viewModel?.updatePlayerGender(gender)
-                    }
-                    return cell ?? UITableViewCell()
-        case .playerPozition:
-                   guard let cell = tableView.dequeueCell(with: PozitionTableViewCell.self, for: indexPath) else {
-                       return UITableViewCell()
-                   }
-                   cell.positions = viewModel.getPositions()
-                   cell.selectedPosition = viewModel.getSelectedPosition()
-                   cell.viewModel = viewModel  // ViewModel'i doğrudan ata
-                   cell.onPositionSelected = { [weak self] position in
-                       self?.viewModel?.setSelectedPosition(position)
-                   }
-                   return cell
+            cell?.onGenderSelected = { [weak self] gender in
+                self?.viewModel?.updatePlayerGender(gender)
+            }
+            return cell ?? UITableViewCell()
+        case .playerPosition:
+            guard let cell = tableView.dequeueCell(with: PositionTableViewCell.self, for: indexPath) else {
+                return UITableViewCell()
+            }
+            cell.positions = viewModel.getPositions()
+            cell.selectedPosition = viewModel.getSelectedPosition()
+            cell.viewModel = viewModel
+            cell.onPositionSelected = { [weak self] position in
+                self?.viewModel?.setSelectedPosition(position)
+            }
+            return cell
+        case .playerOtherProperty:
+            let cell = tableView.dequeueCell(with: PlayerOtherPropertyTableViewCell.self, for: indexPath)
+                        cell?.viewModel = viewModel
+                        return cell ?? UITableViewCell()
         case .playerAddButton:
             let cell = tableView.dequeueCell(with: AddButtonTableViewCell.self, for: indexPath)
             cell?.onAddButtonTapped = { [weak self] in
@@ -127,15 +128,16 @@ extension PlayerCRUDViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
             return cell ?? UITableViewCell()
+       
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return indexPath.section == 0 ? 250 : 100
+        return indexPath.section == 0 ? 200 : 100
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 1 ? 30 : 0
+        return section == 1 ? 20 : 0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -150,7 +152,6 @@ extension PlayerCRUDViewController: UITableViewDelegate, UITableViewDataSource {
     
 }
 
-
 extension PlayerCRUDViewController: PlayerCRUDViewControllerProtocol {
     func reloadTableView() {
         tableView.reloadData()
@@ -159,20 +160,20 @@ extension PlayerCRUDViewController: PlayerCRUDViewControllerProtocol {
 
 extension PlayerCRUDViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let selectedImage = info[.originalImage] as? UIImage {
-                if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? PlayerImageTableViewCell {
-                    cell.profileImageView.image = selectedImage
-                }
-                if let imageData = selectedImage.jpegData(compressionQuality: 0.8) {
-                    viewModel?.updatePlayerImageData(imageData) 
-                }
+        if let selectedImage = info[.originalImage] as? UIImage {
+            if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? PlayerImageTableViewCell {
+                cell.profileImageView.image = selectedImage
             }
-            dismiss(animated: true, completion: nil)
+            if let imageData = selectedImage.jpegData(compressionQuality: 0.8) {
+                viewModel?.updatePlayerImageData(imageData)
+            }
         }
-        
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            dismiss(animated: true, completion: nil)
-        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
     
 }
 
