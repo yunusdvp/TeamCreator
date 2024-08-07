@@ -6,21 +6,18 @@
 //
 
 import UIKit
-protocol PozitionTableViewCellDelegate: AnyObject {
-    func didTapPozitionTextField(cell: PozitionTableViewCell)
+protocol PositionTableViewCellDelegate: AnyObject {
+    func didTapPozitionTextField(cell: PositionTableViewCell)
     func getPositions() -> [String]
     func setSelectedPosition(_ position: String)
-    func didChangeSkillPoint(_ skillPoint: Int)
 }
 
 
-class PozitionTableViewCell: UITableViewCell, UITextFieldDelegate {
-    weak var delegate: PozitionTableViewCellDelegate?
+class PositionTableViewCell: UITableViewCell, UITextFieldDelegate {
+    weak var delegate: PositionTableViewCellDelegate?
     var viewModel: PlayerCRUDViewModelProtocol?
-    @IBOutlet private weak var skillPointLabel: UILabel!
     @IBOutlet private weak var pozitionLabel: UILabel!
     @IBOutlet private weak var pozitionNameTextField: UITextField!
-    @IBOutlet private weak var skillPointTextField: UITextField!
     
     private var pickerView: UIPickerView!
     private var toolbar: UIToolbar!
@@ -45,9 +42,7 @@ class PozitionTableViewCell: UITableViewCell, UITextFieldDelegate {
         setupToolbar()
         pozitionNameTextField.inputView = pickerView
         pozitionNameTextField.inputAccessoryView = toolbar
-        skillPointTextField.delegate = self
-                skillPointTextField.addTarget(self, action: #selector(skillPointTextFieldDidChange), for: .editingChanged)
-            }
+    }
     
     private func setupPickerView() {
         pickerView = UIPickerView()
@@ -66,14 +61,10 @@ class PozitionTableViewCell: UITableViewCell, UITextFieldDelegate {
     @objc private func doneTapped() {
         pozitionNameTextField.resignFirstResponder()
     }
-    @objc private func skillPointTextFieldDidChange() {
-            if let skillPointText = skillPointTextField.text, let skillPoint = Int(skillPointText) {
-                viewModel?.updateSkillPoint(skillPoint)  // Direk ViewModel'i Güncelle
-            }
-        }
+   
 }
 
-extension PozitionTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
+extension PositionTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
