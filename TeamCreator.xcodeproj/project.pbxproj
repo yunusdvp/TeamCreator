@@ -21,6 +21,7 @@
 		463101742C621562005C569E /* IndoorSportsHall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463101732C621562005C569E /* IndoorSportsHall.swift */; };
 		463101762C621581005C569E /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463101752C621581005C569E /* Coordinates.swift */; };
 		463101782C6217DF005C569E /* SportsFacilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463101772C6217DF005C569E /* SportsFacilities.swift */; };
+		4631017A2C64B323005C569E /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463101792C64B323005C569E /* UIWindow.swift */; };
 		464606DF2C53FF0B0032DC89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464606DE2C53FF0B0032DC89 /* AppDelegate.swift */; };
 		464606E12C53FF0B0032DC89 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464606E02C53FF0B0032DC89 /* SceneDelegate.swift */; };
 		464606E32C53FF0B0032DC89 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464606E22C53FF0B0032DC89 /* ViewController.swift */; };
@@ -129,6 +130,7 @@
 		463101732C621562005C569E /* IndoorSportsHall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndoorSportsHall.swift; sourceTree = "<group>"; };
 		463101752C621581005C569E /* Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
 		463101772C6217DF005C569E /* SportsFacilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsFacilities.swift; sourceTree = "<group>"; };
+		463101792C64B323005C569E /* UIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
 		464606DB2C53FF0B0032DC89 /* TeamCreator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeamCreator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		464606DE2C53FF0B0032DC89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		464606E02C53FF0B0032DC89 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -434,6 +436,7 @@
 				545D3C5D2C5D72A000EAB40D /* UITableViewCell.swift */,
 				462F56572C581D8100081988 /* UICollectionView.swift */,
 				54A3D5DE2C58391100AD457C /* UIView.swift */,
+				463101792C64B323005C569E /* UIWindow.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -760,6 +763,7 @@
 				464606DF2C53FF0B0032DC89 /* AppDelegate.swift in Sources */,
 				54CEF5D42C638B9C009687DF /* PlayerCRUDViewModel.swift in Sources */,
 				54A5D44D2C5842EC00EF405C /* OnboardViewController.swift in Sources */,
+				4631017A2C64B323005C569E /* UIWindow.swift in Sources */,
 				462F56562C5819A800081988 /* LoadingView.swift in Sources */,
 				462F56532C58196C00081988 /* LoadingShowable.swift in Sources */,
 				54CEF5BE2C636B1E009687DF /* PlayerCRUDViewController.swift in Sources */,

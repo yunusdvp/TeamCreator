@@ -60,45 +60,23 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
 //MARK: SecondViewControllerProtocol
 
 extension SecondViewController: SecondViewModelDelegate {
+    
     func reloadCollectionView() {
         secondCollectionView.reloadData()
     }
     
     func navigateToMatchCreate() {
-        let storyboard = UIStoryboard(name: "MatchCreateViewController", bundle: nil)
-        guard let matchCreateVC = storyboard.instantiateViewController(withIdentifier: "MatchCreateViewController") as? MatchCreateViewController else { return }
-        
-        let matchCreateViewModel = MatchCreateViewModel()
-        matchCreateVC.viewModel = matchCreateViewModel
-        
-        if let navigationController = self.navigationController {
-            navigationController.pushViewController(matchCreateVC, animated: true)
-        } else {
-            let navigationController = UINavigationController(rootViewController: self)
-            view.window?.rootViewController = navigationController
-            view.window?.makeKeyAndVisible()
-            DispatchQueue.main.async {
-                navigationController.pushViewController(matchCreateVC, animated: true)
-            }
+        navigateToViewController(storyboardName: "MatchCreateViewController", viewControllerIdentifier: "MatchCreateViewController") { (matchCreateVc: MatchCreateViewController) in
+            let matchCreateViewModel = MatchCreateViewModel()
+            matchCreateVc.viewModel = matchCreateViewModel
         }
-        
     }
+    
     func navigateToPlayerList() {
-        let storyboard = UIStoryboard(name: "PlayerListViewController", bundle: nil)
-        guard let playerListVC = storyboard.instantiateViewController(withIdentifier: "PlayerListViewController") as? PlayerListViewController else { return }
-        
-        let playerListViewModel = PlayerListViewModel()
-        playerListVC.viewModel = playerListViewModel
-        
-        if let navigationController = self.navigationController {
-            navigationController.pushViewController(playerListVC, animated: true)
-        } else {
-            let navigationController = UINavigationController(rootViewController: self)
-            view.window?.rootViewController = navigationController
-            view.window?.makeKeyAndVisible()
-            DispatchQueue.main.async {
-                navigationController.pushViewController(playerListVC, animated: true)
-            }
+        navigateToViewController(storyboardName: "PlayerListViewController", viewControllerIdentifier: "PlayerListViewController") { (playerListVC: PlayerListViewController) in
+            let playerListViewModel = PlayerListViewModel()
+            playerListVC.viewModel = playerListViewModel
         }
+        
     }
 }
