@@ -12,6 +12,7 @@ struct Player: Codable {
     var name: String?
     var age: Int?
     var position: String?
+    var sporType: String?
     var skillRating: Int?
     var gender: String?
     var profilePhotoURL: String?

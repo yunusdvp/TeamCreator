@@ -11,7 +11,7 @@ protocol PlayerCRUDViewControllerProtocol: AnyObject {
     func reloadTableView()
 }
 
-final class PlayerCRUDViewController: UIViewController {
+final class PlayerCRUDViewController: BaseViewController {
     // MARK: - Properties
     @IBOutlet private weak var tableView: UITableView!
     
@@ -35,18 +35,21 @@ final class PlayerCRUDViewController: UIViewController {
         
         imagePicker.delegate = self
         setupTapGesture()
+      //  print(SelectedSportManager.shared.selectedSport)
+
     }
-    
+
     // MARK: - Setup Methods
     private func setupTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
     }
-    
+
     @objc private func handleTapGesture() {
-        view.endEditing(true)
-    }
+            view.endEditing(true)
+        }
+
     private func registerCells() {
         tableView.register(cellType: PlayerImageTableViewCell.self)
         tableView.register(cellType: PlayerNameTableViewCell.self)
