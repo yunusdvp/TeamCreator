@@ -21,13 +21,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="332" height="237"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="N4G-wG-BVt">
-                                <rect key="frame" x="66" y="18.666666666666671" width="200" height="200"/>
+                                <rect key="frame" x="91" y="43.666666666666657" width="150" height="150.00000000000003"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="oDC-ed-SGJ">
-                                        <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="200" id="7UC-Yc-FpN"/>
-                                            <constraint firstAttribute="height" constant="200" id="PDW-2d-TSc"/>
+                                            <constraint firstAttribute="width" constant="150" id="7UC-Yc-FpN"/>
+                                            <constraint firstAttribute="height" constant="150" id="PDW-2d-TSc"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
