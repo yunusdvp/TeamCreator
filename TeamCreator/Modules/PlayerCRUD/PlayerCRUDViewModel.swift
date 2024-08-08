@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - Enums
 enum PlayerCRUDCellType {
     case playerImage
     case playerName
@@ -16,6 +17,7 @@ enum PlayerCRUDCellType {
     case playerAddButton
 }
 
+// MARK: - Protocols
 protocol PlayerCRUDViewModelDelegate: AnyObject {
     func fetchData()
 }
@@ -40,6 +42,7 @@ protocol PlayerCRUDViewModelProtocol: AnyObject {
 }
 
 final class PlayerCRUDViewModel: PlayerCRUDViewModelProtocol {
+    // MARK: - Properties
     var delegate: (any PlayerCRUDViewControllerProtocol)?
     
     private var playerData = Player()
@@ -49,7 +52,7 @@ final class PlayerCRUDViewModel: PlayerCRUDViewModelProtocol {
     private var cellTypeList: [PlayerCRUDCellType] = [.playerImage, .playerName, .playerGender, .playerPosition, .playerOtherProperty, .playerAddButton]
     private var selectedPosition: String?
     
-    
+    // MARK: - Initialization
     init(playerRepository: PlayerRepositoryProtocol = PlayerRepository()) {
         self.playerRepository = playerRepository
     }
@@ -117,13 +120,10 @@ final class PlayerCRUDViewModel: PlayerCRUDViewModelProtocol {
         }
     }
     func isFormValid() -> Bool {
-
-//        if let photoURLString = playerData.profilePhotoURL, !photoURLString.isEmpty, URL(string: photoURLString) != nil {
-//                // Fotoğraf URL'si geçerli
-//            } else {
-//                // Fotoğraf URL'si geçerli değil veya boş
-//                return false
-//            }
+        
+        //        guard let photoURLString = playerData.profilePhotoURL, !photoURLString.isEmpty, let _ = URL(string: photoURLString) else {
+        //                return false
+        //            }
         if playerData.name?.isEmpty == true {
             return false
         }

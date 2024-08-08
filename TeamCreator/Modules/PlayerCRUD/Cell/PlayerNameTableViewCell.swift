@@ -8,22 +8,26 @@
 import UIKit
 
 class PlayerNameTableViewCell: UITableViewCell,UITextFieldDelegate {
-    @IBOutlet weak var playerNameTextField: UITextField!
-    @IBOutlet weak var playerNameLabel: UILabel!
+    // MARK: - Properties
+    @IBOutlet private weak var playerNameTextField: UITextField!
+    @IBOutlet private weak var playerNameLabel: UILabel!
     
     var onNameChange: ((String) -> Void)?
-        
-        override func awakeFromNib() {
-            super.awakeFromNib()
-            playerNameTextField.delegate = self
-            playerNameTextField.addTarget(self, action: #selector(nameChanged), for: .editingChanged)
-        }
-        
-        @objc private func nameChanged() {
-            onNameChange?(playerNameTextField.text ?? "")
-        }
+    
+    // MARK: - Life Cycle
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        playerNameTextField.delegate = self
+        playerNameTextField.addTarget(self, action: #selector(nameChanged), for: .editingChanged)
+    }
+    
+    // MARK: - Setup Methods
+    @objc private func nameChanged() {
+        onNameChange?(playerNameTextField.text ?? "")
+    }
+    
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-            return true
-        }
-
+        return true
+    }
+    
 }

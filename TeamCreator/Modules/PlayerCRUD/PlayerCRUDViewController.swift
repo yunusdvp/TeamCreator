@@ -12,7 +12,7 @@ protocol PlayerCRUDViewControllerProtocol: AnyObject {
 }
 
 final class PlayerCRUDViewController: UIViewController {
-    
+    // MARK: - Properties
     @IBOutlet private weak var tableView: UITableView!
     
     private let imagePicker = UIImagePickerController()
@@ -22,30 +22,31 @@ final class PlayerCRUDViewController: UIViewController {
             viewModel?.delegate = self
         }
     }
-    
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         viewModel = PlayerCRUDViewModel()
         viewModel?.delegate = self
         
         registerCells()
-        
+
         tableView.delegate = self
         tableView.dataSource = self
         
         imagePicker.delegate = self
         setupTapGesture()
     }
+    
+    // MARK: - Setup Methods
     private func setupTapGesture() {
-          let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
-          tapGesture.cancelsTouchesInView = false
-          view.addGestureRecognizer(tapGesture)
-      }
-      
-      @objc private func handleTapGesture() {
-          view.endEditing(true)
-      }
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func handleTapGesture() {
+        view.endEditing(true)
+    }
     private func registerCells() {
         tableView.register(cellType: PlayerImageTableViewCell.self)
         tableView.register(cellType: PlayerNameTableViewCell.self)
@@ -61,13 +62,14 @@ final class PlayerCRUDViewController: UIViewController {
         present(imagePicker, animated: true, completion: nil)
     }
     
-     func validateForm() -> Bool {
-            guard let viewModel = viewModel else { return false }
-            return viewModel.isFormValid()
-        }
+    func validateForm() -> Bool {
+        guard let viewModel = viewModel else { return false }
+        return viewModel.isFormValid()
+    }
     
 }
 
+// MARK: - Extension-UITableViewDataSource-UITableViewDelegate
 extension PlayerCRUDViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         guard let viewModel = viewModel else { return 0 }
@@ -113,8 +115,8 @@ extension PlayerCRUDViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         case .playerOtherProperty:
             let cell = tableView.dequeueCell(with: PlayerOtherPropertyTableViewCell.self, for: indexPath)
-                        cell?.viewModel = viewModel
-                        return cell ?? UITableViewCell()
+            cell?.viewModel = viewModel
+            return cell ?? UITableViewCell()
         case .playerAddButton:
             let cell = tableView.dequeueCell(with: AddButtonTableViewCell.self, for: indexPath)
             cell?.onAddButtonTapped = { [weak self] in
@@ -128,7 +130,6 @@ extension PlayerCRUDViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
             return cell ?? UITableViewCell()
-       
         }
     }
     
@@ -149,15 +150,23 @@ extension PlayerCRUDViewController: UITableViewDelegate, UITableViewDataSource {
             return nil
         }
     }
-    
 }
 
+// MARK: - PlayerCRUDViewControllerProtocol
 extension PlayerCRUDViewController: PlayerCRUDViewControllerProtocol {
     func reloadTableView() {
         tableView.reloadData()
     }
 }
 
+// MARK: - PlayerCRUDViewModelDelegate
+extension PlayerCRUDViewController: PlayerCRUDViewModelDelegate {
+    func fetchData() {
+        viewModel?.fetchData()
+    }
+}
+
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
 extension PlayerCRUDViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage = info[.originalImage] as? UIImage {
@@ -178,9 +187,4 @@ extension PlayerCRUDViewController: UIImagePickerControllerDelegate, UINavigatio
 }
 
 
-extension PlayerCRUDViewController: PlayerCRUDViewModelDelegate {
-    func fetchData() {
-        viewModel?.fetchData()
-    }
-}
 
