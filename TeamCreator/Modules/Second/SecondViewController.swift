@@ -10,6 +10,7 @@ import UIKit
 protocol SecondViewControllerProtocol: AnyObject {
     func reloadCollectionView()
     func navigateToMatchCreate()
+    func navigateToPlayerList()
 }
 
 class SecondViewController: BaseViewController {
@@ -81,5 +82,23 @@ extension SecondViewController: SecondViewModelDelegate {
             }
         }
         
+    }
+    func navigateToPlayerList() {
+        let storyboard = UIStoryboard(name: "PlayerListViewController", bundle: nil)
+        guard let playerListVC = storyboard.instantiateViewController(withIdentifier: "PlayerListViewController") as? PlayerListViewController else { return }
+        
+        let playerListViewModel = PlayerListViewModel()
+        playerListVC.viewModel = playerListViewModel
+        
+        if let navigationController = self.navigationController {
+            navigationController.pushViewController(playerListVC, animated: true)
+        } else {
+            let navigationController = UINavigationController(rootViewController: self)
+            view.window?.rootViewController = navigationController
+            view.window?.makeKeyAndVisible()
+            DispatchQueue.main.async {
+                navigationController.pushViewController(playerListVC, animated: true)
+            }
+        }
     }
 }
