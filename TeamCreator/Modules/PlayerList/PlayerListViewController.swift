@@ -9,9 +9,10 @@ import UIKit
 
 protocol PlayerListViewControllerProtocol: AnyObject {
     func reloadTableView()
+    func navigateToPlayerCRUD()
 }
 
-final class PlayerListViewController: UIViewController {
+final class PlayerListViewController: BaseViewController {
     
     // MARK: - Properties
     @IBOutlet weak var tableView: UITableView!
@@ -26,16 +27,27 @@ final class PlayerListViewController: UIViewController {
         
         viewModel = PlayerListViewModel()
         registerCells()
-    
+       
         tableView.delegate = self
         tableView.dataSource = self
-        viewModel.fetchData()
-    }
+        viewModel.fetchPlayers { result in
+                    switch result {
+                    case .success(let players):
+                        print("Oyuncular başarıyla getirildi: \(players)")
+                        // Oyuncuları UI'da göstermek için burada işlemler yapabilirsiniz.
+                    case .failure(let error):
+                        print("Oyuncular getirilirken hata oluştu: \(error.localizedDescription)")
+                    }
+                }
+            }
+    
     
     private func registerCells() {
         tableView.register(UINib(nibName: "PlayerListTableViewCell", bundle: nil), forCellReuseIdentifier: "PlayerListTableViewCell")
         tableView.register(UINib(nibName: "AddPlayerButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "AddPlayerButtonTableViewCell")
     }
+    
+    
 }
 
 extension PlayerListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -61,7 +73,9 @@ extension PlayerListViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         case .addButton:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "AddPlayerButtonTableViewCell", for: indexPath) as? AddPlayerButtonTableViewCell else { return UITableViewCell()}
+            cell.delegate = self
             return cell
+        
         }
     }
     
@@ -72,4 +86,19 @@ extension PlayerListViewController: PlayerListViewControllerProtocol {
     func reloadTableView() {
         tableView.reloadData()
     }
+    
+    func navigateToPlayerCRUD() {
+        navigateToViewController(storyboardName: "PlayerCRUDViewController", viewControllerIdentifier: "PlayerCRUDViewController") { (playerCRUDVC: PlayerCRUDViewController) in
+            let playerCRUDViewModel = PlayerCRUDViewModel()
+            playerCRUDVC.viewModel = playerCRUDViewModel
+        }
+    }
+}
+extension PlayerListViewController: AddPlayerButtonTableViewCellDelegate {
+    func didTapButton() {
+        print("Buton tıklandı")
+        navigateToPlayerCRUD()
+    }
+    
+    
 }
