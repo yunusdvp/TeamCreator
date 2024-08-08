@@ -24,14 +24,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        self.window = window
 //        
 //    }
-//    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-//        guard let windowScene = (scene as? UIWindowScene) else { return }
-//                let window = UIWindow(windowScene: windowScene)
-//                let splashView = PlayerListViewController()
+//   func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+//       guard let windowScene = (scene as? UIWindowScene) else { return }
+//               let window = UIWindow(windowScene: windowScene)
+//               let splashView = PlayerListViewController()
 //                window.makeKeyAndVisible()
 //                window.rootViewController = splashView
 //                self.window = window
-//        }
+//       }
 
  
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -39,8 +39,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
            let window = UIWindow(windowScene: windowScene)
            
            // Storyboard kullanarak PlayerListViewController oluşturma
-           let storyboard = UIStoryboard(name: "PlayerCRUDViewController", bundle: nil)
-           guard let playerListViewController = storyboard.instantiateViewController(withIdentifier: "PlayerCRUDViewController") as? PlayerCRUDViewController else {
+           let storyboard = UIStoryboard(name: "SplashViewController", bundle: nil)
+           guard let playerListViewController = storyboard.instantiateViewController(withIdentifier: "SplashViewController") as? SplashViewController else {
                return
            }
            
