@@ -64,6 +64,8 @@ extension PlayerListViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
     }
+    
+    
 }
 
 extension PlayerListViewController: PlayerListViewControllerProtocol {

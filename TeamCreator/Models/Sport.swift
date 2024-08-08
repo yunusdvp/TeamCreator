@@ -7,14 +7,8 @@
 
 import Foundation
 
-struct Sport {
+struct Sport: Codable {
     let name: String?
     let backgroundImage: String?
     let type: SelectedSport?
 }
-//struct Sport: Decodable {
-//    let name: String?
-//    let backgroundImage: String?
-//    let type: SelectedSport?
-//    let positions: [String]?
-//}

@@ -7,13 +7,7 @@
 
 import Foundation
 
-//enum SelectedSport {
-//    case football
-//    case volleyball
-//    case basketball
-//}
-
-enum SelectedSport: String, Decodable {
+enum SelectedSport:String, Codable  {
     case football
     case volleyball
     case basketball

@@ -1,10 +1,3 @@
-//
-//  PozitionTableViewCell.swift
-//  TeamCreator
-//
-//  Created by Ceren Uludoğan on 7.08.2024.
-//
-
 import UIKit
 
 // MARK: - PositionTableViewCellDelegate
@@ -13,7 +6,6 @@ protocol PositionTableViewCellDelegate: AnyObject {
     func getPositions() -> [String]
     func setSelectedPosition(_ position: String)
 }
-
 
 class PositionTableViewCell: UITableViewCell, UITextFieldDelegate {
     // MARK: - Properties
@@ -46,6 +38,7 @@ class PositionTableViewCell: UITableViewCell, UITextFieldDelegate {
         setupToolbar()
         pozitionNameTextField.inputView = pickerView
         pozitionNameTextField.inputAccessoryView = toolbar
+        pozitionNameTextField.delegate = self
     }
     
     // MARK: - Setup Methods
@@ -66,7 +59,6 @@ class PositionTableViewCell: UITableViewCell, UITextFieldDelegate {
     @objc private func doneTapped() {
         pozitionNameTextField.resignFirstResponder()
     }
-    
 }
 
 // MARK: - UIPickerViewDelegate & UIPickerViewDataSource

@@ -11,6 +11,7 @@ class BaseViewController: UIViewController, LoadingShowable {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupKeyboardNotifications()
 
         // Do any additional setup after loading the view.
     }
@@ -49,4 +50,48 @@ class BaseViewController: UIViewController, LoadingShowable {
             }
         }
 
-}
+    deinit {
+           NotificationCenter.default.removeObserver(self)
+       }
+       
+       private func setupKeyboardNotifications() {
+           NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+           NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+       }
+       
+       @objc private func keyboardWillShow(_ notification: Notification) {
+           if let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+               let keyboardHeight = keyboardFrame.height
+               adjustForKeyboard(height: keyboardHeight)
+           }
+       }
+       
+       @objc private func keyboardWillHide(_ notification: Notification) {
+           adjustForKeyboard(height: 0)
+       }
+       
+       private func adjustForKeyboard(height: CGFloat) {
+           DispatchQueue.main.async {
+               if let scrollView = self.findScrollView(in: self.view) {
+                   UIView.animate(withDuration: 0.3) {
+                       scrollView.contentInset.bottom = height
+                       scrollView.scrollIndicatorInsets.bottom = height
+                   }
+               }
+           }
+       }
+       
+       private func findScrollView(in view: UIView) -> UIScrollView? {
+           if let scrollView = view as? UIScrollView {
+               return scrollView
+           }
+           for subview in view.subviews {
+               if let scrollView = findScrollView(in: subview) {
+                   return scrollView
+               }
+           }
+           return nil
+       }
+   }
+

@@ -10,25 +10,24 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="107" id="KGk-i7-Jjw" customClass="PlayerImageTableViewCell" customModule="TeamCreator" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="221" height="107"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="237" id="KGk-i7-Jjw" customClass="PlayerImageTableViewCell" customModule="TeamCreator" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="332" height="237"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="221" height="107"/>
+                <rect key="frame" x="0.0" y="0.0" width="332" height="237"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b0p-za-FNB">
-                        <rect key="frame" x="0.0" y="0.0" width="221" height="107"/>
+                        <rect key="frame" x="0.0" y="0.0" width="332" height="237"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="N4G-wG-BVt">
-                                <rect key="frame" x="60.666666666666657" y="3.6666666666666643" width="100" height="100"/>
+                                <rect key="frame" x="66" y="18.666666666666671" width="200" height="200"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="oDC-ed-SGJ">
-                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="oDC-ed-SGJ">
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="100" id="Dku-Ju-QTa"/>
-                                            <constraint firstAttribute="width" constant="100" id="OjM-wh-ovZ"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="uDC-xM-VDL"/>
+                                            <constraint firstAttribute="width" constant="200" id="7UC-Yc-FpN"/>
+                                            <constraint firstAttribute="height" constant="200" id="PDW-2d-TSc"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -57,7 +56,7 @@
             <connections>
                 <outlet property="profileImageView" destination="oDC-ed-SGJ" id="7Az-IA-rcu"/>
             </connections>
-            <point key="canvasLocation" x="-167.17557251908397" y="29.929577464788736"/>
+            <point key="canvasLocation" x="-82.44274809160305" y="75.704225352112687"/>
         </tableViewCell>
     </objects>
     <resources>

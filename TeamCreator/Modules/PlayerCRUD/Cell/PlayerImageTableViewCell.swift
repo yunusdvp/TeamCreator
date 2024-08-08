@@ -16,6 +16,7 @@ class PlayerImageTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         setupTapGesture()
+        makeImageCircular()
     }
     
     // MARK: - Setup Methods
@@ -23,6 +24,11 @@ class PlayerImageTableViewCell: UITableViewCell {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
         profileImageView.isUserInteractionEnabled = true
         profileImageView.addGestureRecognizer(tapGesture)
+    }
+    
+    private func makeImageCircular() {
+        profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
+        profileImageView.clipsToBounds = true
     }
     
     @objc private func imageTapped() {
