@@ -109,13 +109,13 @@ extension PlayerCRUDViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueCell(with: PositionTableViewCell.self, for: indexPath) else {
                 return UITableViewCell()
             }
-            cell.positions = viewModel.getPositions()
-            cell.selectedPosition = viewModel.getSelectedPosition()
-            cell.viewModel = viewModel
-            cell.onPositionSelected = { [weak self] position in
-                self?.viewModel?.setSelectedPosition(position)
-            }
-            return cell
+            cell.positions = viewModel.getPositionsForSelectedSport()
+                cell.selectedPosition = viewModel.getSelectedPosition()
+                cell.viewModel = viewModel
+                cell.onPositionSelected = { [weak self] position in
+                    self?.viewModel?.setSelectedPosition(position)
+                }
+                return cell
         case .playerOtherProperty:
             let cell = tableView.dequeueCell(with: PlayerOtherPropertyTableViewCell.self, for: indexPath)
             cell?.viewModel = viewModel
