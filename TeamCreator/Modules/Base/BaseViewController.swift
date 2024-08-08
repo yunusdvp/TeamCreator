@@ -30,5 +30,23 @@ class BaseViewController: UIViewController, LoadingShowable {
             self.present(alert, animated: true)
         }
     }
+    
+    func navigateToViewController<T: UIViewController>(storyboardName: String, viewControllerIdentifier: String, configure: (T) -> Void) {
+            let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
+            guard let viewController = storyboard.instantiateViewController(withIdentifier: viewControllerIdentifier) as? T else { return }
+            
+            configure(viewController)
+            
+            if let navigationController = self.navigationController {
+                navigationController.pushViewController(viewController, animated: true)
+            } else {
+                let navigationController = UINavigationController(rootViewController: self)
+                view.window?.rootViewController = navigationController
+                view.window?.makeKeyAndVisible()
+                DispatchQueue.main.async {
+                    navigationController.pushViewController(viewController, animated: true)
+                }
+            }
+        }
 
 }
