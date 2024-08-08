@@ -40,6 +40,7 @@ protocol PlayerCRUDViewModelProtocol: AnyObject {
     func addPlayerToFirebase(completion: @escaping (Result<Void, Error>) -> Void)
     func isFormValid() -> Bool
     func loadSportsFromJSON() 
+    func getPositionsForSelectedSport() -> [String]
 }
 
 final class PlayerCRUDViewModel: PlayerCRUDViewModelProtocol {
@@ -56,6 +57,8 @@ final class PlayerCRUDViewModel: PlayerCRUDViewModelProtocol {
     private var sports: [Sport] = []
     private var selectedSport: Sport?
     
+    
+    
     // MARK: - Initialization
     init(playerRepository: PlayerRepositoryProtocol = PlayerRepository()) {
         self.playerRepository = playerRepository
@@ -67,7 +70,28 @@ final class PlayerCRUDViewModel: PlayerCRUDViewModelProtocol {
     func updatePlayerGender(_ gender: String) {
         playerData.gender = gender
     }
-    
+
+    func getPositionsForSelectedSport() -> [String] {
+        guard let selectedSportType = SelectedSportManager.shared.selectedSport else {
+            return []
+        }
+        
+        setSelectedSport(selectedSportType)
+        
+        switch selectedSportType {
+        case .football:
+            return ["Forward", "Stopper", "Goalkeeper"]
+        case .volleyball:
+            return ["Setter", "Outside Hitter", "Libero"]
+        case .basketball:
+            return ["Point Guard", "Shooting Guard", "Center"]
+        }
+    }
+
+
+    func setSelectedSport(_ sport: SelectedSport) {
+        playerData.sporType = sport.rawValue
+    }
     
     func updateSkillPoint(_ skillPoint: Int)   {
         playerData.skillRating = skillPoint
@@ -162,18 +186,18 @@ final class PlayerCRUDViewModel: PlayerCRUDViewModelProtocol {
 //        }
 //    }  
     func loadSportsFromJSON() {
-            guard let url = Bundle.main.url(forResource: "positions", withExtension: "json") else {
-                print("JSON file not found")
-                return
-            }
-
-            do {
-                let data = try Data(contentsOf: url)
-                let decodedSports = try JSONDecoder().decode([String: [Sport]].self, from: data)
-                self.sports = decodedSports["sports"] ?? []
-            } catch {
-                print("Error decoding JSON: \(error)")
-            }
+        guard let url = Bundle.main.url(forResource: "positions", withExtension: "json") else {
+            print("JSON file not found")
+            return
         }
-    
+
+        do {
+            let data = try Data(contentsOf: url)
+            let decodedSports = try JSONDecoder().decode([String: [Sport]].self, from: data)
+            self.sports = decodedSports["sports"] ?? []
+        } catch {
+            print("Error decoding JSON: \(error)")
+        }
+    }
+
 }

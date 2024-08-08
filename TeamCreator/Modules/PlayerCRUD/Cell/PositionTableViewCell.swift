@@ -39,6 +39,8 @@ class PositionTableViewCell: UITableViewCell, UITextFieldDelegate {
         pozitionNameTextField.inputView = pickerView
         pozitionNameTextField.inputAccessoryView = toolbar
         pozitionNameTextField.delegate = self
+        
+        updatePositions()
     }
     
     // MARK: - Setup Methods
@@ -48,6 +50,11 @@ class PositionTableViewCell: UITableViewCell, UITextFieldDelegate {
         pickerView.dataSource = self
     }
     
+    // MARK: - Position Update Method
+    func updatePositions() {
+        positions = delegate?.getPositions() ?? []
+        pickerView.reloadAllComponents()
+    }
     private func setupToolbar() {
         toolbar = UIToolbar()
         toolbar.sizeToFit()
