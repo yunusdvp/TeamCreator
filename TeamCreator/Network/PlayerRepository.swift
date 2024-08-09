@@ -69,30 +69,35 @@ final class PlayerRepository: PlayerRepositoryProtocol {
             }
         }
 
-func addPlayer(player: Player, imageData: Data, completion: @escaping (Result<Void, Error>) -> Void) {
-    var player = player
-    player.id = UUID().uuidString
-    
-    imageStorage.uploadProfileImage(imageData: imageData) { result in
-        switch result {
-        case .success(let url):
-            player.profilePhotoURL = url
-            do {
-                let _ = try self.db.collection("players").document(player.id ?? "").setData(from: player) { error in
-                    if let error = error {
+    func addPlayer(player: Player, imageData: Data, completion: @escaping (Result<Void, Error>) -> Void) {
+        var player = player
+        player.id = UUID().uuidString
+        if let image = UIImage(data: imageData), let compressedData = image.jpegData(compressionQuality: 0.33) {
+            
+            imageStorage.uploadProfileImage(imageData: compressedData) { result in
+                switch result {
+                case .success(let url):
+                    player.profilePhotoURL = url
+                    do {
+                        let _ = try self.db.collection("players").document(player.id ?? "").setData(from: player) { error in
+                            if let error = error {
+                                completion(.failure(error))
+                            } else {
+                                completion(.success(()))
+                            }
+                        }
+                    } catch {
                         completion(.failure(error))
-                    } else {
-                        completion(.success(()))
                     }
+                case .failure(let error):
+                    completion(.failure(error))
                 }
-            } catch {
-                completion(.failure(error))
             }
-        case .failure(let error):
-            completion(.failure(error))
+        } else {
+            completion(.failure(NSError(domain: "ImageCompressionError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Image compression failed"])))
         }
     }
-}
+
     
 
     func removePlayer(playerId: String, completion: @escaping (Result<Void, Error>) -> Void) {
