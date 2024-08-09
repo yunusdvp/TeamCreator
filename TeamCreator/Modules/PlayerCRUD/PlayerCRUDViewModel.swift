@@ -24,11 +24,10 @@ protocol PlayerCRUDViewModelDelegate: AnyObject {
 
 protocol PlayerCRUDViewModelProtocol: AnyObject {
     var delegate: PlayerCRUDViewControllerProtocol? { get set }
-    
+    var player: Player? { get set }
     func fetchData()
     func getCellTypeCount() -> Int
     func getCellType(at index: Int) -> PlayerCRUDCellType
-    func getPositions() -> [String]
     func setSelectedPosition(_ position: String)
     func getSelectedPosition() -> String
     func updatePlayerName(_ name: String)
@@ -39,18 +38,19 @@ protocol PlayerCRUDViewModelProtocol: AnyObject {
     func updatePlayerImageData(_ imageData: Data)
     func addPlayerToFirebase(completion: @escaping (Result<Void, Error>) -> Void)
     func isFormValid() -> Bool
-    func loadSportsFromJSON() 
     func getPositionsForSelectedSport() -> [String]
+
 }
 
 final class PlayerCRUDViewModel: PlayerCRUDViewModelProtocol {
     // MARK: - Properties
     var delegate: (any PlayerCRUDViewControllerProtocol)?
-    
+    var player: Player?
     private var playerData = Player()
+//    let playerRepository = NetworkManager.shared.playerRepository
+
     private let playerRepository: PlayerRepositoryProtocol
     private var imageData: Data?
-    private let positions = ["Forward", "Stopper", "Goalkeeper"]
     private var cellTypeList: [PlayerCRUDCellType] = [.playerImage, .playerName, .playerGender, .playerPosition, .playerOtherProperty, .playerAddButton]
     private var selectedPosition: String?
     
@@ -117,10 +117,6 @@ final class PlayerCRUDViewModel: PlayerCRUDViewModelProtocol {
         return cellTypeList[index]
     }
     
-    func getPositions() -> [String] {
-        return positions
-    }
-    
     func getSelectedPosition() -> String {
         return selectedPosition ?? ""
     }
@@ -134,7 +130,7 @@ final class PlayerCRUDViewModel: PlayerCRUDViewModelProtocol {
         self.imageData = imageData
     }
     
-    
+  
     func addPlayerToFirebase(completion: @escaping (Result<Void, Error>) -> Void) {
         guard let imageData = imageData else {
             print("Image data not provided")
@@ -169,35 +165,6 @@ final class PlayerCRUDViewModel: PlayerCRUDViewModelProtocol {
         }
         
         return true
-    }
-    // MARK: - JSON Verilerini Yükleme Fonksiyonu
-//    func loadSportsFromJSON() {
-//        guard let url = Bundle.main.url(forResource: "positions", withExtension: "json") else {
-//            print("JSON file not found")
-//            return
-//        }
-//
-//        do {
-//            let data = try Data(contentsOf: url)
-//            let decodedSports = try JSONDecoder().decode([Sport].self, from: data)
-//            self.sports = decodedSports
-//        } catch {
-//            print("Error decoding JSON: \(error)")
-//        }
-//    }  
-    func loadSportsFromJSON() {
-        guard let url = Bundle.main.url(forResource: "positions", withExtension: "json") else {
-            print("JSON file not found")
-            return
-        }
-
-        do {
-            let data = try Data(contentsOf: url)
-            let decodedSports = try JSONDecoder().decode([String: [Sport]].self, from: data)
-            self.sports = decodedSports["sports"] ?? []
-        } catch {
-            print("Error decoding JSON: \(error)")
-        }
     }
 
 }

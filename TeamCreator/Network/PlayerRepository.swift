@@ -21,13 +21,8 @@ enum PlayerFilter {
 protocol PlayerRepositoryProtocol {
     func fetchPlayers(withFilters filters: [PlayerFilter], completion: @escaping (Result<[Player], Error>) -> Void)
     func addPlayer(player: Player, imageData: Data, completion: @escaping (Result<Void, Error>) -> Void)
-
-//    func addPlayer(player: Player, image: UIImage, completion: @escaping (Result<Void, Error>) -> Void)
     func removePlayer(playerId: String, completion: @escaping (Result<Void, Error>) -> Void)
-//    func addRandomPlayers(count: Int, completion: @escaping (Result<Void, Error>) -> Void)
     func addRandomPlayers(count: Int, completion: @escaping (Result<Void, Error>) -> Void)
-
-//    func updatePlayer(playerId: String, name: String?, position: String?, skillRating: Int?, age: Int?, gender: String?, newImage: UIImage?, completion: @escaping (Result<Void, Error>) -> Void)
     func updatePlayer(playerId: String, name: String?, position: String?, skillRating: Int?, age: Int?, gender: String?, newImageData: Data?, completion: @escaping (Result<Void, Error>) -> Void)
 
 }

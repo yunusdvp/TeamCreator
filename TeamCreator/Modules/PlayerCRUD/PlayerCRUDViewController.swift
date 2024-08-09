@@ -69,7 +69,16 @@ final class PlayerCRUDViewController: BaseViewController {
         guard let viewModel = viewModel else { return false }
         return viewModel.isFormValid()
     }
-    
+    func addPlayer(completion: @escaping (Bool) -> Void) {
+        navigateToPlayerList()
+       }
+       
+       func navigateToPlayerList() {
+           // PlayerListViewController'a yönlendirme
+           navigateToViewController(storyboardName: "PlayerListViewController", viewControllerIdentifier: "PlayerListViewController") { (vc: PlayerListViewController) in
+               // Gerekirse veri geçişi yapılabilir
+           }
+       }
 }
 
 // MARK: - Extension-UITableViewDataSource-UITableViewDelegate
@@ -137,11 +146,11 @@ extension PlayerCRUDViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return indexPath.section == 0 ? 200 : 100
+        return indexPath.section == 0 ? 150 : 100
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 1 ? 20 : 0
+        return section == 1 ? 10 : 0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
