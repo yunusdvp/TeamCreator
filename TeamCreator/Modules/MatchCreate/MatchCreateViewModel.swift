@@ -10,7 +10,7 @@ import Foundation
 protocol MatchCreateViewModelProtocol: AnyObject {
     var delegate: MatchCreateViewModelDelegate? { get set }
     var selectedSport: SelectedSport? { get }
-    func fetchPlayers()
+    func fetchPlayers(sporType: String, completion: @escaping (Result<[Player], Error>) -> Void)
     func fetchLocations()
     func getPlayersCount() -> Int
     func getPlayer(at index: Int) -> Player
@@ -24,9 +24,11 @@ protocol MatchCreateViewModelDelegate: AnyObject {
     func updatePickerView()
 }
 final class MatchCreateViewModel: MatchCreateViewModelProtocol {
+    
+    
 
     weak var delegate: MatchCreateViewModelDelegate?
-    
+    let playerRepository = NetworkManager.shared.playerRepository
     var selectedSport: SelectedSport? {
         return SelectedSportManager.shared.selectedSport
     }
@@ -37,24 +39,19 @@ final class MatchCreateViewModel: MatchCreateViewModelProtocol {
     
     init() {}
     
-    func fetchPlayers() {
-        // Oyuncuları seçilen spora göre getir
-        // Örneğin:
-        switch selectedSport {
-        case .football:
-            // Football oyuncularını yükle
-            break
-        case .volleyball:
-            // Volleyball oyuncularını yükle
-            break
-        case .basketball:
-            // Basketball oyuncularını yükle
-            break
-        case .none:
-            break
+    func fetchPlayers(sporType: String, completion: @escaping (Result<[Player], Error>) -> Void) {
+            let filters: [PlayerFilter] = [.sporType(sporType)]
+            playerRepository.fetchPlayers(withFilters: filters) { [weak self] result in
+                switch result {
+                case .success(let players):
+                    self?.players = players
+                    self?.delegate?.reloadTableView()
+                case .failure(let error):
+                    print("Error fetching players: \(error.localizedDescription)")
+                }
+                completion(result)
+            }
         }
-        delegate?.reloadTableView()
-    }
     
     func fetchLocations() {
             guard let sport = selectedSport else { return }
