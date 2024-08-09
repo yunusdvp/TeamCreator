@@ -27,7 +27,7 @@ final class PlayerCRUDViewController: BaseViewController {
         super.viewDidLoad()
         viewModel = PlayerCRUDViewModel()
         viewModel?.delegate = self
-        print(SelectedSportManager.shared.selectedSport)
+        print(SelectedSportManager.shared.selectedSport as Any)
         registerCells()
 
         tableView.delegate = self
