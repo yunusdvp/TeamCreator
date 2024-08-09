@@ -24,7 +24,7 @@ protocol PlayerCRUDViewModelDelegate: AnyObject {
 
 protocol PlayerCRUDViewModelProtocol: AnyObject {
     var delegate: PlayerCRUDViewControllerProtocol? { get set }
-    
+    var player: Player? { get set }
     func fetchData()
     func getCellTypeCount() -> Int
     func getCellType(at index: Int) -> PlayerCRUDCellType
@@ -39,13 +39,16 @@ protocol PlayerCRUDViewModelProtocol: AnyObject {
     func addPlayerToFirebase(completion: @escaping (Result<Void, Error>) -> Void)
     func isFormValid() -> Bool
     func getPositionsForSelectedSport() -> [String]
+
 }
 
 final class PlayerCRUDViewModel: PlayerCRUDViewModelProtocol {
     // MARK: - Properties
     var delegate: (any PlayerCRUDViewControllerProtocol)?
-    
+    var player: Player?
     private var playerData = Player()
+//    let playerRepository = NetworkManager.shared.playerRepository
+
     private let playerRepository: PlayerRepositoryProtocol
     private var imageData: Data?
     private var cellTypeList: [PlayerCRUDCellType] = [.playerImage, .playerName, .playerGender, .playerPosition, .playerOtherProperty, .playerAddButton]
@@ -127,7 +130,7 @@ final class PlayerCRUDViewModel: PlayerCRUDViewModelProtocol {
         self.imageData = imageData
     }
     
-    
+  
     func addPlayerToFirebase(completion: @escaping (Result<Void, Error>) -> Void) {
         guard let imageData = imageData else {
             print("Image data not provided")
