@@ -8,7 +8,7 @@
 import Foundation
 
 enum SelectedSport:String, Codable  {
-    case football
-    case volleyball
-    case basketball
+    case football = "football"
+    case volleyball = "volleyball"
+    case basketball = "basketball"
 }
