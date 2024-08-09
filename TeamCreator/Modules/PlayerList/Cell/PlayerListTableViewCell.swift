@@ -6,13 +6,14 @@
 //
 
 import UIKit
+import Kingfisher
 
-protocol PlayerListTableViewCellDelegate: AnyObject {
+/*protocol PlayerListTableViewCellDelegate: AnyObject {
     func didLoadImage(for cell: PlayerListTableViewCell, image: UIImage)
-}
+}*/
 class PlayerListTableViewCell: UITableViewCell {
-
-    weak var delegate: PlayerListTableViewCellDelegate?
+    
+    //weak var delegate: PlayerListTableViewCellDelegate?
     
     @IBOutlet weak var playerImage: UIImageView!
     @IBOutlet private weak var teamIconImage: UIImageView!
@@ -27,27 +28,16 @@ class PlayerListTableViewCell: UITableViewCell {
     }
     
     func configure(with player: Player) {
-            playerNoLabel.text = player.name
-            positionNameLabel.text = player.position
-            scoreLAbel.text = "\(player.skillRating ?? 0)"
-            
-            if let profilePhotoURL = player.profilePhotoURL {
-                loadImage(from: profilePhotoURL)
-            }
+        playerNoLabel.text = player.name
+        positionNameLabel.text = player.position
+        scoreLAbel.text = "\(player.skillRating ?? 0)"
+        
+        if let profilePhotoURL = player.profilePhotoURL, let url = URL(string: profilePhotoURL) {
+            playerImage.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"), options: [.transition(.fade(0.3))])
         }
-
-        private func loadImage(from url: String) {
-            NetworkManager.shared.imageStorage.downloadProfileImage(url: url) { [weak self] result in
-                switch result {
-                case .success(let image):
-                    DispatchQueue.main.async {
-                        self?.playerImage.image = image
-                        self?.delegate?.didLoadImage(for: self!, image: image)
-                    }
-                case .failure(let error):
-                    print("Error loading image: \(error.localizedDescription)")
-                }
-            }
-        }
-
+        
+        
+        
+    }
+    
 }
