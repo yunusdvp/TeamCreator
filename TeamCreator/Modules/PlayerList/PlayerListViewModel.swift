@@ -15,9 +15,8 @@ enum PlayerListCellType {
 
 protocol PlayerListViewModelProtocol: AnyObject {
     var delegate: PlayerListViewControllerProtocol? { get set }
-    func fetchPlayers(sporType: String, completion: @escaping (Result<[Player], Error>) -> Void)
     
-    //func fetchData()
+    func fetchPlayers(sporType: String, completion: @escaping (Result<[Player], Error>) -> Void)
     func getCellTypeCount() -> Int
     func getCellType(at index: Int) -> PlayerListCellType
     func getPlayer(at index: Int) -> Player?
@@ -32,8 +31,8 @@ final class PlayerListViewModel: PlayerListViewModelProtocol {
     private var players: [Player] = []
     
     let playerRepository = NetworkManager.shared.playerRepository
-    let imageStorage = NetworkManager.shared.imageStorage
-    let db = Firestore.firestore()
+    //let imageStorage = NetworkManager.shared.imageStorage
+    //let db = Firestore.firestore()
     
     init() {
         self.cellTypeList = [.player, .addButton]

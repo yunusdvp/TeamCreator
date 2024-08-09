@@ -36,38 +36,51 @@ final class PlayerRepository: PlayerRepositoryProtocol {
 
     private let db = Firestore.firestore()
     private let imageStorage = ImageStorage()
+    private var cachedPlayers: [String: [Player]] = [:]
 
     func fetchPlayers(withFilters filters: [PlayerFilter] = [], completion: @escaping (Result<[Player], Error>) -> Void) {
-            var query: Query = db.collection("players")
+        var query: Query = db.collection("players")
+        var sportTypeFilter: String?
 
-            for filter in filters {
-                switch filter {
-                case .sports(let sport):
-                    query = query.whereField("sport", isEqualTo: sport)
-                case .minimumSkillRating(let rating):
-                    query = query.whereField("skillRating", isGreaterThanOrEqualTo: rating)
-                case .ageRange(let min, let max):
-                    query = query.whereField("age", isGreaterThanOrEqualTo: min).whereField("age", isLessThanOrEqualTo: max)
-                case .gender(let gender):
-                    query = query.whereField("gender", isEqualTo: gender)
-                case .id(let id):
-                    query = query.whereField("id", isEqualTo: id)
-                case .sporType(let sporType):
-                    query = query.whereField("sporType", isEqualTo: sporType)
-                }
+        for filter in filters {
+            switch filter {
+            case .sports(let sport):
+                sportTypeFilter = sport
+                query = query.whereField("sport", isEqualTo: sport)
+            case .minimumSkillRating(let rating):
+                query = query.whereField("skillRating", isGreaterThanOrEqualTo: rating)
+            case .ageRange(let min, let max):
+                query = query.whereField("age", isGreaterThanOrEqualTo: min).whereField("age", isLessThanOrEqualTo: max)
+            case .gender(let gender):
+                query = query.whereField("gender", isEqualTo: gender)
+            case .id(let id):
+                query = query.whereField("id", isEqualTo: id)
+            case .sporType(let sporType):
+                sportTypeFilter = sporType
+                query = query.whereField("sporType", isEqualTo: sporType)
             }
+        }
 
-            query.getDocuments { snapshot, error in
+        if let sportType = sportTypeFilter, let cached = cachedPlayers[sportType], !cached.isEmpty {
+            print("cache döndü")
+            completion(.success(cached))
+        } else {
+            
+            query.getDocuments { [weak self] snapshot, error in
                 if let error = error {
                     completion(.failure(error))
                 } else {
                     let players = snapshot?.documents.compactMap { doc -> Player? in
                         try? doc.data(as: Player.self)
                     } ?? []
+                    if let sportType = sportTypeFilter {
+                        self?.cachedPlayers[sportType] = players
+                    }
                     completion(.success(players))
                 }
             }
         }
+    }
 
     func addPlayer(player: Player, imageData: Data, completion: @escaping (Result<Void, Error>) -> Void) {
         var player = player
@@ -83,6 +96,7 @@ final class PlayerRepository: PlayerRepositoryProtocol {
                             if let error = error {
                                 completion(.failure(error))
                             } else {
+                                self.clearCache()
                                 completion(.success(()))
                             }
                         }
@@ -105,6 +119,7 @@ final class PlayerRepository: PlayerRepositoryProtocol {
             if let error = error {
                 completion(.failure(error))
             } else {
+                self.clearCache()
                 completion(.success(()))
             }
         }
@@ -120,33 +135,7 @@ final class PlayerRepository: PlayerRepositoryProtocol {
             gender: randomGender,
             profilePhotoURL: "https://example.com/photo.jpg")
     }
-
-//    func addRandomPlayers(count: Int, completion: @escaping (Result<Void, Error>) -> Void) {
-//        var errors: [Error] = []
-//        let dispatchGroup = DispatchGroup()
-//
-//        for _ in 0..<count {
-//            dispatchGroup.enter()
-//            let player = createRandomPlayer()
-//            addPlayer(player: player, image: UIImage(named:  "defaultProfileImage")!) { result in
-//                switch result {
-//                case .success:
-//                    break
-//                case .failure(let error):
-//                    errors.append(error)
-//                }
-//                dispatchGroup.leave()
-//            }
-//        }
-//
-//        dispatchGroup.notify(queue: .main) {
-//            if errors.isEmpty {
-//                completion(.success(()))
-//            } else {
-//                completion(.failure(errors.first!))
-//            }
-//        }
-//    }
+    
     func addRandomPlayers(count: Int, completion: @escaping (Result<Void, Error>) -> Void) {
         var errors: [Error] = []
         let dispatchGroup = DispatchGroup()
@@ -286,6 +275,7 @@ final class PlayerRepository: PlayerRepositoryProtocol {
                             if let error = error {
                                 completion(.failure(error))
                             } else {
+                                self.clearCache()
                                 completion(.success(()))
                             }
                         }
@@ -312,5 +302,9 @@ final class PlayerRepository: PlayerRepositoryProtocol {
             }
         }
     }
-}
+    private func clearCache() {
+            cachedPlayers.removeAll()
+        }
+    }
+
 
