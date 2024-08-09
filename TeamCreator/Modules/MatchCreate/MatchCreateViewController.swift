@@ -69,12 +69,12 @@ class MatchCreateViewController: BaseViewController {
 }
 
 extension MatchCreateViewController: UITableViewDelegate, UITableViewDataSource {
-    /*func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }*/
+    func numberOfSections(in tableView: UITableView) -> Int {
+        viewModel.getNumberOfSections()
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    viewModel.getPlayersCount()}
+        viewModel.getPlayersCount(for: section)}
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerListTableViewCell", for: indexPath) as? PlayerListTableViewCell else {
@@ -83,6 +83,9 @@ extension MatchCreateViewController: UITableViewDelegate, UITableViewDataSource 
         let player = viewModel.getPlayer(at: indexPath.row)
         cell.configure(with: player)
         return cell
+    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        viewModel.getSectionTitle(for: section)
     }
 }
 

@@ -16,6 +16,10 @@ protocol MatchCreateViewModelProtocol: AnyObject {
     func getPlayer(at index: Int) -> Player
     func getLocationsCount() -> Int
     func getLocationName(at index: Int) -> String
+    func getSectionTitle(for section: Int) -> String
+    func getNumberOfSections() -> Int
+    func getPlayer(at indexPath: IndexPath) -> Player
+    func getPlayersCount(for section: Int) -> Int
 }
 
 protocol MatchCreateViewModelDelegate: AnyObject {
@@ -35,6 +39,9 @@ final class MatchCreateViewModel: MatchCreateViewModelProtocol {
     
     private var players: [Player] = []
     private var locations: [String] = []
+    private var positionSections: [String] = []
+    private var groupedPlayers: [String: [Player]] = [:]
+    
     
     
     init() {}
@@ -45,6 +52,7 @@ final class MatchCreateViewModel: MatchCreateViewModelProtocol {
                 switch result {
                 case .success(let players):
                     self?.players = players
+                    self?.groupPlayersByPosition()
                     self?.delegate?.reloadTableView()
                 case .failure(let error):
                     print("Error fetching players: \(error.localizedDescription)")
@@ -78,6 +86,30 @@ final class MatchCreateViewModel: MatchCreateViewModelProtocol {
                 }
             }
         }
+    private func groupPlayersByPosition() {
+            groupedPlayers.removeAll()
+            guard let selectedSportType = selectedSport else { return }
+            
+            let positions = getPositionsForSelectedSport(selectedSportType)
+            
+            for position in positions {
+                groupedPlayers[position] = players.filter { $0.position == position }
+            }
+            
+            // Sort the section titles
+            positionSections = positions.filter { groupedPlayers[$0]?.isEmpty == false }
+        }
+        
+    func getPositionsForSelectedSport(_ sport: SelectedSport) -> [String] {
+            switch sport {
+            case .football:
+                return ["Forward", "Stopper", "Goalkeeper"]
+            case .volleyball:
+                return ["Setter", "Outside Hitter", "Libero"]
+            case .basketball:
+                return ["Point Guard", "Shooting Guard", "Center"]
+            }
+        }
     
     func getPlayersCount() -> Int {
         return players.count
@@ -86,6 +118,22 @@ final class MatchCreateViewModel: MatchCreateViewModelProtocol {
     func getPlayer(at index: Int) -> Player {
         return players[index]
     }
+    func getPlayersCount(for section: Int) -> Int {
+            let position = positionSections[section]
+            return groupedPlayers[position]?.count ?? 0
+        }
+        
+        func getPlayer(at indexPath: IndexPath) -> Player {
+            let position = positionSections[indexPath.section]
+            return groupedPlayers[position]?[indexPath.row] ?? Player()
+        }
+    func getNumberOfSections() -> Int {
+            return positionSections.count
+        }
+        
+        func getSectionTitle(for section: Int) -> String {
+            return positionSections[section]
+        }
     
     func getLocationsCount() -> Int {
         return locations.count
@@ -94,4 +142,5 @@ final class MatchCreateViewModel: MatchCreateViewModelProtocol {
     func getLocationName(at index: Int) -> String {
         return locations[index]
     }
+    
 }
