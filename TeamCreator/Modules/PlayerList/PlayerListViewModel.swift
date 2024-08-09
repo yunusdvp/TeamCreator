@@ -15,17 +15,21 @@ enum PlayerListCellType {
 
 protocol PlayerListViewModelProtocol: AnyObject {
     var delegate: PlayerListViewControllerProtocol? { get set }
-    func fetchPlayers(completion: @escaping (Result<[Player], Error>) -> Void)
+    func fetchPlayers(sporType: String, completion: @escaping (Result<[Player], Error>) -> Void)
     
     //func fetchData()
     func getCellTypeCount() -> Int
     func getCellType(at index: Int) -> PlayerListCellType
+    func getPlayer(at index: Int) -> Player?
+    func getPlayerCount() -> Int
 }
 
 final class PlayerListViewModel: PlayerListViewModelProtocol {
     
+    
     weak var delegate: PlayerListViewControllerProtocol?
     private var cellTypeList: [PlayerListCellType] = []
+    private var players: [Player] = []
     
     let playerRepository = NetworkManager.shared.playerRepository
     let imageStorage = NetworkManager.shared.imageStorage
@@ -36,20 +40,19 @@ final class PlayerListViewModel: PlayerListViewModelProtocol {
     }
     
     
-        func fetchPlayers(completion: @escaping (Result<[Player], Error>) -> Void) {
-                let query: Query = db.collection("players")
-                
-                query.getDocuments { snapshot, error in
-                    if let error = error {
-                        completion(.failure(error))
-                    } else {
-                        let players = snapshot?.documents.compactMap { doc -> Player? in
-                            try? doc.data(as: Player.self)
-                        } ?? []
-                        completion(.success(players))
-                    }
+    func fetchPlayers(sporType: String, completion: @escaping (Result<[Player], Error>) -> Void) {
+            let filters: [PlayerFilter] = [.sporType(sporType)]
+            playerRepository.fetchPlayers(withFilters: filters) { [weak self] result in
+                switch result {
+                case .success(let players):
+                    self?.players = players
+                    self?.delegate?.reloadTableView()
+                case .failure(let error):
+                    print("Error fetching players: \(error.localizedDescription)")
                 }
+                completion(result)
             }
+        }
         //delegate?.reloadTableView()
     
     func getCellTypeCount() -> Int {
@@ -59,6 +62,14 @@ final class PlayerListViewModel: PlayerListViewModelProtocol {
     func getCellType(at index: Int) -> PlayerListCellType {
         return cellTypeList[index]
     }
+    
+    func getPlayer(at index: Int) -> Player? {
+            guard index < players.count else { return nil }
+            return players[index]
+        }
+        
+    func getPlayerCount() -> Int { players.count }
+    
 }
 
 

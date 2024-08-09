@@ -30,7 +30,8 @@ final class PlayerListViewController: BaseViewController {
        
         tableView.delegate = self
         tableView.dataSource = self
-        viewModel.fetchPlayers { result in
+        let selectedSport = SelectedSportManager.shared.selectedSport?.rawValue ?? ""
+        viewModel.fetchPlayers(sporType: selectedSport) { result in
                     switch result {
                     case .success(let players):
                         print("Oyuncular başarıyla getirildi: \(players)")
@@ -51,33 +52,33 @@ final class PlayerListViewController: BaseViewController {
 }
 
 extension PlayerListViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.getCellTypeCount()
-    }
+    func numberOfSections(in tableView: UITableView) -> Int {viewModel.getCellTypeCount()}
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let cellType = viewModel.getCellType(at: section)
-        switch cellType {
-        case .player:
-            return 2
-        case .addButton:
-            return 1
+            let cellType = viewModel.getCellType(at: section)
+            switch cellType {
+            case .player:
+                return viewModel.getPlayerCount()
+            case .addButton:
+                return 1
+            }
         }
-    }
    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellType = viewModel.getCellType(at: indexPath.section)
-        switch cellType {
-        case .player:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerListTableViewCell", for: indexPath) as? PlayerListTableViewCell else { return UITableViewCell() }
-            return cell
-        case .addButton:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "AddPlayerButtonTableViewCell", for: indexPath) as? AddPlayerButtonTableViewCell else { return UITableViewCell()}
-            cell.delegate = self
-            return cell
-        
+            let cellType = viewModel.getCellType(at: indexPath.section)
+            switch cellType {
+            case .player:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerListTableViewCell", for: indexPath) as? PlayerListTableViewCell else { return UITableViewCell() }
+                if let player = viewModel.getPlayer(at: indexPath.row) {
+                    cell.configure(with: player)
+                }
+                return cell
+            case .addButton:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "AddPlayerButtonTableViewCell", for: indexPath) as? AddPlayerButtonTableViewCell else { return UITableViewCell()}
+                cell.delegate = self
+                return cell
+            }
         }
-    }
     
     
 }

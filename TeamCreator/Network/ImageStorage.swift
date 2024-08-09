@@ -76,7 +76,7 @@ class ImageStorage: ImageStorageProtocol {
        }
     func downloadProfileImage(url: String, completion: @escaping (Result<UIImage, Error>) -> Void) {
         let storageRef = Storage.storage().reference(forURL: url)
-        storageRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+        storageRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
             if let error = error {
                 completion(.failure(error))
                 return

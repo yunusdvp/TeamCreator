@@ -15,6 +15,7 @@ enum PlayerFilter {
     case gender(String)
     case id(String)
     case sports(String)
+    case sporType(String)
 }
 
 protocol PlayerRepositoryProtocol {
@@ -37,61 +38,62 @@ final class PlayerRepository: PlayerRepositoryProtocol {
     private let imageStorage = ImageStorage()
 
     func fetchPlayers(withFilters filters: [PlayerFilter] = [], completion: @escaping (Result<[Player], Error>) -> Void) {
-        var query: Query = db.collection("players")
+            var query: Query = db.collection("players")
 
-        for filter in filters {
-            switch filter {
-            
-            case .sports(let sport):
-                query = query.whereField("sport", isEqualTo: sport)
-
-            case .minimumSkillRating(let rating):
-                query = query.whereField("skillRating", isGreaterThanOrEqualTo: rating)
-            case .ageRange(let min, let max):
-                query = query.whereField("age", isGreaterThanOrEqualTo: min).whereField("age", isLessThanOrEqualTo: max)
-            case .gender(let gender):
-                query = query.whereField("gender", isEqualTo: gender)
-            case .id(let id):
-                query = query.whereField("id", isEqualTo: id)
-            }
-        }
-
-        query.getDocuments { snapshot, error in
-            if let error = error {
-                completion(.failure(error))
-            } else {
-                let players = snapshot?.documents.compactMap { doc -> Player? in
-                    try? doc.data(as: Player.self)
-                } ?? []
-                completion(.success(players))
-            }
-        }
-    }
-
-    func addPlayer(player: Player, imageData: Data, completion: @escaping (Result<Void, Error>) -> Void) {
-        var player = player
-        player.id = UUID().uuidString
-
-        imageStorage.uploadProfileImage(imageData: imageData) { result in
-            switch result {
-            case .success(let url):
-                player.profilePhotoURL = url
-                do {
-                    let _ = try self.db.collection("players").document(player.id ?? "").setData(from: player) { error in
-                        if let error = error {
-                            completion(.failure(error))
-                        } else {
-                            completion(.success(()))
-                        }
-                    }
-                } catch {
-                    completion(.failure(error))
+            for filter in filters {
+                switch filter {
+                case .sports(let sport):
+                    query = query.whereField("sport", isEqualTo: sport)
+                case .minimumSkillRating(let rating):
+                    query = query.whereField("skillRating", isGreaterThanOrEqualTo: rating)
+                case .ageRange(let min, let max):
+                    query = query.whereField("age", isGreaterThanOrEqualTo: min).whereField("age", isLessThanOrEqualTo: max)
+                case .gender(let gender):
+                    query = query.whereField("gender", isEqualTo: gender)
+                case .id(let id):
+                    query = query.whereField("id", isEqualTo: id)
+                case .sporType(let sporType):
+                    query = query.whereField("sporType", isEqualTo: sporType)
                 }
-            case .failure(let error):
-                completion(.failure(error))
+            }
+
+            query.getDocuments { snapshot, error in
+                if let error = error {
+                    completion(.failure(error))
+                } else {
+                    let players = snapshot?.documents.compactMap { doc -> Player? in
+                        try? doc.data(as: Player.self)
+                    } ?? []
+                    completion(.success(players))
+                }
             }
         }
+
+func addPlayer(player: Player, imageData: Data, completion: @escaping (Result<Void, Error>) -> Void) {
+    var player = player
+    player.id = UUID().uuidString
+    
+    imageStorage.uploadProfileImage(imageData: imageData) { result in
+        switch result {
+        case .success(let url):
+            player.profilePhotoURL = url
+            do {
+                let _ = try self.db.collection("players").document(player.id ?? "").setData(from: player) { error in
+                    if let error = error {
+                        completion(.failure(error))
+                    } else {
+                        completion(.success(()))
+                    }
+                }
+            } catch {
+                completion(.failure(error))
+            }
+        case .failure(let error):
+            completion(.failure(error))
+        }
     }
+}
+    
 
     func removePlayer(playerId: String, completion: @escaping (Result<Void, Error>) -> Void) {
         db.collection("players").document(playerId).delete { error in
