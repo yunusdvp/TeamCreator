@@ -11,17 +11,19 @@ protocol EntryViewControllerProtocol: AnyObject {
     func navigateToSecond()
 }
 
-class EntryViewController: BaseViewController {
+final class EntryViewController: BaseViewController {
 
+    //MARK: - Outlets
+    @IBOutlet weak var entryCollectionView: UICollectionView!
+    @IBOutlet weak var titleLabel: UILabel!
+
+    //MARK: - Proporties
     var viewModel: EntryViewModelProtocol! {
         didSet {
             viewModel.delegate = self
         }
     }
-
-    @IBOutlet weak var entryCollectionView: UICollectionView!
-    @IBOutlet weak var titleLabel: UILabel!
-
+    //MARK: -Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel = EntryViewModel()
@@ -34,11 +36,11 @@ class EntryViewController: BaseViewController {
     private func prepareCollectionView() {
         entryCollectionView.dataSource = self
         entryCollectionView.delegate = self
-        entryCollectionView.register(UINib(nibName: "EntryCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "EntryCollectionViewCell")
+        entryCollectionView.register(cellType: EntryCollectionViewCell.self)
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 35, height: UIScreen.main.bounds.height / 5.25)
-        layout.minimumLineSpacing = 20
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.itemSize = LayoutConstants.itemSize
+        layout.minimumLineSpacing = LayoutConstants.minimumLineSpacing
+        layout.sectionInset = LayoutConstants.sectionInset
         entryCollectionView.setCollectionViewLayout(layout, animated: true)
     }
 }
@@ -51,22 +53,19 @@ extension EntryViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EntryCollectionViewCell", for: indexPath) as? EntryCollectionViewCell else {
-            return UICollectionViewCell()
-        }
+        guard let cell = collectionView.dequeueCell(with: EntryCollectionViewCell.self, for: indexPath)
+            else { return UICollectionViewCell() }
         let sport = viewModel.getSport(at: indexPath.row)
         cell.configure(with: sport)
         return cell
     }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.selectSport(at: indexPath.row)
-    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) { viewModel.selectSport(at: indexPath.row) }
 }
 
 //MARK: EntryViewControllerProtocol
 
 extension EntryViewController: EntryViewModelDelegate {
-    func reloadCollectionView() {
+    func reloadCollectionView() { 
         entryCollectionView.reloadData()
     }
 
@@ -76,10 +75,13 @@ extension EntryViewController: EntryViewModelDelegate {
             secondVC.viewModel = secondViewModel
         }
     }
-
-
-
-
-
 }
 
+//MARK: Layout Constants
+private extension EntryViewController{
+    enum LayoutConstants {
+        static let itemSize = CGSize(width: UIScreen.main.bounds.width - 35, height: UIScreen.main.bounds.height / 5.25)
+        static let minimumLineSpacing: CGFloat = 20
+        static let sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+}

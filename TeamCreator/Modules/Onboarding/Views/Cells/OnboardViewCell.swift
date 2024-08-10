@@ -23,7 +23,6 @@ class OnboardViewCell: UICollectionViewCell {
         subjectLabel.text = slide.description
         titleLabel.text = slide.title
         imageView.image = UIImage(named: slide.imageName)
-        
     }
     
 }
