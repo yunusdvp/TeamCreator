@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="97" id="KGk-i7-Jjw" customClass="PlayerOtherPropertyTableViewCell" customModule="TeamCreator" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="431" height="97"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="431" height="97"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Imn-lf-PjC">
+                        <rect key="frame" x="0.0" y="0.0" width="431" height="97"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zYI-JN-cNO">
+                                <rect key="frame" x="16" y="0.0" width="399" height="97"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="UiI-7y-swv">
+                                        <rect key="frame" x="0.0" y="0.0" width="194.66666666666666" height="97"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Age" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hNo-qM-omi">
+                                                <rect key="frame" x="0.0" y="0.0" width="194.66666666666666" height="48.666666666666664"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Please enter your age" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vuE-px-y2K">
+                                                <rect key="frame" x="0.0" y="48.666666666666657" width="194.66666666666666" height="48.333333333333343"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="upQ-YY-I71">
+                                        <rect key="frame" x="204.66666666666663" y="0.0" width="194.33333333333337" height="97"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Skill Point" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QWo-RT-xJ1">
+                                                <rect key="frame" x="0.0" y="0.0" width="194.33333333333334" height="48.666666666666664"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Skill point (1-100)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PsZ-Uq-GMq">
+                                                <rect key="frame" x="0.0" y="48.666666666666657" width="194.33333333333334" height="48.333333333333343"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="zYI-JN-cNO" secondAttribute="bottom" id="6jA-uj-5ZV"/>
+                            <constraint firstItem="zYI-JN-cNO" firstAttribute="top" secondItem="Imn-lf-PjC" secondAttribute="top" id="Oga-Le-TaL"/>
+                            <constraint firstAttribute="trailing" secondItem="zYI-JN-cNO" secondAttribute="trailing" constant="16" id="qIk-2t-B4N"/>
+                            <constraint firstItem="zYI-JN-cNO" firstAttribute="leading" secondItem="Imn-lf-PjC" secondAttribute="leading" constant="16" id="y6C-tp-jl3"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="Imn-lf-PjC" secondAttribute="trailing" id="9OD-78-Hn8"/>
+                    <constraint firstAttribute="bottom" secondItem="Imn-lf-PjC" secondAttribute="bottom" id="dti-4P-6ZA"/>
+                    <constraint firstItem="Imn-lf-PjC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="hpP-9I-tEE"/>
+                    <constraint firstItem="Imn-lf-PjC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="iJL-bL-cuF"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="ageLabel" destination="hNo-qM-omi" id="4pZ-kj-9In"/>
+                <outlet property="ageTextField" destination="vuE-px-y2K" id="pge-eY-S7T"/>
+                <outlet property="skillPointLabel" destination="QWo-RT-xJ1" id="KtK-W1-prl"/>
+                <outlet property="skillPointTextLabel" destination="PsZ-Uq-GMq" id="FgK-Nh-M05"/>
+            </connections>
+            <point key="canvasLocation" x="197.70992366412213" y="39.08450704225352"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

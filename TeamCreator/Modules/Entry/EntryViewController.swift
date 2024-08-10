@@ -12,23 +12,23 @@ protocol EntryViewControllerProtocol: AnyObject {
 }
 
 class EntryViewController: BaseViewController {
-    
+
     var viewModel: EntryViewModelProtocol! {
         didSet {
             viewModel.delegate = self
         }
     }
-    
+
     @IBOutlet weak var entryCollectionView: UICollectionView!
     @IBOutlet weak var titleLabel: UILabel!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel = EntryViewModel()
         prepareCollectionView()
         viewModel.fetchSports()
     }
-    
+
     //MARK: Private Functions
 
     private func prepareCollectionView() {
@@ -69,23 +69,11 @@ extension EntryViewController: EntryViewModelDelegate {
     func reloadCollectionView() {
         entryCollectionView.reloadData()
     }
-    
+
     func navigateToSecond() {
-        let storyboard = UIStoryboard(name: "SecondView", bundle: nil)
-        guard let secondVC = storyboard.instantiateViewController(withIdentifier: "SecondViewController") as? SecondViewController else { return }
-        
-        let secondViewModel = SecondViewModel(delegate: secondVC)
-        secondVC.viewModel = secondViewModel
-        
-        if let navigationController = self.navigationController {
-            navigationController.pushViewController(secondVC, animated: true)
-        } else {
-            let navigationController = UINavigationController(rootViewController: self)
-            view.window?.rootViewController = navigationController
-            view.window?.makeKeyAndVisible()
-            DispatchQueue.main.async {
-                navigationController.pushViewController(secondVC, animated: true)
-            }
+        navigateToViewController(storyboardName: "SecondView", viewControllerIdentifier: "SecondViewController") { (secondVC: SecondViewController) in
+            let secondViewModel = SecondViewModel(delegate: secondVC)
+            secondVC.viewModel = secondViewModel
         }
     }
 

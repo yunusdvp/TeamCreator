@@ -12,7 +12,7 @@ protocol MatchCreateViewControllerProtocol: AnyObject {
     func navigateToAnyWhere()
 }
 
-class MatchCreateViewController: UIViewController {
+class MatchCreateViewController: BaseViewController {
     
     @IBOutlet private weak var datePicker: UIDatePicker!
     @IBOutlet private weak var locationTextField: UITextField!
@@ -31,12 +31,22 @@ class MatchCreateViewController: UIViewController {
         prepareTableView()
         preparePickerView()
         viewModel.fetchLocations()
+        let selectedSport = SelectedSportManager.shared.selectedSport?.rawValue ?? ""
+        viewModel.fetchPlayers(sporType: selectedSport) { result in
+                    switch result {
+                    case .success(let players):
+                        print("Oyuncular başarıyla getirildi: \(players)")
+                        
+                    case .failure(let error):
+                        print("Oyuncular getirilirken hata oluştu: \(error.localizedDescription)")
+                    }
+                }
     }
     
     private func prepareTableView() {
         playerTableView.delegate = self
         playerTableView.dataSource = self
-        playerTableView.register(UINib(nibName: "PlayerTableViewCell", bundle: nil), forCellReuseIdentifier: "PlayerTableViewCell")
+        playerTableView.register(UINib(nibName: "PlayerListTableViewCell", bundle: nil), forCellReuseIdentifier: "PlayerListTableViewCell")
     }
     
     private func preparePickerView() {
@@ -60,21 +70,24 @@ class MatchCreateViewController: UIViewController {
 
 extension MatchCreateViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        viewModel.getNumberOfSections()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.getPlayersCount()
-    }
+        viewModel.getPlayersCount(for: section)}
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       // guard let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerTableViewCell", for: indexPath) as? PlayerTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerListTableViewCell", for: indexPath) as? PlayerListTableViewCell else {
             return UITableViewCell()
         }
-        //let player = viewModel.getPlayer(at: indexPath.row)
-        //cell.configure(with: player)
-        //return cell
+        let player = viewModel.getPlayer(at: indexPath.row)
+        cell.configure(with: player)
+        return cell
     }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        viewModel.getSectionTitle(for: section)
+    }
+}
 
 extension MatchCreateViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

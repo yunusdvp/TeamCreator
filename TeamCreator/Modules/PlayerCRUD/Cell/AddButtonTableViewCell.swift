@@ -8,15 +8,45 @@
 import UIKit
 
 class AddButtonTableViewCell: UITableViewCell {
-    @IBOutlet weak var playerAddButton: UIButton!
+    // MARK: - Properties
+    @IBOutlet private weak var playerAddButton: UIButton!
+    
     var onAddButtonTapped: (() -> Void)?
+    
+    // MARK: - Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
         
     }
-
     @IBAction func playerAddButtonClicked(_ sender: UIButton) {
-        onAddButtonTapped?()
+        if let viewController = self.findViewController() as? PlayerCRUDViewController {
+            if !viewController.validateForm() {
+                let alert = UIAlertController(title: "Missing Field", message: "Please make sure you have filled in all fields.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                viewController.present(alert, animated: true, completion: nil)
+                return
+            }
+            
+            onAddButtonTapped?()
+            viewController.addPlayer { success in
+                if success {
+                    viewController.navigateToPlayerList()
+                } else {
+                }
+            }
+        }
     }
-    
+}
+
+extension UIView {
+    func findViewController() -> UIViewController? {
+        var nextResponder: UIResponder? = self
+        while nextResponder != nil {
+            if let viewController = nextResponder as? UIViewController {
+                return viewController
+            }
+            nextResponder = nextResponder?.next
+        }
+        return nil
+    }
 }

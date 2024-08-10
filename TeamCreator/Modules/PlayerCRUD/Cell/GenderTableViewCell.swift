@@ -6,15 +6,20 @@
 //
 
 import UIKit
+
+// MARK: - GenderTableViewCellDelegate
 protocol GenderTableViewCellDelegate: AnyObject {
     func didChangeGender(to gender: String)
 }
 
 class GenderTableViewCell: UITableViewCell {
-    var onGenderSelected: ((String) -> Void)?
-    @IBOutlet weak var genderSegmentedControl: UISegmentedControl!
-    @IBOutlet weak var genderLabel: UILabel!
+    // MARK: - Properties
+    @IBOutlet private weak var genderSegmentedControl: UISegmentedControl!
+    @IBOutlet private weak var genderLabel: UILabel!
     
+    var onGenderSelected: ((String) -> Void)?
+    
+    // MARK: - Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
         genderSegmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged), for: .valueChanged)

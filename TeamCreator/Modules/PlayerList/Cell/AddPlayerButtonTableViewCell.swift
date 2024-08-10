@@ -7,7 +7,12 @@
 
 import UIKit
 
+protocol AddPlayerButtonTableViewCellDelegate : AnyObject {
+    func didTapButton()
+}
 class AddPlayerButtonTableViewCell: UITableViewCell {
+    
+    weak var delegate: (AddPlayerButtonTableViewCellDelegate)?
 
     @IBOutlet private weak var addPlayerButton: UIButton!
     
@@ -17,7 +22,8 @@ class AddPlayerButtonTableViewCell: UITableViewCell {
     }
 
     @IBAction func addPlayerButtonClicked(_ sender: UIButton) {
-        print("Buton tiklandi")
+        delegate?.didTapButton()
     }
     
 }
+

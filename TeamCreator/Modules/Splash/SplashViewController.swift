@@ -46,7 +46,7 @@ extension SplashViewController: SplashViewControllerProtocol {
         let onboardViewModel = OnboardViewModel()
         onboardVC.viewModel = onboardViewModel
         
-        window.rootViewController = onboardVC
-        window.makeKeyAndVisible()
+        window.setRootViewController(onboardVC)
     }
+
 }

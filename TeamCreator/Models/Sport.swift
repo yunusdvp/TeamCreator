@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Sport {
+struct Sport: Codable {
     let name: String?
     let backgroundImage: String?
     let type: SelectedSport?

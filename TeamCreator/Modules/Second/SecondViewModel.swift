@@ -19,6 +19,7 @@ protocol SecondViewModelProtocol: AnyObject {
 protocol SecondViewModelDelegate: AnyObject {
     func reloadCollectionView()
     func navigateToMatchCreate()
+    func navigateToPlayerList()
 }
 
 final class SecondViewModel: SecondViewModelProtocol {
@@ -46,9 +47,15 @@ final class SecondViewModel: SecondViewModelProtocol {
         return matches[index]
     }
     func selectMatch(at index: Int) {
-        if index == 1 {
-            delegate?.navigateToMatchCreate()
+        switch index{
+            case 0:
+                delegate?.navigateToPlayerList()
+            case 1:
+                delegate?.navigateToMatchCreate()
+            default:
+                break
         }
+    
     }
     
 }

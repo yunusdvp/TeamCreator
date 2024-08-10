@@ -59,7 +59,7 @@ class OnboardViewController: BaseViewController {
         guard let entryVC = storyboard.instantiateViewController(withIdentifier: "EntryViewController") as? EntryViewController else { return }
         
         let navigationController = UINavigationController(rootViewController: entryVC)
-        window.rootViewController = navigationController
+        window.setRootViewController(navigationController)
         window.makeKeyAndVisible()
     }
 

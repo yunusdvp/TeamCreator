@@ -10,6 +10,7 @@ import UIKit
 protocol SecondViewControllerProtocol: AnyObject {
     func reloadCollectionView()
     func navigateToMatchCreate()
+    func navigateToPlayerList()
 }
 
 class SecondViewController: BaseViewController {
@@ -33,7 +34,7 @@ class SecondViewController: BaseViewController {
         secondCollectionView.register(UINib(nibName: "SecondCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "SecondCollectionViewCell")
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 35, height: UIScreen.main.bounds.height / 5)
-        layout.minimumLineSpacing = 20
+        layout.minimumLineSpacing =  Constants.layoutMinimumSpacing
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         secondCollectionView.setCollectionViewLayout(layout, animated: true)
     }
@@ -42,9 +43,8 @@ class SecondViewController: BaseViewController {
 //MARK: UICollectionViewDelegate and UICollectionViewDataSource Functions
 
 extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.getMatchesCount()
-    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { viewModel.getMatchesCount()}
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueCell(with: SecondCollectionViewCell.self, for: indexPath)
         let match = viewModel.getMatch(at: indexPath.item)
@@ -59,27 +59,28 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
 //MARK: SecondViewControllerProtocol
 
 extension SecondViewController: SecondViewModelDelegate {
+    
     func reloadCollectionView() {
         secondCollectionView.reloadData()
     }
     
     func navigateToMatchCreate() {
-        let storyboard = UIStoryboard(name: "MatchCreateViewController", bundle: nil)
-        guard let matchCreateVC = storyboard.instantiateViewController(withIdentifier: "MatchCreateViewController") as? MatchCreateViewController else { return }
-        
-        let matchCreateViewModel = MatchCreateViewModel()
-        matchCreateVC.viewModel = matchCreateViewModel
-        
-        if let navigationController = self.navigationController {
-            navigationController.pushViewController(matchCreateVC, animated: true)
-        } else {
-            let navigationController = UINavigationController(rootViewController: self)
-            view.window?.rootViewController = navigationController
-            view.window?.makeKeyAndVisible()
-            DispatchQueue.main.async {
-                navigationController.pushViewController(matchCreateVC, animated: true)
-            }
+        navigateToViewController(storyboardName: "MatchCreateViewController", viewControllerIdentifier: "MatchCreateViewController") { (matchCreateVc: MatchCreateViewController) in
+            let matchCreateViewModel = MatchCreateViewModel()
+            matchCreateVc.viewModel = matchCreateViewModel
+        }
+    }
+    
+    func navigateToPlayerList() {
+        navigateToViewController(storyboardName: "PlayerListViewController", viewControllerIdentifier: "PlayerListViewController") { (playerListVC: PlayerListViewController) in
+            let playerListViewModel = PlayerListViewModel()
+            playerListVC.viewModel = playerListViewModel
         }
         
+    }
+}
+private extension SecondViewController{
+    enum Constants{
+        static let layoutMinimumSpacing: CGFloat = 20
     }
 }
