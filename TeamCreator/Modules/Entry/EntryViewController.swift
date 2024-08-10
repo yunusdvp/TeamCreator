@@ -79,6 +79,9 @@ extension EntryViewController: EntryViewModelDelegate {
 
 //MARK: Layout Constants
 private extension EntryViewController{
-    
+    enum LayoutConstants {
+        static let itemSize = CGSize(width: UIScreen.main.bounds.width - 35, height: UIScreen.main.bounds.height / 5.25)
+        static let minimumLineSpacing: CGFloat = 20
+        static let sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
 }
-≈
