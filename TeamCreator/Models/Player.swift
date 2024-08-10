@@ -17,3 +17,8 @@ struct Player: Codable {
     var gender: String?
     var profilePhotoURL: String?
 }
+
+struct PlayerScore {
+    let player: Player
+    let score: Double
+}
