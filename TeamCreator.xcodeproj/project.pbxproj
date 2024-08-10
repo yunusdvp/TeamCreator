@@ -87,6 +87,7 @@
 		54CEF5D12C637066009687DF /* AddButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54CEF5D02C637066009687DF /* AddButtonTableViewCell.xib */; };
 		54CEF5D22C637066009687DF /* AddButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CEF5CF2C637066009687DF /* AddButtonTableViewCell.swift */; };
 		54CEF5D42C638B9C009687DF /* PlayerCRUDViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CEF5D32C638B9C009687DF /* PlayerCRUDViewModel.swift */; };
+		C425901F2C66CE9C0032F152 /* TurkeySportsFacilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C425901E2C66CE9C0032F152 /* TurkeySportsFacilities.swift */; };
 		C42C28682C5A3D2600E6586E /* SecondCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C28622C5A3D2600E6586E /* SecondCollectionViewCell.swift */; };
 		C42C28692C5A3D2600E6586E /* SecondCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C42C28632C5A3D2600E6586E /* SecondCollectionViewCell.xib */; };
 		C42C286A2C5A3D2600E6586E /* SecondView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42C28662C5A3D2600E6586E /* SecondView.storyboard */; };
@@ -193,6 +194,7 @@
 		54CEF5CF2C637066009687DF /* AddButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButtonTableViewCell.swift; sourceTree = "<group>"; };
 		54CEF5D02C637066009687DF /* AddButtonTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddButtonTableViewCell.xib; sourceTree = "<group>"; };
 		54CEF5D32C638B9C009687DF /* PlayerCRUDViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCRUDViewModel.swift; sourceTree = "<group>"; };
+		C425901E2C66CE9C0032F152 /* TurkeySportsFacilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurkeySportsFacilities.swift; sourceTree = "<group>"; };
 		C42C28622C5A3D2600E6586E /* SecondCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondCollectionViewCell.swift; sourceTree = "<group>"; };
 		C42C28632C5A3D2600E6586E /* SecondCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondCollectionViewCell.xib; sourceTree = "<group>"; };
 		C42C28662C5A3D2600E6586E /* SecondView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SecondView.storyboard; sourceTree = "<group>"; };
@@ -419,6 +421,7 @@
 				463101732C621562005C569E /* IndoorSportsHall.swift */,
 				463101752C621581005C569E /* Coordinates.swift */,
 				463101772C6217DF005C569E /* SportsFacilities.swift */,
+				C425901E2C66CE9C0032F152 /* TurkeySportsFacilities.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -787,6 +790,7 @@
 				463101742C621562005C569E /* IndoorSportsHall.swift in Sources */,
 				54CEF5CE2C636FBC009687DF /* PozitionTableViewCell.swift in Sources */,
 				54A3D5DF2C58391100AD457C /* UIView.swift in Sources */,
+				C425901F2C66CE9C0032F152 /* TurkeySportsFacilities.swift in Sources */,
 				464606E92C53FF0B0032DC89 /* TeamCreator.xcdatamodeld in Sources */,
 				54A3D5E12C5839DD00AD457C /* OnboardViewModel.swift in Sources */,
 				462F565A2C58244500081988 /* Reachibility.swift in Sources */,
