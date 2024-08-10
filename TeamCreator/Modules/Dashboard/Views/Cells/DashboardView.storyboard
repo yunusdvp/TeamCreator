@@ -8,16 +8,22 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Second View Controller-->
+        <!--Dashboard View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController storyboardIdentifier="SecondViewController" id="Y6W-OH-hqX" customClass="SecondViewController" customModule="TeamCreator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DashboardViewController" id="Y6W-OH-hqX" customClass="DashboardViewController" customModule="TeamCreator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose Your Action!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HZm-c0-Ag1">
+                                <rect key="frame" x="16" y="79" width="361" height="37"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fQh-Kt-Fv7">
-                                <rect key="frame" x="8" y="67" width="377" height="743"/>
+                                <rect key="frame" x="8" y="159" width="377" height="659"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="837-Sq-l4M">
                                     <size key="itemSize" width="128" height="128"/>
@@ -32,14 +38,18 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="fQh-Kt-Fv7" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="8" id="1KU-K1-3lU"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="fQh-Kt-Fv7" secondAttribute="bottom" constant="8" id="Imx-5D-5ex"/>
-                            <constraint firstItem="fQh-Kt-Fv7" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="8" id="X4u-YF-DWg"/>
+                            <constraint firstItem="fQh-Kt-Fv7" firstAttribute="top" secondItem="HZm-c0-Ag1" secondAttribute="bottom" constant="43" id="5FB-ym-GWq"/>
+                            <constraint firstItem="HZm-c0-Ag1" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="Gbh-pg-YxX"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="fQh-Kt-Fv7" secondAttribute="bottom" id="Imx-5D-5ex"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="HZm-c0-Ag1" secondAttribute="trailing" constant="16" id="VBl-pi-BY1"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="fQh-Kt-Fv7" secondAttribute="trailing" constant="8" id="juJ-4N-4nk"/>
+                            <constraint firstItem="HZm-c0-Ag1" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="rsy-uY-n0I"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="KAY-a9-PTY"/>
                     <connections>
                         <outlet property="secondCollectionView" destination="fQh-Kt-Fv7" id="LXP-rY-hYz"/>
+                        <outlet property="titleLabel" destination="HZm-c0-Ag1" id="4yk-bU-XpI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
