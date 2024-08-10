@@ -37,6 +37,8 @@
 		464607562C57A32E0032DC89 /* EntryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 464607542C57A32E0032DC89 /* EntryCollectionViewCell.xib */; };
 		464607582C57A3510032DC89 /* EntryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464607572C57A3510032DC89 /* EntryViewModel.swift */; };
 		4646075B2C57AB250032DC89 /* Sport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4646075A2C57AB250032DC89 /* Sport.swift */; };
+		466D3F762C675884002303F7 /* TeamBalancingCriteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466D3F752C675884002303F7 /* TeamBalancingCriteria.swift */; };
+		466D3F782C675976002303F7 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466D3F772C675976002303F7 /* Team.swift */; };
 		468C7BBD2C5A24CF0006AD51 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 468C7BBC2C5A24CF0006AD51 /* GoogleService-Info.plist */; };
 		468C7BC02C5A25BA0006AD51 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 468C7BBF2C5A25BA0006AD51 /* FirebaseFirestore */; };
 		468C7BC22C5A25BA0006AD51 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 468C7BC12C5A25BA0006AD51 /* FirebaseStorage */; };
@@ -153,6 +155,8 @@
 		464607542C57A32E0032DC89 /* EntryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EntryCollectionViewCell.xib; sourceTree = "<group>"; };
 		464607572C57A3510032DC89 /* EntryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryViewModel.swift; sourceTree = "<group>"; };
 		4646075A2C57AB250032DC89 /* Sport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sport.swift; sourceTree = "<group>"; };
+		466D3F752C675884002303F7 /* TeamBalancingCriteria.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamBalancingCriteria.swift; sourceTree = "<group>"; };
+		466D3F772C675976002303F7 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		468C7BBC2C5A24CF0006AD51 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		46AE958A2C60C1A600BE923A /* SelectedSport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedSport.swift; sourceTree = "<group>"; };
 		46AE958F2C610E0600BE923A /* GeminiApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiApiService.swift; sourceTree = "<group>"; };
@@ -432,6 +436,8 @@
 				463101732C621562005C569E /* IndoorSportsHall.swift */,
 				463101752C621581005C569E /* Coordinates.swift */,
 				463101772C6217DF005C569E /* SportsFacilities.swift */,
+				466D3F752C675884002303F7 /* TeamBalancingCriteria.swift */,
+				466D3F772C675976002303F7 /* Team.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -771,6 +777,7 @@
 				46AE95992C6151D500BE923A /* WeatherResponse.swift in Sources */,
 				545D3C5A2C5D726D00EAB40D /* PlayerListTableViewCell.swift in Sources */,
 				464607502C57A2E70032DC89 /* EntryViewController.swift in Sources */,
+				466D3F782C675976002303F7 /* Team.swift in Sources */,
 				54CEF5CA2C636F1E009687DF /* GenderTableViewCell.swift in Sources */,
 				464606DF2C53FF0B0032DC89 /* AppDelegate.swift in Sources */,
 				54CEF5D42C638B9C009687DF /* PlayerCRUDViewModel.swift in Sources */,
@@ -816,6 +823,7 @@
 				462F565A2C58244500081988 /* Reachibility.swift in Sources */,
 				46E1713C2C5BB72B003D9C74 /* Match.swift in Sources */,
 				545D3C672C5D7BCD00EAB40D /* PlayerListViewController.swift in Sources */,
+				466D3F762C675884002303F7 /* TeamBalancingCriteria.swift in Sources */,
 				4646075B2C57AB250032DC89 /* Sport.swift in Sources */,
 				464607552C57A32E0032DC89 /* EntryCollectionViewCell.swift in Sources */,
 				46E1713A2C5BB6D2003D9C74 /* MatchRepository.swift in Sources */,
