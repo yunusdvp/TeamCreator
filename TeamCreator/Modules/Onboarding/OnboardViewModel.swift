@@ -6,6 +6,7 @@
 //
 import Foundation
 
+// MARK: - OnboardViewModelProtocol
 protocol OnboardViewModelProtocol: AnyObject {
     var updateUI: ((OnboardViewState) -> Void)? { get set }
     
@@ -18,6 +19,7 @@ protocol OnboardViewModelProtocol: AnyObject {
     func isLastPage() -> Bool
 }
 
+// MARK: - OnboardViewState Enum
 enum OnboardViewState {
     case updateSlides
     case navigateToEntry
@@ -35,12 +37,13 @@ final class OnboardViewModel: OnboardViewModelProtocol {
             updateUI?(.updateSlides)
         }
     }
-    
+    // MARK: - Lifecycle Methods
     func viewDidLoad() {
         loadSlidesFromJSON()
         checkInternetConnection()
     }
-    
+
+    // MARK: - Public Methods
     func getNumberOfSlides() -> Int {
         return slides.count
     }
@@ -69,6 +72,7 @@ final class OnboardViewModel: OnboardViewModelProtocol {
         return currentPage == slides.count - 1
     }
     
+    // MARK: - Private Methods
     private func checkInternetConnection() {
         let internetStatus = API.shared.isConnectoInternet()
         if internetStatus {

@@ -89,14 +89,61 @@ final class MatchCreateViewModel: MatchCreateViewModelProtocol {
 
         return skillScore + ageScore + positionScore + genderScore
     }
-
+    
     func calculateTeamScore(for team: Team) -> Double {
         guard let criteria = criteria else {
             print("Criteria tanımlı değil")
             return 0
         }
-        return team.players.reduce(0) { $0 + calculatePlayerScore(player: $1, criteria: criteria) }
+
+        // Takımda pozisyon dengesizliğini kontrol et
+        let idealPositions = getIdealPositions(for: selectedSport)
+        let positionCounts = getPositionCounts(for: team)
+
+        var totalScore = 0.0
+        for player in team.players {
+            var playerScore = calculatePlayerScore(player: player, criteria: criteria)
+            let position = player.position?.lowercased()
+
+            if let requiredCount = idealPositions[position ?? ""] {
+                let currentCount = positionCounts[position ?? ""] ?? 0
+                
+                // Pozisyon dengesizliği varsa, puanı düşür
+                if currentCount > requiredCount {
+                    playerScore *= 0.5 // Fazla oyuncu varsa, puanı yarıya düşürüyoruz
+                } else if currentCount < requiredCount {
+                    playerScore *= 0.67 // Eksik oyuncu varsa, puanı 2/3'e düşürüyoruz
+                }
+            }
+
+            totalScore += playerScore
+        }
+
+        return totalScore
     }
+
+    func getIdealPositions(for sport: SelectedSport?) -> [String: Int] {
+        switch sport {
+        case .football:
+            return ["goalkeeper": 1, "stopper": 2, "forward": 2]
+        case .volleyball:
+            return ["setter": 1, "outside hitter": 2, "libero": 1]
+        case .basketball:
+            return ["point guard": 1, "shooting guard": 1, "center": 1]
+        default:
+            return [:]
+        }
+    }
+
+    func getPositionCounts(for team: Team) -> [String: Int] {
+        var positionCounts: [String: Int] = [:]
+        for player in team.players {
+            let position = player.position?.lowercased() ?? ""
+            positionCounts[position, default: 0] += 1
+        }
+        return positionCounts
+    }
+
 
     func calculateAgeScore(age: Int?, sportName: String?) -> Double {
         guard let age = age, let sportName = sportName else { return 0.0 }
@@ -172,37 +219,43 @@ final class MatchCreateViewModel: MatchCreateViewModelProtocol {
 
     func createBalancedTeams(from players: [Player], sportName: String) -> (teamA: Team, teamB: Team)? {
         guard players.count >= 2 else {
-            return nil
+            return nil // Yeterli oyuncu yoksa
         }
 
-        let criteria: TeamBalancingCriteria
-        switch sportName.lowercased() {
-        case "football":
-            criteria = footballCriteria
-        case "volleyball":
-            criteria = volleyballCriteria
-        case "basketball":
-            criteria = basketballCriteria
-        default:
-            return nil
-        }
-
-        let scoredPlayers = players.map { PlayerScore(player: $0, score: calculatePlayerScore(player: $0, criteria: criteria)) }
-        let sortedPlayers = scoredPlayers.sorted { $0.score > $1.score }
+        // Spor türüne göre kriterleri ayarla
+        setSportCriteria(for: sportName)
+        
+        // Oyuncuları pozisyonlarına göre gruplandır
+        let groupedByPosition = Dictionary(grouping: players) { $0.position?.lowercased() ?? "" }
 
         var teamA = Team(players: [])
         var teamB = Team(players: [])
 
-        for playerScore in sortedPlayers {
-            if teamA.totalSkillRating <= teamB.totalSkillRating {
-                teamA.players.append(playerScore.player)
-            } else {
-                teamB.players.append(playerScore.player)
+        // Pozisyon gruplarını sırayla her iki takıma dağıt
+        for (position, playersInPosition) in groupedByPosition {
+            // Puanlarına göre sırala
+            let sortedPlayers = playersInPosition.sorted { calculatePlayerScore(player: $0, criteria: criteria!) > calculatePlayerScore(player: $1, criteria: criteria!) }
+
+            for (index, player) in sortedPlayers.enumerated() {
+                if index % 2 == 0 {
+                    teamA.players.append(player)
+                } else {
+                    teamB.players.append(player)
+                }
             }
         }
 
+        // Takımların toplam puanlarını hesapla
+        let teamAScore = calculateTeamScore(for: teamA)
+        let teamBScore = calculateTeamScore(for: teamB)
+
+        print("Team A Total Score: \(teamAScore)")
+        print("Team B Total Score: \(teamBScore)")
+
         return (teamA, teamB)
     }
+
+
 
 
 

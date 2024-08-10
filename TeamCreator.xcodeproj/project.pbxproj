@@ -39,6 +39,7 @@
 		4646075B2C57AB250032DC89 /* Sport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4646075A2C57AB250032DC89 /* Sport.swift */; };
 		466D3F762C675884002303F7 /* TeamBalancingCriteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466D3F752C675884002303F7 /* TeamBalancingCriteria.swift */; };
 		466D3F782C675976002303F7 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466D3F772C675976002303F7 /* Team.swift */; };
+		466D3F7B2C680B87002303F7 /* EntryViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 466D3F7A2C680B87002303F7 /* EntryViewController.storyboard */; };
 		468C7BBD2C5A24CF0006AD51 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 468C7BBC2C5A24CF0006AD51 /* GoogleService-Info.plist */; };
 		468C7BC02C5A25BA0006AD51 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 468C7BBF2C5A25BA0006AD51 /* FirebaseFirestore */; };
 		468C7BC22C5A25BA0006AD51 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 468C7BC12C5A25BA0006AD51 /* FirebaseStorage */; };
@@ -158,6 +159,7 @@
 		4646075A2C57AB250032DC89 /* Sport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sport.swift; sourceTree = "<group>"; };
 		466D3F752C675884002303F7 /* TeamBalancingCriteria.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamBalancingCriteria.swift; sourceTree = "<group>"; };
 		466D3F772C675976002303F7 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
+		466D3F7A2C680B87002303F7 /* EntryViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EntryViewController.storyboard; sourceTree = "<group>"; };
 		468C7BBC2C5A24CF0006AD51 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		46AE958A2C60C1A600BE923A /* SelectedSport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedSport.swift; sourceTree = "<group>"; };
 		46AE958F2C610E0600BE923A /* GeminiApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiApiService.swift; sourceTree = "<group>"; };
@@ -209,7 +211,7 @@
 		54CEF5DE2C63FB4B009687DF /* PlayerOtherPropertyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerOtherPropertyTableViewCell.xib; sourceTree = "<group>"; };
 		54CEF5E12C641DE2009687DF /* positions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = positions.json; sourceTree = "<group>"; };
 		54CEF5E52C65029E009687DF /* NoPasteTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPasteTextField.swift; sourceTree = "<group>"; };
-		C42590222C675EC90032F152 /* TurkeySportsFacilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TurkeySportsFacilities.swift; path = ../../../../Desktop/TurkeySportsFacilities.swift; sourceTree = "<group>"; };
+		C42590222C675EC90032F152 /* TurkeySportsFacilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurkeySportsFacilities.swift; sourceTree = "<group>"; };
 		C42C28622C5A3D2600E6586E /* SecondCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondCollectionViewCell.swift; sourceTree = "<group>"; };
 		C42C28632C5A3D2600E6586E /* SecondCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondCollectionViewCell.xib; sourceTree = "<group>"; };
 		C42C28662C5A3D2600E6586E /* SecondView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SecondView.storyboard; sourceTree = "<group>"; };
@@ -413,6 +415,7 @@
 			isa = PBXGroup;
 			children = (
 				464607522C57A2FA0032DC89 /* Cells */,
+				466D3F7A2C680B87002303F7 /* EntryViewController.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -614,6 +617,7 @@
 				464606D72C53FF0B0032DC89 /* Sources */,
 				464606D82C53FF0B0032DC89 /* Frameworks */,
 				464606D92C53FF0B0032DC89 /* Resources */,
+				466D3F792C68078C002303F7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -723,6 +727,7 @@
 			files = (
 				54CEF5D12C637066009687DF /* AddButtonTableViewCell.xib in Resources */,
 				C42C28692C5A3D2600E6586E /* SecondCollectionViewCell.xib in Resources */,
+				466D3F7B2C680B87002303F7 /* EntryViewController.storyboard in Resources */,
 				54CEF5C52C636CC9009687DF /* PlayerNameTableViewCell.xib in Resources */,
 				464606EB2C53FF0D0032DC89 /* Assets.xcassets in Resources */,
 				54CEF5BC2C636A37009687DF /* PlayerCRUDViewController.storyboard in Resources */,
@@ -764,6 +769,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		466D3F792C68078C002303F7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/**/*.swift",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]\nthen\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif command -v swiftlint >/dev/null 2>&1\nthen\n    swiftlint\nelse\n    echo \"warning: `swiftlint` command not found - See https://github.com/realm/SwiftLint#installation for installation instructions.\"\nfi\n\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		464606D72C53FF0B0032DC89 /* Sources */ = {
