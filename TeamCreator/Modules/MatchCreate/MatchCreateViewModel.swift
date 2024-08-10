@@ -95,8 +95,6 @@ final class MatchCreateViewModel: MatchCreateViewModelProtocol {
             print("Criteria tanımlı değil")
             return 0
         }
-
-        // Takımda pozisyon dengesizliğini kontrol et
         let idealPositions = getIdealPositions(for: selectedSport)
         let positionCounts = getPositionCounts(for: team)
 
@@ -108,7 +106,6 @@ final class MatchCreateViewModel: MatchCreateViewModelProtocol {
             if let requiredCount = idealPositions[position ?? ""] {
                 let currentCount = positionCounts[position ?? ""] ?? 0
                 
-                // Pozisyon dengesizliği varsa, puanı düşür
                 if currentCount > requiredCount {
                     playerScore *= 0.5 // Fazla oyuncu varsa, puanı yarıya düşürüyoruz
                 } else if currentCount < requiredCount {

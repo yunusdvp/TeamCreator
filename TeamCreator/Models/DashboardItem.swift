@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Matches {
+struct DashboardItem {
     let category: String?
-    let backgroundImage: String?
+    var backgroundImage: String?
 }
+

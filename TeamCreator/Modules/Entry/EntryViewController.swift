@@ -70,15 +70,15 @@ extension EntryViewController: EntryViewModelDelegate {
     }
 
     func navigateToSecond() {
-        navigateToViewController(storyboardName: "SecondView", viewControllerIdentifier: "SecondViewController") { (secondVC: SecondViewController) in
-            let secondViewModel = SecondViewModel(delegate: secondVC)
+        navigateToViewController(storyboardName: "DashboardView", viewControllerIdentifier: "DashboardViewController") { (secondVC: DashboardViewController) in
+            let secondViewModel = DashboardViewModel(delegate: secondVC)
             secondVC.viewModel = secondViewModel
         }
     }
 }
 
 //MARK: Layout Constants
-private extension EntryViewController{
+private extension EntryViewController {
     enum LayoutConstants {
         static let itemSize = CGSize(width: UIScreen.main.bounds.width - 35, height: UIScreen.main.bounds.height / 5.25)
         static let minimumLineSpacing: CGFloat = 20
