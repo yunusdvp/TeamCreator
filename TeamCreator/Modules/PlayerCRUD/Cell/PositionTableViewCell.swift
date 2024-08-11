@@ -10,7 +10,7 @@ protocol PositionTableViewCellDelegate: AnyObject {
 class PositionTableViewCell: UITableViewCell, UITextFieldDelegate {
     // MARK: - Properties
     @IBOutlet private weak var pozitionLabel: UILabel!
-    @IBOutlet private weak var pozitionNameTextField: UITextField!
+    @IBOutlet weak var pozitionNameTextField: UITextField!
     
     private var pickerView: UIPickerView!
     private var toolbar: UIToolbar!
