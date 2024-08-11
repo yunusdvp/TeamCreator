@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Player List View Controller-->
+        <!--Player List-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
                 <viewController storyboardIdentifier="PlayerListViewController" id="Y6W-OH-hqX" customClass="PlayerListViewController" customModule="TeamCreator" customModuleProvider="target" sceneMemberID="viewController">
@@ -34,13 +34,14 @@
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="0CY-vN-tqi" secondAttribute="bottom" id="cQc-eS-6YB"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Player List" id="v1V-Zy-TKv"/>
                     <connections>
                         <outlet property="tableView" destination="0CY-vN-tqi" id="Wsg-CK-HlD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="47" y="-2"/>
+            <point key="canvasLocation" x="973.28244274809151" y="-2.1126760563380285"/>
         </scene>
     </scenes>
     <resources>
