@@ -41,6 +41,22 @@ final class PlayerListViewController: BaseViewController {
                 print("Error fetching players: \(error.localizedDescription)")
             }
         }
+        
+        //        navigationItem.title = "Player List"
+        //
+        //           // Navigation bar arka plan rengini ve başlık rengini ayarlama
+        //           let appearance = UINavigationBarAppearance()
+        //           appearance.backgroundColor = UIColor(red: 36/255, green: 68/255, blue: 118/255, alpha: 1.0)
+        //           appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        //           
+        //           // Tint rengini beyaz yapma (back button ve diğer butonlar)
+        //           appearance.buttonAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        //           UINavigationBar.appearance().tintColor = UIColor.white
+        //
+        //           // Apply appearance to navigation bar
+        //           navigationController?.navigationBar.standardAppearance = appearance
+        //           navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        
     }
     
     
@@ -110,12 +126,27 @@ extension PlayerListViewController: UITableViewDelegate, UITableViewDataSource {
             present(alertController, animated: true, completion: nil)
         }
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            let cellType = viewModel.getCellType(at: indexPath.section)
-            if cellType == .player, let player = viewModel.getPlayer(at: indexPath.row) {
-                navigateToPlayerCRUD(with: player)
-            }
+        let cellType = viewModel.getCellType(at: indexPath.section)
+        if cellType == .player, let player = viewModel.getPlayer(at: indexPath.row) {
+            navigateToPlayerCRUD(with: player)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return indexPath.section == 0 ? 100 : UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footerView = UIView()
+        footerView.backgroundColor = .clear
+        return footerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 20 // Sectionlar arası boşluk
+    }
 }
 
 extension PlayerListViewController: PlayerListViewControllerProtocol {
@@ -125,19 +156,19 @@ extension PlayerListViewController: PlayerListViewControllerProtocol {
             playerCRUDVC.viewModel = playerCRUDViewModel
         }
     }
-
+    
     
     func reloadTableView() {
         tableView.reloadData()
     }
     
     func navigateToPlayerCRUD(with player: Player) {
-            navigateToViewController(storyboardName: "PlayerCRUDViewController", viewControllerIdentifier: "PlayerCRUDViewController") { (playerCRUDVC: PlayerCRUDViewController) in
-                let playerCRUDViewModel = PlayerCRUDViewModel()
-                playerCRUDViewModel.player = player
-                playerCRUDVC.viewModel = playerCRUDViewModel
-            }
+        navigateToViewController(storyboardName: "PlayerCRUDViewController", viewControllerIdentifier: "PlayerCRUDViewController") { (playerCRUDVC: PlayerCRUDViewController) in
+            let playerCRUDViewModel = PlayerCRUDViewModel()
+            playerCRUDViewModel.player = player
+            playerCRUDVC.viewModel = playerCRUDViewModel
         }
+    }
 }
 extension PlayerListViewController: AddPlayerButtonTableViewCellDelegate {
     func didTapButton() {

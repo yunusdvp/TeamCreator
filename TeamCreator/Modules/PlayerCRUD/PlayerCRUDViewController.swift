@@ -27,7 +27,7 @@ final class PlayerCRUDViewController: BaseViewController {
         super.viewDidLoad()
         viewModel = PlayerCRUDViewModel()
         viewModel?.delegate = self
-        print(SelectedSportManager.shared.selectedSport as Any)
+        
         registerCells()
 
         tableView.delegate = self
@@ -35,8 +35,6 @@ final class PlayerCRUDViewController: BaseViewController {
         
         imagePicker.delegate = self
         setupTapGesture()
-      //  print(SelectedSportManager.shared.selectedSport)
-
     }
 
     // MARK: - Setup Methods
@@ -74,7 +72,6 @@ final class PlayerCRUDViewController: BaseViewController {
        }
        
        func navigateToPlayerList() {
-           // PlayerListViewController'a yönlendirme
            navigateToViewController(storyboardName: "PlayerListViewController", viewControllerIdentifier: "PlayerListViewController") { (vc: PlayerListViewController) in
                // Gerekirse veri geçişi yapılabilir
            }
@@ -150,7 +147,7 @@ extension PlayerCRUDViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 1 ? 10 : 0
+        return section == 1 ? 5 : 0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
