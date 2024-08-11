@@ -111,11 +111,24 @@ extension PlayerListViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            let cellType = viewModel.getCellType(at: indexPath.section)
-            if cellType == .player, let player = viewModel.getPlayer(at: indexPath.row) {
-                navigateToPlayerCRUD(with: player)
-            }
+        let cellType = viewModel.getCellType(at: indexPath.section)
+        if cellType == .player, let player = viewModel.getPlayer(at: indexPath.row) {
+            navigateToPlayerCRUD(with: player)
         }
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return section == 1 ? 15 : 0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 1 {
+            let headerView = UIView()
+            headerView.backgroundColor = .clear
+            return headerView
+        } else {
+            return nil
+        }
+    }
 }
 
 extension PlayerListViewController: PlayerListViewControllerProtocol {
@@ -125,19 +138,19 @@ extension PlayerListViewController: PlayerListViewControllerProtocol {
             playerCRUDVC.viewModel = playerCRUDViewModel
         }
     }
-
+    
     
     func reloadTableView() {
         tableView.reloadData()
     }
     
     func navigateToPlayerCRUD(with player: Player) {
-            navigateToViewController(storyboardName: "PlayerCRUDViewController", viewControllerIdentifier: "PlayerCRUDViewController") { (playerCRUDVC: PlayerCRUDViewController) in
-                let playerCRUDViewModel = PlayerCRUDViewModel(player: player)
-                playerCRUDViewModel.player = player
-                playerCRUDVC.viewModel = playerCRUDViewModel
-            }
+        navigateToViewController(storyboardName: "PlayerCRUDViewController", viewControllerIdentifier: "PlayerCRUDViewController") { (playerCRUDVC: PlayerCRUDViewController) in
+            let playerCRUDViewModel = PlayerCRUDViewModel(player: player)
+            playerCRUDViewModel.player = player
+            playerCRUDVC.viewModel = playerCRUDViewModel
         }
+    }
 }
 extension PlayerListViewController: AddPlayerButtonTableViewCellDelegate {
     func didTapButton() {

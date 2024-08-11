@@ -7,9 +7,10 @@
 
 import UIKit
 
-protocol AddPlayerButtonTableViewCellDelegate : AnyObject {
+protocol AddPlayerButtonTableViewCellDelegate: AnyObject {
     func didTapButton()
 }
+
 class AddPlayerButtonTableViewCell: UITableViewCell {
     
     weak var delegate: (AddPlayerButtonTableViewCellDelegate)?

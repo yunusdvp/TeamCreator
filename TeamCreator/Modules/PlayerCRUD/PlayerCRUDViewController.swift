@@ -12,42 +12,43 @@ protocol PlayerCRUDViewControllerProtocol: AnyObject {
 }
 
 final class PlayerCRUDViewController: BaseViewController {
+    
     // MARK: - Properties
     @IBOutlet private weak var tableView: UITableView!
-
+    
     private let imagePicker = UIImagePickerController()
-
+    
     var viewModel: PlayerCRUDViewModelProtocol? {
         didSet {
             viewModel?.delegate = self
         }
     }
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        //viewModel = PlayerCRUDViewModel()
-        //viewModel?.delegate = self
+        
         print(SelectedSportManager.shared.selectedSport as Any)
         registerCells()
-
+        
         tableView.delegate = self
         tableView.dataSource = self
-
+        
         imagePicker.delegate = self
         setupTapGesture()
     }
-
+    
     // MARK: - Setup Methods
     private func setupTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
     }
-
+    
     @objc private func handleTapGesture() {
         view.endEditing(true)
     }
-
+    
     private func registerCells() {
         tableView.register(cellType: PlayerImageTableViewCell.self)
         tableView.register(cellType: PlayerNameTableViewCell.self)
@@ -56,13 +57,13 @@ final class PlayerCRUDViewController: BaseViewController {
         tableView.register(cellType: PlayerOtherPropertyTableViewCell.self)
         tableView.register(cellType: AddButtonTableViewCell.self)
     }
-
+    
     private func openImagePicker() {
         imagePicker.sourceType = .photoLibrary
         imagePicker.allowsEditing = false
         present(imagePicker, animated: true, completion: nil)
     }
-
+    
     func validateForm() -> Bool {
         guard let viewModel = viewModel else { return false }
         return viewModel.isFormValid()
@@ -77,7 +78,7 @@ final class PlayerCRUDViewController: BaseViewController {
     func addPlayer(completion: @escaping (Bool) -> Void) {
         navigateToPlayerList()
     }
-
+    
     func navigateToPlayerList() {
         navigateToViewController(storyboardName: "PlayerListViewController", viewControllerIdentifier: "PlayerListViewController") { (vc: PlayerListViewController) in
         }
@@ -101,11 +102,11 @@ extension PlayerCRUDViewController: UITableViewDelegate, UITableViewDataSource {
         guard let viewModel = viewModel else { return 0 }
         return viewModel.getCellTypeCount()
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let viewModel = viewModel else { return UITableViewCell() }
         let cellType = viewModel.getCellType(at: indexPath.section)
@@ -185,15 +186,15 @@ extension PlayerCRUDViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
     }
-
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return indexPath.section == 0 ? 150 : 100
     }
-
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return section == 1 ? 10 : 0
     }
-
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 1 {
             let headerView = UIView()
@@ -221,20 +222,28 @@ extension PlayerCRUDViewController: PlayerCRUDViewModelDelegate {
 
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
 extension PlayerCRUDViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage = info[.originalImage] as? UIImage {
             if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? PlayerImageTableViewCell {
-                cell.profileImageView.image = selectedImage
+                cell.updateImage(with: selectedImage)
             }
             if let imageData = selectedImage.jpegData(compressionQuality: 0.8) {
                 viewModel?.updatePlayerImageData(imageData)
             }
         }
-        dismiss(animated: true, completion: nil)
+        picker.dismiss(animated: true, completion: nil)
     }
-
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
+        // Resim seçimi iptal edildiyse resmi temizle
+        if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? PlayerImageTableViewCell {
+            cell.clearImage()
+        }
+        picker.dismiss(animated: true, completion: nil)
     }
-
+    
+    @IBAction func selectImage(_ sender: UIButton) {
+        openImagePicker()
+    }
 }

@@ -7,9 +7,10 @@
 
 import UIKit
 
-class PlayerNameTableViewCell: UITableViewCell,UITextFieldDelegate {
+class PlayerNameTableViewCell: UITableViewCell, UITextFieldDelegate {
+    
     // MARK: - Properties
-    @IBOutlet weak var playerNameTextField: UITextField!
+    @IBOutlet  weak var playerNameTextField: UITextField!
     @IBOutlet private weak var playerNameLabel: UILabel!
     
     var onNameChange: ((String) -> Void)?

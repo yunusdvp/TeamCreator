@@ -35,12 +35,20 @@ class PlayerImageTableViewCell: UITableViewCell {
     @objc private func imageTapped() {
         onImageTapped?()
     }
+    
     func configure(with imageUrlString: String?) {
         if let urlString = imageUrlString, let url = URL(string: urlString) {
-            profileImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholder_image"))
+            profileImageView.kf.setImage(with: url, placeholder: UIImage(named: "add"))
         } else {
-            profileImageView.image = UIImage(named: "placeholder_image")
+            profileImageView.image = UIImage(named: "add")
         }
     }
-
+    
+    func clearImage() {
+        profileImageView.image = UIImage(named: "add")
+    }
+    
+    func updateImage(with image: UIImage) {
+        profileImageView.image = image
+    }
 }
