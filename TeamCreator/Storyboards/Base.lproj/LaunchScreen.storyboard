@@ -15,21 +15,8 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Team Creator" translatesAutoresizingMaskIntoConstraints="NO" id="jS8-su-zSL">
-                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
-                            </imageView>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="jS8-su-zSL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="8Dw-md-0mi"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jS8-su-zSL" secondAttribute="bottom" id="WRd-cz-97t"/>
-                            <constraint firstItem="jS8-su-zSL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="jYa-lJ-3i8"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jS8-su-zSL" secondAttribute="trailing" id="qbV-Ly-Vvl"/>
-                            <constraint firstItem="jS8-su-zSL" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="rIk-9N-OyR"/>
-                            <constraint firstItem="jS8-su-zSL" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="tcB-Re-FXi"/>
-                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -38,7 +25,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Team Creator" width="500" height="500"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
