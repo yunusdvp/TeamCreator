@@ -39,14 +39,30 @@ class PlayerOtherPropertyTableViewCell: UITableViewCell {
         skillPointTextLabel.addTarget(self, action: #selector(skillPointTextFieldDidChange), for: .editingChanged)
         ageTextField.addTarget(self, action: #selector(ageTextFieldDidChange), for: .editingChanged)
     }
+    func configure(skillPoint: Int?, age: Int?) {
+        skillPointTextLabel.text = skillPoint != nil ? "\(skillPoint!)" : ""
+        ageTextField.text = age != nil ? "\(age!)" : ""
+    }
+    
 }
 
 // MARK: - UITextFieldDelegate
+
 extension PlayerOtherPropertyTableViewCell: UITextFieldDelegate {
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let allowedCharacters = CharacterSet.decimalDigits
         let characterSet = CharacterSet(charactersIn: string)
-        return allowedCharacters.isSuperset(of: characterSet)
+        if !allowedCharacters.isSuperset(of: characterSet) {
+            return false
+        }
+        if textField == ageTextField {
+            let currentText = (textField.text ?? "") as NSString
+            let newText = currentText.replacingCharacters(in: range, with: string)
+            return newText.count <= 2
+        }
+        
+        return true
     }
     
     @objc private func skillPointTextFieldDidChange() {
@@ -55,7 +71,7 @@ extension PlayerOtherPropertyTableViewCell: UITextFieldDelegate {
             delegate?.didChangeSkillPoint(skillPoint)
         }
     }
-
+    
     @objc private func ageTextFieldDidChange() {
         if let ageText = ageTextField.text, let age = Int(ageText) {
             viewModel?.updatePlayerAge(age)
