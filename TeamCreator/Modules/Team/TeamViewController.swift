@@ -72,7 +72,7 @@ class TeamViewController: UIViewController {
         }
     }
 } */
-
+/*
 import UIKit
 
 class TeamViewController: UIViewController {
@@ -81,8 +81,9 @@ class TeamViewController: UIViewController {
     @IBOutlet weak var tempatureLabel: UILabel!
     @IBOutlet weak var stadiumLabel: UILabel!
     @IBOutlet weak var weatherImage: UIImageView!
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
-
+    @IBOutlet weak var segmentedControl: UISegmentedControl!    
+    @IBOutlet weak var playersContainerView: UIView!
+    
     private var viewModel = TeamViewModel()
 
     override func viewDidLoad() {
@@ -128,3 +129,109 @@ class TeamViewController: UIViewController {
         // Bu kısımda segment seçimine göre takım değiştirilir
     }
 }
+*/
+
+import UIKit
+
+class TeamViewController: UIViewController {
+
+    @IBOutlet weak var weatherLabel: UILabel!
+    @IBOutlet weak var tempatureLabel: UILabel!
+    @IBOutlet weak var stadiumLabel: UILabel!
+    @IBOutlet weak var weatherImage: UIImageView!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var playersContainerView: UIView!
+
+    private var viewModel = TeamViewModel()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupBindings()
+        viewModel.fetchStadiumWeather(for: "Vodafone Park")
+        viewModel.loadPlayers()  // Oyuncu verilerini yükleme
+    }
+
+    private func setupBindings() {
+        // Hava durumu verisi geldikten sonra UI'ı güncelle
+        viewModel.onWeatherDataFetched = { [weak self] weatherResponse in
+            DispatchQueue.main.async {
+                self?.updateUI(with: weatherResponse)
+            }
+        }
+
+        // Hata mesajı alındığında UI'ı güncelle
+        viewModel.onError = { [weak self] errorMessage in
+            DispatchQueue.main.async {
+                self?.showError(errorMessage)
+            }
+        }
+
+        // Oyuncu dizilimi güncellendiğinde UI'ı güncelle
+        viewModel.onPlayersUpdated = { [weak self] formation in
+            DispatchQueue.main.async {
+                self?.setupDynamicFormation(formation: formation)
+            }
+        }
+    }
+
+    // Hava durumu ve stadyum bilgilerini güncelleme
+    private func updateUI(with weatherResponse: WeatherResponse) {
+        stadiumLabel.text = viewModel.selectedStadium?.name ?? "Unknown Stadium"
+        weatherLabel.text = weatherResponse.weather.first?.description ?? "N/A"
+        tempatureLabel.text = "\(Int(weatherResponse.main.temp))"
+        
+        if let conditionName = weatherResponse.weather.first?.conditionName {
+            weatherImage.image = UIImage(systemName: conditionName)
+        } else {
+            weatherImage.image = UIImage(systemName: "questionmark")
+        }
+    }
+
+    // Hata mesajı göstermek için UI'ı güncelleme
+    private func showError(_ message: String) {
+        stadiumLabel.text = "Error"
+        weatherLabel.text = message
+        weatherImage.image = UIImage(systemName: "exclamationmark.triangle")
+    }
+
+    // Dinamik olarak futbol takımı dizilimini UI'da oluşturma
+    private func setupDynamicFormation(formation: [[Players]]) {
+        // Önceki oyuncu görünümlerini temizle
+        playersContainerView.subviews.forEach { $0.removeFromSuperview() }
+        
+        let lineHeight: CGFloat = 80.0
+        let radius: CGFloat = 30.0
+        let containerWidth = playersContainerView.bounds.width
+        
+        for (lineIndex, linePlayers) in formation.enumerated() {
+            let totalWidth = CGFloat(linePlayers.count) * (radius * 2 + 20) - 20
+            var startX = (containerWidth - totalWidth) / 2
+            let yPosition = CGFloat(lineIndex) * lineHeight
+            
+            for player in linePlayers {
+                let playerView = UIView(frame: CGRect(x: startX, y: yPosition, width: radius * 2, height: radius * 2))
+                playerView.layer.cornerRadius = radius
+                playerView.layer.masksToBounds = true
+                playerView.backgroundColor = .systemGreen
+                
+                let playerLabel = UILabel(frame: playerView.bounds)
+                playerLabel.text = String(player.name.prefix(1))
+                playerLabel.textColor = .white
+                playerLabel.textAlignment = .center
+                playerLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+                
+                playerView.addSubview(playerLabel)
+                playersContainerView.addSubview(playerView)
+                
+                startX += radius * 2 + 20
+            }
+        }
+    }
+
+    // Segmented Control değiştirildiğinde çağrılacak fonksiyon
+    @IBAction func segmentedControlChanged(_ sender: UISegmentedControl) {
+        // Bu kısımda segment seçimine göre takım
+    }
+}
+
