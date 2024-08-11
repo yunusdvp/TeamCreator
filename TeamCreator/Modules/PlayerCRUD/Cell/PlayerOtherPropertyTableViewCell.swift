@@ -15,9 +15,9 @@ protocol PlayerOtherPropertyTableViewCellDelegate: AnyObject {
 
 class PlayerOtherPropertyTableViewCell: UITableViewCell {
     // MARK: - Properties
-    @IBOutlet private weak var skillPointTextLabel: UITextField!
+    @IBOutlet weak var skillPointTextLabel: UITextField!
     @IBOutlet private weak var ageLabel: UILabel!
-    @IBOutlet private weak var ageTextField: UITextField!
+    @IBOutlet weak var ageTextField: UITextField!
     @IBOutlet private weak var skillPointLabel: UILabel!
     
     weak var delegate: PlayerOtherPropertyTableViewCellDelegate?

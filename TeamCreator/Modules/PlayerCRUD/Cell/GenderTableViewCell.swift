@@ -14,7 +14,7 @@ protocol GenderTableViewCellDelegate: AnyObject {
 
 class GenderTableViewCell: UITableViewCell {
     // MARK: - Properties
-    @IBOutlet private weak var genderSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var genderSegmentedControl: UISegmentedControl!
     @IBOutlet private weak var genderLabel: UILabel!
     
     var onGenderSelected: ((String) -> Void)?

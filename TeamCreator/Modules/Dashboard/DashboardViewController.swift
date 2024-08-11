@@ -13,7 +13,7 @@ protocol DashboardViewControllerProtocol: AnyObject {
     func navigateToPlayerList()
 }
 
-class DashboardViewController: BaseViewController {
+final class DashboardViewController: BaseViewController {
     
     var viewModel: DashboardViewModelProtocol!
     

@@ -25,6 +25,7 @@ protocol PlayerCRUDViewModelDelegate: AnyObject {
 protocol PlayerCRUDViewModelProtocol: AnyObject {
     var delegate: PlayerCRUDViewControllerProtocol? { get set }
     var player: Player? { get set }
+    
     func fetchData()
     func getCellTypeCount() -> Int
     func getCellType(at index: Int) -> PlayerCRUDCellType
@@ -37,6 +38,7 @@ protocol PlayerCRUDViewModelProtocol: AnyObject {
     func getPlayerData() -> Player
     func updatePlayerImageData(_ imageData: Data)
     func addPlayerToFirebase(completion: @escaping (Result<Void, Error>) -> Void)
+    func updatePlayerInFirebase(completion: @escaping (Result<Void, Error>) -> Void)
     func isFormValid() -> Bool
     func getPositionsForSelectedSport() -> [String]
 
@@ -44,29 +46,37 @@ protocol PlayerCRUDViewModelProtocol: AnyObject {
 
 final class PlayerCRUDViewModel: PlayerCRUDViewModelProtocol {
     // MARK: - Properties
-    var delegate: (any PlayerCRUDViewControllerProtocol)?
+    weak var delegate: (any PlayerCRUDViewControllerProtocol)?
     var player: Player?
     private var playerData = Player()
-//    let playerRepository = NetworkManager.shared.playerRepository
 
-    private let playerRepository: PlayerRepositoryProtocol
+    let playerRepository = NetworkManager.shared.playerRepository
+
+    //private let playerRepository: PlayerRepositoryProtocol
     private var imageData: Data?
     private var cellTypeList: [PlayerCRUDCellType] = [.playerImage, .playerName, .playerGender, .playerPosition, .playerOtherProperty, .playerAddButton]
     private var selectedPosition: String?
-    
+
     private var sports: [Sport] = []
     private var selectedSport: Sport?
-    
-    
-    
+
+
+
     // MARK: - Initialization
-    init(playerRepository: PlayerRepositoryProtocol = PlayerRepository()) {
-        self.playerRepository = playerRepository
+    init(player: Player? = nil) {
+        if let player = player {
+            self.player = player
+            self.playerData = player
+            self.imageData = nil
+            self.selectedPosition = player.position
+        }
+        print(player)
     }
+
     func updatePlayerName(_ name: String) {
         playerData.name = name
     }
-    
+
     func updatePlayerGender(_ gender: String) {
         playerData.gender = gender
     }
@@ -75,9 +85,9 @@ final class PlayerCRUDViewModel: PlayerCRUDViewModelProtocol {
         guard let selectedSportType = SelectedSportManager.shared.selectedSport else {
             return []
         }
-        
+
         setSelectedSport(selectedSportType)
-        
+
         switch selectedSportType {
         case .football:
             return ["Forward", "Stopper", "Goalkeeper"]
@@ -92,45 +102,45 @@ final class PlayerCRUDViewModel: PlayerCRUDViewModelProtocol {
     func setSelectedSport(_ sport: SelectedSport) {
         playerData.sporType = sport.rawValue
     }
-    
-    func updateSkillPoint(_ skillPoint: Int)   {
+
+    func updateSkillPoint(_ skillPoint: Int) {
         playerData.skillRating = skillPoint
     }
-    
+
     func updatePlayerAge(_ age: Int) {
         playerData.age = age
     }
-    
+
     func getPlayerData() -> Player {
         return playerData
     }
-    
+
     func fetchData() {
         delegate?.reloadTableView()
     }
-    
+
     func getCellTypeCount() -> Int {
         return cellTypeList.count
     }
-    
+
     func getCellType(at index: Int) -> PlayerCRUDCellType {
         return cellTypeList[index]
     }
-    
+
     func getSelectedPosition() -> String {
         return selectedPosition ?? ""
     }
-    
+
     func setSelectedPosition(_ position: String) {
         selectedPosition = position
         playerData.position = position
     }
-    
+
     func updatePlayerImageData(_ imageData: Data) {
         self.imageData = imageData
     }
-    
-  
+
+
     func addPlayerToFirebase(completion: @escaping (Result<Void, Error>) -> Void) {
         guard let imageData = imageData else {
             print("Image data not provided")
@@ -143,8 +153,26 @@ final class PlayerCRUDViewModel: PlayerCRUDViewModelProtocol {
             completion(result)
         }
     }
+
+    func updatePlayerInFirebase(completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let playerId = player?.id else {
+            completion(.failure(NSError(domain: "PlayerIDError", code: 0, userInfo: nil)))
+            return
+        }
+
+        playerRepository.updatePlayer(playerId: playerId,
+            name: playerData.name,
+            position: playerData.position,
+            skillRating: playerData.skillRating,
+            age: playerData.age,
+            gender: playerData.gender,
+            newImageData: imageData) { result in
+            completion(result)
+        }
+    }
+
     func isFormValid() -> Bool {
-        
+
         //        guard let photoURLString = playerData.profilePhotoURL, !photoURLString.isEmpty, let _ = URL(string: photoURLString) else {
         //                return false
         //            }
@@ -163,7 +191,7 @@ final class PlayerCRUDViewModel: PlayerCRUDViewModelProtocol {
         if playerData.gender?.isEmpty == true {
             return false
         }
-        
+
         return true
     }
 
