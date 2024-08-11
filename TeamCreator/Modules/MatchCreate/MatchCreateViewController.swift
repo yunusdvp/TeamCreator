@@ -87,10 +87,13 @@ class MatchCreateViewController: BaseViewController {
             let teamAScore = viewModel.calculateTeamScore(for: teamA)
             let teamBScore = viewModel.calculateTeamScore(for: teamB)
 
-            print("Team A: \(teamA.players)")
-            print("Team B: \(teamB.players)")
-            print("Team A Total Score: \(teamAScore)")
-            print("Team B Total Score: \(teamBScore)")
+            //print("Team A: \(teamA.players)")
+            //print("Team B: \(teamB.players)")
+            //print("Team A Total Score: \(teamAScore)")
+            //print("Team B Total Score: \(teamBScore)")
+            let location = locationTextField.text
+            let matchDate = datePicker.date
+            navigateToTeam(teamA: teamA, teamB: teamB, location: location, matchDate: matchDate)
 
         } else {
             print("Yeterli oyuncu yok veya geçersiz spor adı.")
@@ -153,7 +156,13 @@ extension MatchCreateViewController: UIPickerViewDelegate, UIPickerViewDataSourc
 
 
 extension MatchCreateViewController: MatchCreateViewModelDelegate {
+    func navigateToTeam(teamA: Team?,teamB: Team?, location: String?, matchDate: Date?) {
+            navigateToViewController(storyboardName: "TeamView", viewControllerIdentifier: "TeamViewController") { (teamVC: TeamViewController) in
+                let teamViewModel = TeamViewModel(teamA: teamA, teamB: teamB, location: location, matchDate: matchDate)
+                teamVC.viewModel = teamViewModel
+            }
 
+        }
     func navigateToAnywhere() {
 
     }
