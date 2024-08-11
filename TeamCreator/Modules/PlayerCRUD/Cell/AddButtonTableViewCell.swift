@@ -10,13 +10,21 @@ import UIKit
 class AddButtonTableViewCell: UITableViewCell {
     // MARK: - Properties
     @IBOutlet private weak var playerAddButton: UIButton!
-    
+
     var onAddButtonTapped: (() -> Void)?
-    
+
     // MARK: - Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        updateButtonTitle()
+
+    }
+    func updateButtonTitle() {
+        if let viewController = self.findViewController() as? PlayerCRUDViewController, viewController.viewModel?.player != nil {
+            playerAddButton.setTitle("Update", for: .normal)
+        } else {
+            playerAddButton.setTitle("Add", for: .normal)
+        }
     }
     @IBAction func playerAddButtonClicked(_ sender: UIButton) {
         if let viewController = self.findViewController() as? PlayerCRUDViewController {
@@ -26,7 +34,7 @@ class AddButtonTableViewCell: UITableViewCell {
                 viewController.present(alert, animated: true, completion: nil)
                 return
             }
-            
+
             onAddButtonTapped?()
             viewController.addPlayer { success in
                 if success {

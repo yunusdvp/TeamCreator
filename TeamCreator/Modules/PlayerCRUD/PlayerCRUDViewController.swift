@@ -14,9 +14,9 @@ protocol PlayerCRUDViewControllerProtocol: AnyObject {
 final class PlayerCRUDViewController: BaseViewController {
     // MARK: - Properties
     @IBOutlet private weak var tableView: UITableView!
-    
+
     private let imagePicker = UIImagePickerController()
-    
+
     var viewModel: PlayerCRUDViewModelProtocol? {
         didSet {
             viewModel?.delegate = self
@@ -25,18 +25,16 @@ final class PlayerCRUDViewController: BaseViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = PlayerCRUDViewModel()
-        viewModel?.delegate = self
+        //viewModel = PlayerCRUDViewModel()
+        //viewModel?.delegate = self
         print(SelectedSportManager.shared.selectedSport as Any)
         registerCells()
 
         tableView.delegate = self
         tableView.dataSource = self
-        
+
         imagePicker.delegate = self
         setupTapGesture()
-      //  print(SelectedSportManager.shared.selectedSport)
-
     }
 
     // MARK: - Setup Methods
@@ -47,8 +45,8 @@ final class PlayerCRUDViewController: BaseViewController {
     }
 
     @objc private func handleTapGesture() {
-            view.endEditing(true)
-        }
+        view.endEditing(true)
+    }
 
     private func registerCells() {
         tableView.register(cellType: PlayerImageTableViewCell.self)
@@ -58,27 +56,43 @@ final class PlayerCRUDViewController: BaseViewController {
         tableView.register(cellType: PlayerOtherPropertyTableViewCell.self)
         tableView.register(cellType: AddButtonTableViewCell.self)
     }
-    
+
     private func openImagePicker() {
         imagePicker.sourceType = .photoLibrary
         imagePicker.allowsEditing = false
         present(imagePicker, animated: true, completion: nil)
     }
-    
+
     func validateForm() -> Bool {
         guard let viewModel = viewModel else { return false }
         return viewModel.isFormValid()
     }
+    private func showUpdateAlert(success: Bool, error: Error?) {
+        let alertTitle = success ? "Success" : "Error"
+        let alertMessage = success ? "Player successfully updated." : "Failed to update player: \(error?.localizedDescription ?? "Unknown error")"
+        let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
     func addPlayer(completion: @escaping (Bool) -> Void) {
         navigateToPlayerList()
-       }
-       
-       func navigateToPlayerList() {
-           // PlayerListViewController'a yönlendirme
-           navigateToViewController(storyboardName: "PlayerListViewController", viewControllerIdentifier: "PlayerListViewController") { (vc: PlayerListViewController) in
-               // Gerekirse veri geçişi yapılabilir
-           }
-       }
+    }
+
+    func navigateToPlayerList() {
+        navigateToViewController(storyboardName: "PlayerListViewController", viewControllerIdentifier: "PlayerListViewController") { (vc: PlayerListViewController) in
+        }
+    }
+    func updatePlayer() {
+        viewModel?.updatePlayerInFirebase { [weak self] result in
+            switch result {
+            case .success:
+                self?.showUpdateAlert(success: true, error: nil)
+                self?.navigateToPlayerList()
+            case .failure(let error):
+                self?.showUpdateAlert(success: false, error: error)
+            }
+        }
+    }
 }
 
 // MARK: - Extension-UITableViewDataSource-UITableViewDelegate
@@ -87,29 +101,38 @@ extension PlayerCRUDViewController: UITableViewDelegate, UITableViewDataSource {
         guard let viewModel = viewModel else { return 0 }
         return viewModel.getCellTypeCount()
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let viewModel = viewModel else { return UITableViewCell() }
         let cellType = viewModel.getCellType(at: indexPath.section)
         switch cellType {
         case .playerImage:
             let cell = tableView.dequeueCell(with: PlayerImageTableViewCell.self, for: indexPath)
+            if viewModel.player?.profilePhotoURL != nil {
+                cell?.configure(with: viewModel.player?.profilePhotoURL)
+            }
             cell?.onImageTapped = { [weak self] in
                 self?.openImagePicker()
             }
             return cell ?? UITableViewCell()
         case .playerName:
             let cell = tableView.dequeueCell(with: PlayerNameTableViewCell.self, for: indexPath)
+            if let name = viewModel.player?.name {
+                cell?.playerNameTextField.text = name
+            }
             cell?.onNameChange = { [weak self] name in
                 self?.viewModel?.updatePlayerName(name)
             }
             return cell ?? UITableViewCell()
         case .playerGender:
             let cell = tableView.dequeueCell(with: GenderTableViewCell.self, for: indexPath)
+            if let gender = viewModel.player?.gender {
+                cell?.genderSegmentedControl.selectedSegmentIndex = (gender == "Male") ? 0 : 1
+            }
             cell?.onGenderSelected = { [weak self] gender in
                 self?.viewModel?.updatePlayerGender(gender)
             }
@@ -119,40 +142,58 @@ extension PlayerCRUDViewController: UITableViewDelegate, UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.positions = viewModel.getPositionsForSelectedSport()
-                cell.selectedPosition = viewModel.getSelectedPosition()
-                cell.viewModel = viewModel
-                cell.onPositionSelected = { [weak self] position in
-                    self?.viewModel?.setSelectedPosition(position)
-                }
-                return cell
+            cell.selectedPosition = viewModel.getSelectedPosition()
+            cell.viewModel = viewModel
+            cell.onPositionSelected = { [weak self] position in
+                self?.viewModel?.setSelectedPosition(position)
+            }
+            return cell
         case .playerOtherProperty:
-            let cell = tableView.dequeueCell(with: PlayerOtherPropertyTableViewCell.self, for: indexPath)
-            cell?.viewModel = viewModel
-            return cell ?? UITableViewCell()
+            guard let cell = tableView.dequeueCell(with: PlayerOtherPropertyTableViewCell.self, for: indexPath) else { return UITableViewCell() }
+            if let skillRating = viewModel.player?.skillRating {
+                cell.skillPointTextLabel.text = "\(skillRating)"
+            }
+            if let age = viewModel.player?.age {
+                cell.ageTextField.text = "\(age)"
+            }
+            cell.viewModel = viewModel
+            return cell
         case .playerAddButton:
-            let cell = tableView.dequeueCell(with: AddButtonTableViewCell.self, for: indexPath)
-            cell?.onAddButtonTapped = { [weak self] in
-                self?.viewModel?.addPlayerToFirebase { result in
-                    switch result {
-                    case .success:
-                        print("Player successfully added")
-                    case .failure(let error):
-                        print("Error adding player: \(error.localizedDescription)")
+            guard let cell = tableView.dequeueCell(with: AddButtonTableViewCell.self, for: indexPath) else { return UITableViewCell() }
+            cell.updateButtonTitle()
+            cell.onAddButtonTapped = { [weak self] in
+                if (self?.viewModel?.player) != nil {
+                    self?.viewModel?.updatePlayerInFirebase { result in
+                        switch result {
+                        case .success:
+                            print("Player successfully updated")
+                        case .failure(let error):
+                            print("Error updating player: \(error.localizedDescription)")
+                        }
+                    }
+                } else {
+                    self?.viewModel?.addPlayerToFirebase { result in
+                        switch result {
+                        case .success:
+                            print("Player successfully added")
+                        case .failure(let error):
+                            print("Error adding player: \(error.localizedDescription)")
+                        }
                     }
                 }
             }
-            return cell ?? UITableViewCell()
+            return cell
         }
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return indexPath.section == 0 ? 150 : 100
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return section == 1 ? 10 : 0
     }
-    
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 1 {
             let headerView = UIView()
@@ -180,7 +221,7 @@ extension PlayerCRUDViewController: PlayerCRUDViewModelDelegate {
 
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
 extension PlayerCRUDViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let selectedImage = info[.originalImage] as? UIImage {
             if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? PlayerImageTableViewCell {
                 cell.profileImageView.image = selectedImage
@@ -191,12 +232,9 @@ extension PlayerCRUDViewController: UIImagePickerControllerDelegate, UINavigatio
         }
         dismiss(animated: true, completion: nil)
     }
-    
+
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
-    
+
 }
-
-
-

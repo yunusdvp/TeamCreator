@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class PlayerImageTableViewCell: UITableViewCell {
     // MARK: - Properties
@@ -34,4 +35,12 @@ class PlayerImageTableViewCell: UITableViewCell {
     @objc private func imageTapped() {
         onImageTapped?()
     }
+    func configure(with imageUrlString: String?) {
+        if let urlString = imageUrlString, let url = URL(string: urlString) {
+            profileImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholder_image"))
+        } else {
+            profileImageView.image = UIImage(named: "placeholder_image")
+        }
+    }
+
 }

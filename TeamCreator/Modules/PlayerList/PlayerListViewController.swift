@@ -133,7 +133,7 @@ extension PlayerListViewController: PlayerListViewControllerProtocol {
     
     func navigateToPlayerCRUD(with player: Player) {
             navigateToViewController(storyboardName: "PlayerCRUDViewController", viewControllerIdentifier: "PlayerCRUDViewController") { (playerCRUDVC: PlayerCRUDViewController) in
-                let playerCRUDViewModel = PlayerCRUDViewModel()
+                let playerCRUDViewModel = PlayerCRUDViewModel(player: player)
                 playerCRUDViewModel.player = player
                 playerCRUDVC.viewModel = playerCRUDViewModel
             }
