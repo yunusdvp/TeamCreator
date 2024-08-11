@@ -28,6 +28,7 @@ protocol MatchCreateViewModelProtocol: AnyObject {
 protocol MatchCreateViewModelDelegate: AnyObject {
     func reloadTableView()
     func navigateToAnywhere()
+    func navigateToTeam(teamA: Team?,teamB: Team?, location: String?, matchDate: Date?)
     func updatePickerView()
 
 }

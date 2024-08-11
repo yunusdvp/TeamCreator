@@ -142,16 +142,28 @@ class TeamViewController: UIViewController {
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var playersContainerView: UIView!
 
-    private var viewModel = TeamViewModel()
+    var viewModel = TeamViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupBindings()
-        viewModel.fetchStadiumWeather(for: "Vodafone Park")
-        viewModel.loadPlayers()  // Oyuncu verilerini yükleme
-    }
+        segmentedControl.selectedSegmentIndex = 0
+               updateUIWithSelectedTeam()
 
+                  // Hava durumu bilgisini getir
+                  if let location = viewModel.location {
+                      viewModel.fetchStadiumWeather(for: location)
+                  }
+              }
+    
+private func updateUIWithSelectedTeam() {
+    let selectedTeam = segmentedControl.selectedSegmentIndex == 0 ? viewModel.teamA : viewModel.teamB
+    guard let players = selectedTeam?.players else { return }
+
+    viewModel.players = players
+    viewModel.updateFormation()
+        }
     private func setupBindings() {
         // Hava durumu verisi geldikten sonra UI'ı güncelle
         viewModel.onWeatherDataFetched = { [weak self] weatherResponse in
@@ -173,11 +185,12 @@ class TeamViewController: UIViewController {
                 self?.setupDynamicFormation(formation: formation)
             }
         }
+        segmentedControl.addTarget(self, action: #selector(segmentedControlChanged(_:)), for: .valueChanged)
     }
 
     // Hava durumu ve stadyum bilgilerini güncelleme
     private func updateUI(with weatherResponse: WeatherResponse) {
-        stadiumLabel.text = viewModel.selectedStadium?.name ?? "Unknown Stadium"
+        stadiumLabel.text = viewModel.location ?? "Unknown Stadium"
         weatherLabel.text = weatherResponse.weather.first?.description ?? "N/A"
         tempatureLabel.text = "\(Int(weatherResponse.main.temp))"
         
@@ -196,7 +209,7 @@ class TeamViewController: UIViewController {
     }
 
     // Dinamik olarak futbol takımı dizilimini UI'da oluşturma
-    private func setupDynamicFormation(formation: [[Players]]) {
+    private func setupDynamicFormation(formation: [[Player]]) {
         // Önceki oyuncu görünümlerini temizle
         playersContainerView.subviews.forEach { $0.removeFromSuperview() }
         
@@ -216,7 +229,7 @@ class TeamViewController: UIViewController {
                 playerView.backgroundColor = .systemGreen
                 
                 let playerLabel = UILabel(frame: playerView.bounds)
-                playerLabel.text = String(player.name.prefix(1))
+                playerLabel.text = player.name
                 playerLabel.textColor = .white
                 playerLabel.textAlignment = .center
                 playerLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
@@ -231,7 +244,12 @@ class TeamViewController: UIViewController {
 
     // Segmented Control değiştirildiğinde çağrılacak fonksiyon
     @IBAction func segmentedControlChanged(_ sender: UISegmentedControl) {
-        // Bu kısımda segment seçimine göre takım
+        let selectedTeam = sender.selectedSegmentIndex == 0 ? viewModel.teamA : viewModel.teamB
+                    guard let players = selectedTeam?.players else { return }
+
+                    // Oyuncuları güncelle
+                    viewModel.players = players
+                    viewModel.updateFormation()
     }
 }
 

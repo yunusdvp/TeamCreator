@@ -51,28 +51,51 @@ class TeamViewModel {
     
     var onWeatherDataFetched: ((WeatherResponse) -> Void)?
     var onError: ((String) -> Void)?
-    var onPlayersUpdated: (([[Players]]) -> Void)?
+    var onPlayersUpdated: (([[Player]]) -> Void)?
     
-    private(set) var selectedStadium: SportsStadium?
-    private(set) var players: [Players] = []
-    
-    func fetchStadiumWeather(for stadiumName: String) {
-        if let path = Bundle.main.path(forResource: "turkey_sports_facilities", ofType: "json") {
-            do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: path))
-                let facilities = try JSONDecoder().decode(TurkeySportsFacilities.self, from: data)
-                
-                if let stadium = facilities.stadiums.first(where: { $0.name == stadiumName }) {
-                    selectedStadium = stadium
-                    fetchWeatherData(for: stadium.latitude, lon: stadium.longitude)
-                } else {
-                    onError?("Stadium not found")
+    private(set) var selectedStadium: Stadium?
+        private(set) var selectedIndoorSportsHall: IndoorSportsHall?
+        var players: [Player] = []
+        
+        var teamA: Team?
+        var teamB: Team?
+        var location: String?
+        var matchDate: Date?
+
+        init(teamA: Team?, teamB: Team?, location: String?, matchDate: Date?) {
+               self.teamA = teamA
+               self.teamB = teamB
+               self.location = location
+               self.matchDate = matchDate
+            print(teamA)
+            print(teamB)
+            print(location)
+            print(matchDate)
+           }
+        init(){
+            
+        }
+
+        func fetchStadiumWeather(for stadiumName: String) {
+            if let path = Bundle.main.path(forResource: "turkey_sports_facilities", ofType: "json") {
+                do {
+                    let data = try Data(contentsOf: URL(fileURLWithPath: path))
+                    let facilities = try JSONDecoder().decode(SportsFacilities.self, from: data)
+                    if let stadium = facilities.stadiums.first(where: { $0.name == location }) {
+                        selectedStadium = stadium
+                        fetchWeatherData(for: stadium.coordinates?.latitude ?? 0, lon: stadium.coordinates?.longitude ?? 0)
+                    } else if let indoorHall = facilities.indoorSportsHalls.first(where: { $0.name == location }) {
+                        selectedIndoorSportsHall = indoorHall
+                        fetchWeatherData(for: indoorHall.coordinates?.latitude ?? 0, lon: indoorHall.coordinates?.longitude ?? 0)
+                        
+                    } else {
+                        onError?("Stadium not found")
+                    }
+                } catch {
+                    onError?("Error parsing JSON: \(error.localizedDescription)")
                 }
-            } catch {
-                onError?("Error parsing JSON: \(error.localizedDescription)")
             }
         }
-    }
     
     private func fetchWeatherData(for lat: Double, lon: Double) {
         NetworkManager.shared.fetchWeather(lat: lat, lon: lon) { [weak self] result in
@@ -85,7 +108,7 @@ class TeamViewModel {
         }
     }
     
-    func loadPlayers() {
+    /*func loadPlayers() {
         // Örnek oyuncular
         players = [
             Players(name: "Ali"),
@@ -101,10 +124,10 @@ class TeamViewModel {
 
         ]
         updateFormation()
-    }
+    }*/
     
-    private func updateFormation() {
-        var formation: [[Players]] = []
+    func updateFormation() {
+        var formation: [[Player]] = []
         
         switch players.count {
         case 4:
