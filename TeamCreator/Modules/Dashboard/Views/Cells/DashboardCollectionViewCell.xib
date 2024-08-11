@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -23,8 +23,29 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZUr-jz-LiY">
                                 <rect key="frame" x="0.0" y="0.0" width="349" height="143"/>
                             </imageView>
+                            <visualEffectView opaque="NO" alpha="0.65000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RZp-mA-ULn">
+                                <rect key="frame" x="0.0" y="82" width="349" height="61"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.55000000000000004" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="d4M-BD-zfo">
+                                    <rect key="frame" x="0.0" y="0.0" width="349" height="61"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DxX-hA-KPh">
+                                            <rect key="frame" x="0.0" y="0.0" width="109" height="0.0"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="R4h-2y-QYf">
+                                                <rect key="frame" x="0.0" y="0.0" width="109" height="0.0"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </view>
+                                            <vibrancyEffect>
+                                                <blurEffect style="regular"/>
+                                            </vibrancyEffect>
+                                        </visualEffectView>
+                                    </subviews>
+                                </view>
+                                <blurEffect style="regular"/>
+                            </visualEffectView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShV-KY-KM5">
-                                <rect key="frame" x="13.000000000000007" y="46" width="108.66666666666669" height="51.333333333333343"/>
+                                <rect key="frame" x="8" y="75.666666666666671" width="108.66666666666667" height="51.333333333333329"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="43"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -32,11 +53,15 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="RZp-mA-ULn" secondAttribute="bottom" id="3dw-hl-8Fy"/>
+                            <constraint firstItem="RZp-mA-ULn" firstAttribute="leading" secondItem="TQ5-qo-pvp" secondAttribute="leading" id="F3o-W5-39S"/>
                             <constraint firstItem="ZUr-jz-LiY" firstAttribute="leading" secondItem="TQ5-qo-pvp" secondAttribute="leading" id="H9P-rE-QUK"/>
+                            <constraint firstAttribute="bottom" secondItem="ShV-KY-KM5" secondAttribute="bottom" constant="16" id="Hke-Aa-wmn"/>
                             <constraint firstAttribute="trailing" secondItem="ZUr-jz-LiY" secondAttribute="trailing" id="ISz-pM-c95"/>
-                            <constraint firstItem="ShV-KY-KM5" firstAttribute="centerY" secondItem="TQ5-qo-pvp" secondAttribute="centerY" id="hab-Mt-n8G"/>
+                            <constraint firstItem="RZp-mA-ULn" firstAttribute="top" secondItem="TQ5-qo-pvp" secondAttribute="top" constant="82" id="KRN-0A-HyZ"/>
+                            <constraint firstAttribute="trailing" secondItem="RZp-mA-ULn" secondAttribute="trailing" id="M1f-7p-RfL"/>
+                            <constraint firstItem="ShV-KY-KM5" firstAttribute="leading" secondItem="TQ5-qo-pvp" secondAttribute="leading" constant="8" id="N8w-Ve-dBb"/>
                             <constraint firstItem="ZUr-jz-LiY" firstAttribute="top" secondItem="TQ5-qo-pvp" secondAttribute="top" id="jF2-2V-gDi"/>
-                            <constraint firstItem="ShV-KY-KM5" firstAttribute="leading" secondItem="TQ5-qo-pvp" secondAttribute="leadingMargin" constant="5" id="pmp-fN-qeg"/>
                             <constraint firstAttribute="bottom" secondItem="ZUr-jz-LiY" secondAttribute="bottom" id="zgI-Yn-Pa7"/>
                         </constraints>
                     </view>
@@ -54,7 +79,7 @@
                 <outlet property="backgroundImageView" destination="ZUr-jz-LiY" id="Fcn-8V-FAo"/>
                 <outlet property="categoryLabel" destination="ShV-KY-KM5" id="LR9-MV-Nph"/>
             </connections>
-            <point key="canvasLocation" x="179" y="4"/>
+            <point key="canvasLocation" x="176.33587786259542" y="3.8732394366197185"/>
         </collectionViewCell>
     </objects>
     <resources>

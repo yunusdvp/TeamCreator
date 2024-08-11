@@ -42,11 +42,24 @@ class PlayerOtherPropertyTableViewCell: UITableViewCell {
 }
 
 // MARK: - UITextFieldDelegate
+
 extension PlayerOtherPropertyTableViewCell: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // Allow only numeric input
         let allowedCharacters = CharacterSet.decimalDigits
         let characterSet = CharacterSet(charactersIn: string)
-        return allowedCharacters.isSuperset(of: characterSet)
+        if !allowedCharacters.isSuperset(of: characterSet) {
+            return false
+        }
+        
+        // For ageTextField, limit to two digits
+        if textField == ageTextField {
+            let currentText = (textField.text ?? "") as NSString
+            let newText = currentText.replacingCharacters(in: range, with: string)
+            return newText.count <= 2
+        }
+        
+        return true
     }
     
     @objc private func skillPointTextFieldDidChange() {

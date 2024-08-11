@@ -31,7 +31,7 @@ final class DashboardViewModel: DashboardViewModelProtocol {
 
     func fetchItems() {
         items = [
-            DashboardItem(category: "Players", backgroundImage: ""),
+            DashboardItem(category: "Players", backgroundImage: "futbolPlayers"),
             DashboardItem(category: "Create Match", backgroundImage: ""),
             DashboardItem(category: "My Matches", backgroundImage: "myMatches")
         ]
@@ -74,7 +74,7 @@ final class DashboardViewModel: DashboardViewModelProtocol {
         case .football:
             switch category {
             case "Players":
-                return "players"
+                return "footballPlayers"
             case "Create Match":
                 return "createMatch"
             case "My Matches":

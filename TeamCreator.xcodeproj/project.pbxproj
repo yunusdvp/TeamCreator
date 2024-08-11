@@ -503,8 +503,8 @@
 			children = (
 				54CEF5BA2C636A1C009687DF /* Cell */,
 				54CEF5BD2C636B1E009687DF /* PlayerCRUDViewController.swift */,
-				54CEF5BB2C636A37009687DF /* PlayerCRUDViewController.storyboard */,
 				54CEF5D32C638B9C009687DF /* PlayerCRUDViewModel.swift */,
+				54CEF5BB2C636A37009687DF /* PlayerCRUDViewController.storyboard */,
 			);
 			path = PlayerCRUD;
 			sourceTree = "<group>";
