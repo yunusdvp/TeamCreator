@@ -31,14 +31,14 @@ final class PlayerListViewController: BaseViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        
         let selectedSport = SelectedSportManager.shared.selectedSport?.rawValue ?? ""
         viewModel.fetchPlayers(sporType: selectedSport) { result in
             switch result {
             case .success(let players):
-                print("Oyuncular başarıyla getirildi: \(players)")
-                // Oyuncuları UI'da göstermek için burada işlemler yapabilirsiniz.
+                print("Players successfully fetched: \(players)")
             case .failure(let error):
-                print("Oyuncular getirilirken hata oluştu: \(error.localizedDescription)")
+                print("Error fetching players: \(error.localizedDescription)")
             }
         }
     }

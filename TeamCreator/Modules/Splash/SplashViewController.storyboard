@@ -16,17 +16,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="relationship" translatesAutoresizingMaskIntoConstraints="NO" id="cbQ-VE-e9B">
-                                <rect key="frame" x="76" y="277" width="241" height="298"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Team Creator" translatesAutoresizingMaskIntoConstraints="NO" id="PQH-Tq-pLk">
+                                <rect key="frame" x="0.0" y="34" width="393" height="784"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="cbQ-VE-e9B" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="218" id="Dxp-Ik-qSf"/>
-                            <constraint firstItem="cbQ-VE-e9B" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="76" id="MFx-2k-Z5X"/>
-                            <constraint firstItem="cbQ-VE-e9B" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="SdK-m2-exp"/>
-                            <constraint firstItem="cbQ-VE-e9B" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="tIZ-pj-2Jf"/>
+                            <constraint firstItem="PQH-Tq-pLk" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="65Y-x7-YeP"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="PQH-Tq-pLk" secondAttribute="trailing" id="HuG-CJ-0QC"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="PQH-Tq-pLk" secondAttribute="bottom" id="Kgu-Yv-G90"/>
+                            <constraint firstItem="PQH-Tq-pLk" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="Ll6-yg-vnR"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -36,7 +36,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="relationship" width="512" height="512"/>
+        <image name="Team Creator" width="500" height="500"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
