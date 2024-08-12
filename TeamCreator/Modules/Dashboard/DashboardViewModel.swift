@@ -25,8 +25,8 @@ final class DashboardViewModel: DashboardViewModelProtocol {
     weak var delegate: DashboardViewModelDelegate?
     private var items: [DashboardItem] = []
 
-    init(delegate: DashboardViewModelDelegate) {
-        self.delegate = delegate
+    init() {
+        
     }
 
     func fetchItems() {

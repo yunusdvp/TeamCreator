@@ -22,7 +22,7 @@ final class DashboardViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = DashboardViewModel(delegate: self)
+        viewModel = DashboardViewModel()
         prepareCollectionView()
         viewModel.fetchItems()
     }
@@ -80,12 +80,28 @@ extension DashboardViewController: DashboardViewModelDelegate {
         }
     }
     
-    func navigateToPlayerList() {
+    /*func navigateToPlayerList() {
         navigateToViewController(storyboardName: "PlayerListViewController", viewControllerIdentifier: "PlayerListViewController") { (playerListVC: PlayerListViewController) in
             let playerListViewModel = PlayerListViewModel()
             playerListVC.viewModel = playerListViewModel
         }
         
+    }*/
+    func navigateToPlayerList() {
+        navigateToViewController(
+            storyboardName: "PlayerListViewController",
+            viewControllerIdentifier: "PlayerListViewController",
+            configure: { (playerListVC: PlayerListViewController) in
+                let playerListViewModel = PlayerListViewModel()
+                playerListVC.viewModel = playerListViewModel
+            },
+            backTo: { (backVC: UIViewController) in
+                if let homeVC = backVC as? EntryViewController {
+                    let homeViewModel = EntryViewModel()
+                    homeVC.viewModel = homeViewModel
+                }
+            }
+        )
     }
 }
 private extension DashboardViewController {

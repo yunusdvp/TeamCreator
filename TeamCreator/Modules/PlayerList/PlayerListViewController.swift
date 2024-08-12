@@ -42,6 +42,17 @@ final class PlayerListViewController: BaseViewController {
             }
         }
     }
+    override func viewWillAppear(_ animated: Bool) {
+        let selectedSport = SelectedSportManager.shared.selectedSport?.rawValue ?? ""
+        viewModel.fetchPlayers(sporType: selectedSport) { result in
+            switch result {
+            case .success(let players):
+                print("Players successfully fetched: \(players)")
+            case .failure(let error):
+                print("Error fetching players: \(error.localizedDescription)")
+            }
+        }
+    }
     
     
     private func registerCells() {
@@ -133,11 +144,22 @@ extension PlayerListViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension PlayerListViewController: PlayerListViewControllerProtocol {
     func navigateToPlayerCRUD() {
-        navigateToViewController(storyboardName: "PlayerCRUDViewController", viewControllerIdentifier: "PlayerCRUDViewController") { (playerCRUDVC: PlayerCRUDViewController) in
-            let playerCRUDViewModel = PlayerCRUDViewModel()
-            playerCRUDVC.viewModel = playerCRUDViewModel
-        }
+        navigateToViewController(
+            storyboardName: "PlayerCRUDViewController",
+            viewControllerIdentifier: "PlayerCRUDViewController",
+            configure: { (playerListVC: PlayerCRUDViewController) in
+                let playerListViewModel = PlayerCRUDViewModel()
+                playerListVC.viewModel = playerListViewModel
+            },
+            backTo: { (backVC: UIViewController) in
+                if let homeVC = backVC as? DashboardViewController {
+                    let homeViewModel = DashboardViewModel()
+                    homeVC.viewModel = homeViewModel
+                }
+            }
+        )
     }
+    
     
     
     func reloadTableView() {
@@ -145,11 +167,20 @@ extension PlayerListViewController: PlayerListViewControllerProtocol {
     }
     
     func navigateToPlayerCRUD(with player: Player) {
-        navigateToViewController(storyboardName: "PlayerCRUDViewController", viewControllerIdentifier: "PlayerCRUDViewController") { (playerCRUDVC: PlayerCRUDViewController) in
-            let playerCRUDViewModel = PlayerCRUDViewModel(player: player)
-            playerCRUDViewModel.player = player
-            playerCRUDVC.viewModel = playerCRUDViewModel
-        }
+        navigateToViewController(
+            storyboardName: "PlayerCRUDViewController",
+            viewControllerIdentifier: "PlayerCRUDViewController",
+            configure: { (playerListVC: PlayerCRUDViewController) in
+                let playerListViewModel = PlayerCRUDViewModel(player: player)
+                playerListVC.viewModel = playerListViewModel
+            },
+            backTo: { (backVC: UIViewController) in
+                if let homeVC = backVC as? DashboardViewController {
+                    let homeViewModel = DashboardViewModel()
+                    homeVC.viewModel = homeViewModel
+                }
+            }
+        )
     }
 }
 extension PlayerListViewController: AddPlayerButtonTableViewCellDelegate {

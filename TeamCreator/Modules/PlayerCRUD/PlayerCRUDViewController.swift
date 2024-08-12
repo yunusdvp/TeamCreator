@@ -80,9 +80,22 @@ final class PlayerCRUDViewController: BaseViewController {
     }
     
     func navigateToPlayerList() {
-        navigateToViewController(storyboardName: "PlayerListViewController", viewControllerIdentifier: "PlayerListViewController") { (vc: PlayerListViewController) in
-        }
+        navigateToViewController(
+            storyboardName: "PlayerListViewController",
+            viewControllerIdentifier: "PlayerListViewController",
+            configure: { (playerListVC: PlayerListViewController) in
+                let playerListViewModel = PlayerListViewModel()
+                playerListVC.viewModel = playerListViewModel
+            },
+            backTo: { (backVC: UIViewController) in
+                if let homeVC = backVC as? PlayerListViewController {
+                    let homeViewModel = PlayerListViewModel()
+                    homeVC.viewModel = homeViewModel
+                }
+            }
+        )
     }
+      
     func updatePlayer() {
         viewModel?.updatePlayerInFirebase { [weak self] result in
             switch result {
