@@ -34,9 +34,9 @@ protocol MatchCreateViewModelDelegate: AnyObject {
 }
 final class MatchCreateViewModel: MatchCreateViewModelProtocol {
 
-    let footballCriteria = TeamBalancingCriteria(skillWeight: 0.4, ageWeight: 0.2, positionWeight: 0.3, genderWeight: 0.1)
-    let volleyballCriteria = TeamBalancingCriteria(skillWeight: 0.3, ageWeight: 0.2, positionWeight: 0.4, genderWeight: 0.1)
-    let basketballCriteria = TeamBalancingCriteria(skillWeight: 0.4, ageWeight: 0.2, positionWeight: 0.3, genderWeight: 0.1)
+    let footballCriteria = TeamBalancingCriteria(skillWeight: 1.0)
+    let volleyballCriteria = TeamBalancingCriteria(skillWeight: 1.0)
+    let basketballCriteria = TeamBalancingCriteria(skillWeight: 1.0)
 
 
     weak var delegate: MatchCreateViewModelDelegate?
@@ -82,43 +82,78 @@ final class MatchCreateViewModel: MatchCreateViewModelProtocol {
             self?.delegate?.updatePickerView()
         }
     }
-    func calculatePlayerScore(player: Player, criteria: TeamBalancingCriteria) -> Double {
+    func adjustSkillPoints(for sportName: String) {
+        players = players.map { player in
+            var updatedPlayer = player
+
+            // Yaş bazlı düşürme
+            if let age = player.age, age < 20 || age > 32 {
+                let ageDifference = max(abs(30 - age) / 5, 1)
+                updatedPlayer.skillRating = player.skillRating.map { $0 * pow(0.9, Double(ageDifference)) }
+            }
+
+            if let gender = player.gender?.lowercased() {
+                switch sportName.lowercased() {
+                case "football", "basketball":
+                    if gender == "male" {
+                        updatedPlayer.skillRating = player.skillRating.map { $0 * 1.1 }
+                    }
+                case "volleyball":
+                    if gender == "female" {
+                        updatedPlayer.skillRating = player.skillRating.map { $0 * 1.1 }
+                    }
+                default:
+                    break
+                }
+            }
+
+            return updatedPlayer
+        }
+    }
+
+    /*func calculatePlayerScore(player: Player, criteria: TeamBalancingCriteria) -> Double {
         let skillScore = Double(player.skillRating ?? 0) * criteria.skillWeight
         let ageScore = calculateAgeScore(age: player.age, sportName: player.sporType) * criteria.ageWeight
         let positionScore = calculatePositionScore(position: player.position, sportName: player.sporType) * criteria.positionWeight
         let genderScore = calculateGenderScore(gender: player.gender) * criteria.genderWeight
 
         return skillScore + ageScore + positionScore + genderScore
-    }
+    }*/
     
     func calculateTeamScore(for team: Team) -> Double {
-        guard let criteria = criteria else {
-            print("Criteria tanımlı değil")
-            return 0
+            var totalScore = 0.0
+            for player in team.players {
+                totalScore += Double(player.skillRating ?? 0)
+            }
+            return totalScore
         }
-        let idealPositions = getIdealPositions(for: selectedSport)
-        let positionCounts = getPositionCounts(for: team)
+    func optimizeTeams(_ teamA: inout Team, _ teamB: inout Team) {
+        var optimized = false
+        while !optimized {
+            optimized = true
+            for playerIndexA in 0..<teamA.players.count {
+                for playerIndexB in 0..<teamB.players.count {
+                    // Oyuncuları değiştir ve takımların yeni puanlarını hesapla
+                    var newTeamAPlayers = teamA.players
+                    var newTeamBPlayers = teamB.players
+                    let tempPlayer = newTeamAPlayers[playerIndexA]
 
-        var totalScore = 0.0
-        for player in team.players {
-            var playerScore = calculatePlayerScore(player: player, criteria: criteria)
-            let position = player.position?.lowercased()
+                    newTeamAPlayers[playerIndexA] = newTeamBPlayers[playerIndexB]
+                    newTeamBPlayers[playerIndexB] = tempPlayer
 
-            if let requiredCount = idealPositions[position ?? ""] {
-                let currentCount = positionCounts[position ?? ""] ?? 0
-                
-                if currentCount > requiredCount {
-                    playerScore *= 0.5 // Fazla oyuncu varsa, puanı yarıya düşürüyoruz
-                } else if currentCount < requiredCount {
-                    playerScore *= 0.67 // Eksik oyuncu varsa, puanı 2/3'e düşürüyoruz
+                    let newTeamAScore = calculateTeamScore(for: Team(players: newTeamAPlayers))
+                    let newTeamBScore = calculateTeamScore(for: Team(players: newTeamBPlayers))
+
+                    if abs(newTeamAScore - newTeamBScore) < abs(calculateTeamScore(for: teamA) - calculateTeamScore(for: teamB)) {
+                        teamA.players = newTeamAPlayers
+                        teamB.players = newTeamBPlayers
+                        optimized = false
+                    }
                 }
             }
-
-            totalScore += playerScore
         }
-
-        return totalScore
     }
+
 
     func getIdealPositions(for sport: SelectedSport?) -> [String: Int] {
         switch sport {
@@ -216,23 +251,15 @@ final class MatchCreateViewModel: MatchCreateViewModelProtocol {
     }
 
     func createBalancedTeams(from players: [Player], sportName: String) -> (teamA: Team, teamB: Team)? {
-        guard players.count >= 2 else {
-            return nil // Yeterli oyuncu yoksa
-        }
+            guard players.count >= 4 else {
+                return nil
+            }
 
-        // Spor türüne göre kriterleri ayarla
-        setSportCriteria(for: sportName)
-        
-        // Oyuncuları pozisyonlarına göre gruplandır
-        let groupedByPosition = Dictionary(grouping: players) { $0.position?.lowercased() ?? "" }
+            setSportCriteria(for: sportName)
 
-        var teamA = Team(players: [])
-        var teamB = Team(players: [])
-
-        // Pozisyon gruplarını sırayla her iki takıma dağıt
-        for (position, playersInPosition) in groupedByPosition {
-            // Puanlarına göre sırala
-            let sortedPlayers = playersInPosition.sorted { calculatePlayerScore(player: $0, criteria: criteria!) > calculatePlayerScore(player: $1, criteria: criteria!) }
+            var teamA = Team(players: [])
+            var teamB = Team(players: [])
+            let sortedPlayers = players.sorted { $0.skillRating ?? 0 > $1.skillRating ?? 0 }
 
             for (index, player) in sortedPlayers.enumerated() {
                 if index % 2 == 0 {
@@ -241,23 +268,22 @@ final class MatchCreateViewModel: MatchCreateViewModelProtocol {
                     teamB.players.append(player)
                 }
             }
+        
+            var teamAScore = calculateTeamScore(for: teamA)
+            var teamBScore = calculateTeamScore(for: teamB)
+
+            if abs(teamAScore - teamBScore) > 10 {
+                optimizeTeams(&teamA, &teamB)
+                teamAScore = calculateTeamScore(for: teamA)
+                teamBScore = calculateTeamScore(for: teamB)
+            }
+
+            print("Team A Total Score: \(teamAScore)")
+            print("Team B Total Score: \(teamBScore)")
+
+            return (teamA, teamB)
         }
-
-        // Takımların toplam puanlarını hesapla
-        let teamAScore = calculateTeamScore(for: teamA)
-        let teamBScore = calculateTeamScore(for: teamB)
-
-        print("Team A Total Score: \(teamAScore)")
-        print("Team B Total Score: \(teamBScore)")
-
-        return (teamA, teamB)
-    }
-
-
-
-
-
-
+    
     private func loadJsonData(completion: @escaping ([Stadium], [IndoorSportsHall]) -> Void) {
         if let url = Bundle.main.url(forResource: "turkey_sports_facilities", withExtension: "json") {
             do {
