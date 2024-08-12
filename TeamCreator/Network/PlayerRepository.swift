@@ -79,6 +79,7 @@ final class PlayerRepository: PlayerRepositoryProtocol {
     }
 
     func addPlayer(player: Player, imageData: Data, completion: @escaping (Result<Void, Error>) -> Void) {
+        clearCache()
         var player = player
         player.id = UUID().uuidString
         if let image = UIImage(data: imageData), let compressedData = image.jpegData(compressionQuality: 0.33) {
@@ -92,7 +93,7 @@ final class PlayerRepository: PlayerRepositoryProtocol {
                             if let error = error {
                                 completion(.failure(error))
                             } else {
-                                self.clearCache()
+
                                 completion(.success(()))
                             }
                         }
@@ -111,11 +112,11 @@ final class PlayerRepository: PlayerRepositoryProtocol {
     
 
     func removePlayer(playerId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        clearCache()
         db.collection("players").document(playerId).delete { error in
             if let error = error {
                 completion(.failure(error))
             } else {
-                self.clearCache()
                 completion(.success(()))
             }
         }
@@ -160,7 +161,7 @@ final class PlayerRepository: PlayerRepositoryProtocol {
     }
 
     func updatePlayer(playerId: String, name: String?, position: String?, skillRating: Double?, age: Int?, gender: String?, newImageData: Data?, completion: @escaping (Result<Void, Error>) -> Void) {
-
+        clearCache()
         let playerRef = db.collection("players").document(playerId)
 
         playerRef.getDocument { document, error in
@@ -202,7 +203,7 @@ final class PlayerRepository: PlayerRepositoryProtocol {
                             if let error = error {
                                 completion(.failure(error))
                             } else {
-                                self.clearCache()
+                                
                                 completion(.success(()))
                             }
                         }
@@ -233,5 +234,3 @@ final class PlayerRepository: PlayerRepositoryProtocol {
             cachedPlayers.removeAll()
         }
     }
-
-
