@@ -153,7 +153,7 @@ final class PlayerCRUDViewModel: PlayerCRUDViewModelProtocol {
             completion(.failure(NSError(domain: "PlayerIDError", code: 0, userInfo: nil)))
             return
         }
-        
+        let imageDataToUpdate = imageData ?? Data()
         playerRepository.updatePlayer(playerId: playerId,
                                       name: playerData.name,
                                       position: playerData.position,
@@ -182,9 +182,9 @@ final class PlayerCRUDViewModel: PlayerCRUDViewModelProtocol {
         if playerData.gender?.isEmpty == true {
             return false
         }
-        if imageData == nil || imageData?.isEmpty == true {
-            return false
-        }
+        if imageData == nil && player?.profilePhotoURL == nil {
+                return false
+            }
         
         return true
     }

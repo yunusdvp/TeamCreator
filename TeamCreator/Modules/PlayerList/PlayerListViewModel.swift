@@ -32,9 +32,7 @@ final class PlayerListViewModel: PlayerListViewModelProtocol {
     private var players: [Player] = []
     
     let playerRepository = NetworkManager.shared.playerRepository
-    //let imageStorage = NetworkManager.shared.imageStorage
-    //let db = Firestore.firestore()
-    
+
     init() {
         self.cellTypeList = [.player, .addButton]
     }
@@ -53,7 +51,6 @@ final class PlayerListViewModel: PlayerListViewModelProtocol {
             completion(result)
         }
     }
-    //delegate?.reloadTableView()
     
     func getCellTypeCount() -> Int {
         return cellTypeList.count
