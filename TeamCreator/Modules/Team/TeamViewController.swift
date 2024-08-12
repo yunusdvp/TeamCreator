@@ -31,6 +31,7 @@ final class TeamViewController: BaseViewController {
         setupBindings()
         segmentedControl.selectedSegmentIndex = 0
         updateUIWithSelectedTeam()
+        setupBackgroundImage()
         if let location = viewModel.location {
             viewModel.fetchStadiumWeather(for: location)
         }
@@ -39,6 +40,10 @@ final class TeamViewController: BaseViewController {
             updateDateAndTimeLabels(with: matchDate)
         }
     }
+    override func viewDidLayoutSubviews() {
+            super.viewDidLayoutSubviews()
+            setupBackgroundImage()
+        }
 
 
     private func setupBindings() {
@@ -57,11 +62,13 @@ final class TeamViewController: BaseViewController {
         }
     }
     private func updateUIWithSelectedTeam() {
+        
         let selectedTeam = segmentedControl.selectedSegmentIndex == 0 ? viewModel.teamA : viewModel.teamB
         guard let players = selectedTeam?.players else { return }
-
+        
         viewModel.players = players
         viewModel.updateFormation(for: selectedTeam?.sport ?? "football")
+        //setupBackgroundImage()
     }
 
     private func showError(_ message: String) {
@@ -72,7 +79,16 @@ final class TeamViewController: BaseViewController {
 
     private func setupDynamicFormation(formation: [[Player]]) {
         playersContainerView.subviews.forEach { $0.removeFromSuperview() }
-
+            let backgroundImageName = viewModel.backgroundImageName
+            guard let backgroundImage = UIImage(named: backgroundImageName) else {
+                print("Background image \(backgroundImageName) not found")
+                return
+            }
+            let backgroundImageView = UIImageView(frame: playersContainerView.bounds)
+            backgroundImageView.image = backgroundImage
+            backgroundImageView.contentMode = .scaleAspectFill
+            backgroundImageView.clipsToBounds = true
+            playersContainerView.addSubview(backgroundImageView)
         let lineHeight: CGFloat = 80.0
         let radius: CGFloat = 30.0
         let containerWidth = playersContainerView.bounds.width
@@ -96,6 +112,8 @@ final class TeamViewController: BaseViewController {
 
                 playerView.addSubview(playerLabel)
                 playersContainerView.addSubview(playerView)
+                
+                
 
                 startX += radius * 2 + 20
             }
@@ -120,12 +138,25 @@ final class TeamViewController: BaseViewController {
             window.rootViewController = navigationController
             window.makeKeyAndVisible()
         }
+    private func setupBackgroundImage() {
+            guard let backgroundImage = UIImage(named: "soccerField") else {
+                   print("Background image not found")
+                   return
+               }
+            let backgroundImageView = UIImageView(frame: playersContainerView.bounds)
+            backgroundImageView.image = backgroundImage
+            backgroundImageView.contentMode = .scaleAspectFill
+            backgroundImageView.clipsToBounds = true
+
+            playersContainerView.insertSubview(backgroundImageView, at: 0)
+        }
     @IBAction func confirmMatchButtonTapped(_ sender: UIButton) {
         viewModel.confirmMatch()
     }
     
     @IBAction func segmentedControlChanged(_ sender: UISegmentedControl) {
         updateUIWithSelectedTeam()
+        //setupBackgroundImage()
     }
     
 }
