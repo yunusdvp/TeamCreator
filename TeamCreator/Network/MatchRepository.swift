@@ -15,11 +15,16 @@ protocol MatchRepositoryProtocol {
     func removeMatch(matchId: String, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
-final class MatchRepository: MatchRepositoryProtocol{
+final class MatchRepository: MatchRepositoryProtocol {
     private let db = Firestore.firestore()
 
     func addMatch(sport: String, playerIDs: [String], location: String, date: Date, completion: @escaping (Result<Void, Error>) -> Void) {
-        let match = Match(id: UUID().uuidString, sport: sport, players: playerIDs, location: location, date: date)
+        // Takım bilgileri uygun şekilde ayarlanmalı
+        let teamA = Team(players: playerIDs.prefix(playerIDs.count / 2).map { Player(id: $0) }, sport: sport)
+        let teamB = Team(players: playerIDs.suffix(playerIDs.count / 2).map { Player(id: $0) }, sport: sport)
+        
+        let match = Match(id: UUID().uuidString, sport: sport, teamA: teamA, teamB: teamB, location: location, date: date)
+        
         do {
             let _ = try db.collection("matches").addDocument(from: match) { error in
                 if let error = error {

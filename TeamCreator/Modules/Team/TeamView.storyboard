@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -98,7 +98,17 @@
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TPd-jm-lOR">
                                 <rect key="frame" x="8" y="398.66666666666674" width="377" height="403.33333333333326"/>
+                                <rect key="frame" x="8" y="398.66666666666674" width="377" height="355"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qtk-T4-1J0">
+                                <rect key="frame" x="128" y="783.66666666666663" width="137" height="34.333333333333371"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Confirm Match"/>
+                                <connections>
+                                    <action selector="confirmMatchButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="9AP-eu-f7L"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -106,22 +116,27 @@
                             <constraint firstItem="TPd-jm-lOR" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="8" id="2gb-BF-UdJ"/>
                             <constraint firstItem="pmj-4x-ysD" firstAttribute="top" secondItem="7bD-Sb-l6k" secondAttribute="bottom" constant="24" id="4nO-zY-2mr"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="pmj-4x-ysD" secondAttribute="trailing" constant="8" id="5R2-Pl-jKI"/>
+                            <constraint firstItem="qtk-T4-1J0" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="6My-Zd-1lc"/>
                             <constraint firstItem="QM6-tN-abH" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="8" id="Bf4-Ly-JyS"/>
                             <constraint firstItem="TPd-jm-lOR" firstAttribute="top" secondItem="Fl9-RS-gwn" secondAttribute="bottom" constant="24" id="CB3-Kv-Fkx"/>
                             <constraint firstItem="7bD-Sb-l6k" firstAttribute="top" secondItem="QM6-tN-abH" secondAttribute="bottom" constant="16" id="Ddl-1y-QiH"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="7bD-Sb-l6k" secondAttribute="trailing" constant="8" id="MsA-i1-L4e"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="TPd-jm-lOR" secondAttribute="bottom" constant="16" id="QAk-CF-TnK"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Fl9-RS-gwn" secondAttribute="trailing" constant="8" id="acE-ZK-V6T"/>
                             <constraint firstItem="7bD-Sb-l6k" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="8" id="beY-RT-T1I"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="QM6-tN-abH" secondAttribute="trailing" constant="8" id="cQk-lq-ySm"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="TPd-jm-lOR" secondAttribute="trailing" constant="8" id="fCT-lq-5Bc"/>
                             <constraint firstItem="Fl9-RS-gwn" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="8" id="fbI-zL-xVN"/>
                             <constraint firstItem="QM6-tN-abH" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="8" id="nFy-c9-Juu"/>
+                            <constraint firstItem="qtk-T4-1J0" firstAttribute="top" secondItem="TPd-jm-lOR" secondAttribute="bottom" constant="30" id="r1S-pl-rfF"/>
                             <constraint firstItem="pmj-4x-ysD" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="rX9-gV-oSz"/>
+                            <constraint firstItem="qtk-T4-1J0" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="uXO-ZO-AwS"/>
                             <constraint firstItem="Fl9-RS-gwn" firstAttribute="top" secondItem="pmj-4x-ysD" secondAttribute="bottom" constant="32" id="wFJ-Hs-mgl"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="confirmMatchButton" destination="qtk-T4-1J0" id="bRf-Q5-ntc"/>
+                        <outlet property="dateLabel" destination="cOu-V1-GlO" id="Mqu-pE-IxF"/>
+                        <outlet property="hoursLabel" destination="BMi-TV-MmS" id="ulL-T2-KZd"/>
                         <outlet property="playersContainerView" destination="TPd-jm-lOR" id="CLu-wf-Wen"/>
                         <outlet property="segmentedControl" destination="Fl9-RS-gwn" id="XVO-FD-JuH"/>
                         <outlet property="stadiumLabel" destination="QM6-tN-abH" id="puR-vN-Cef"/>

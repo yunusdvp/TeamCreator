@@ -47,140 +47,133 @@ class TeamViewModel {
 
 import Foundation
 
-class TeamViewModel {
+protocol TeamViewModelDelegate: AnyObject {
+    func didFetchWeatherData(_ weatherResponse: WeatherResponse)
+    func didFailWithError(_ error: String)
+    func didUpdatePlayers(_ formation: [[Player]])
+    func didCreateMatchSuccessfully()
+    func didFailToCreateMatch(_ error: String)
     
+}
+protocol TeamViewModelProtocol: AnyObject {
+    var delegate: TeamViewModelDelegate? { get set }
+    var teamA: Team? { get set }
+    var teamB: Team? { get set }
+    var location: String? { get set }
+    var matchDate: Date? { get set }
+    var players: [Player] { get set }
+
+    func confirmMatch()
+    func fetchStadiumWeather(for stadiumName: String)
+    func updateFormation(for sport: String)
+}
+
+
+final class TeamViewModel: TeamViewModelProtocol {
+    
+    weak var delegate: TeamViewModelDelegate?
+    
+    private let matchRepository = NetworkManager.shared.matchRepository
+
     var onWeatherDataFetched: ((WeatherResponse) -> Void)?
     var onError: ((String) -> Void)?
     var onPlayersUpdated: (([[Player]]) -> Void)?
-    
+
     private(set) var selectedStadium: Stadium?
-        private(set) var selectedIndoorSportsHall: IndoorSportsHall?
-        var players: [Player] = []
-        
-        var teamA: Team?
-        var teamB: Team?
-        var location: String?
-        var matchDate: Date?
+    private(set) var selectedIndoorSportsHall: IndoorSportsHall?
+    var players: [Player] = []
 
-        init(teamA: Team?, teamB: Team?, location: String?, matchDate: Date?) {
-               self.teamA = teamA
-               self.teamB = teamB
-               self.location = location
-               self.matchDate = matchDate
-            print(teamA)
-            print(teamB)
-            print(location)
-            print(matchDate)
-           }
-        init(){
-            
-        }
+    var teamA: Team?
+    var teamB: Team?
+    var location: String?
+    var matchDate: Date?
 
-        func fetchStadiumWeather(for stadiumName: String) {
-            if let path = Bundle.main.path(forResource: "turkey_sports_facilities", ofType: "json") {
-                do {
-                    let data = try Data(contentsOf: URL(fileURLWithPath: path))
-                    let facilities = try JSONDecoder().decode(SportsFacilities.self, from: data)
-                    if let stadium = facilities.stadiums.first(where: { $0.name == location }) {
-                        selectedStadium = stadium
-                        fetchWeatherData(for: stadium.coordinates?.latitude ?? 0, lon: stadium.coordinates?.longitude ?? 0)
-                    } else if let indoorHall = facilities.indoorSportsHalls.first(where: { $0.name == location }) {
-                        selectedIndoorSportsHall = indoorHall
-                        fetchWeatherData(for: indoorHall.coordinates?.latitude ?? 0, lon: indoorHall.coordinates?.longitude ?? 0)
-                        
-                    } else {
-                        onError?("Stadium not found")
-                    }
-                } catch {
-                    onError?("Error parsing JSON: \(error.localizedDescription)")
+    init(teamA: Team?, teamB: Team?, location: String?, matchDate: Date?) {
+        self.teamA = teamA
+        self.teamB = teamB
+        self.location = location
+        self.matchDate = matchDate
+        print(teamA as Any)
+        print(teamB as Any)
+        print(location as Any)
+        print(matchDate as Any)
+    }
+
+    init() {
+
+    }
+    
+    func confirmMatch() {
+            guard let teamA = teamA, let teamB = teamB, let location = location, let matchDate = matchDate else {
+                delegate?.didFailToCreateMatch("Missing match details")
+                return
+            }
+
+            matchRepository.addMatch(sport: teamA.sport, playerIDs: teamA.players.map { $0.id! } + teamB.players.map { $0.id! }, location: location, date: matchDate) { [weak self] result in
+                switch result {
+                case .success:
+                    self?.delegate?.didCreateMatchSuccessfully()
+                case .failure(let error):
+                    self?.delegate?.didFailToCreateMatch("Failed to create match: \(error.localizedDescription)")
                 }
             }
         }
-    
+
+    func fetchStadiumWeather(for stadiumName: String) {
+            guard let path = Bundle.main.path(forResource: "turkey_sports_facilities", ofType: "json") else {
+                delegate?.didFailWithError("File not found")
+                return
+            }
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: path))
+                let facilities = try JSONDecoder().decode(SportsFacilities.self, from: data)
+                if let stadium = facilities.stadiums.first(where: { $0.name == location }) {
+                    fetchWeatherData(for: stadium.coordinates?.latitude ?? 0, lon: stadium.coordinates?.longitude ?? 0)
+                } else if let indoorHall = facilities.indoorSportsHalls.first(where: { $0.name == location }) {
+                    fetchWeatherData(for: indoorHall.coordinates?.latitude ?? 0, lon: indoorHall.coordinates?.longitude ?? 0)
+                } else {
+                    delegate?.didFailWithError("Stadium not found")
+                }
+            } catch {
+                delegate?.didFailWithError("Error parsing JSON: \(error.localizedDescription)")
+            }
+        }
+
     private func fetchWeatherData(for lat: Double, lon: Double) {
         NetworkManager.shared.fetchWeather(lat: lat, lon: lon) { [weak self] result in
             switch result {
             case .success(let weatherResponse):
-                self?.onWeatherDataFetched?(weatherResponse)
+                self?.delegate?.didFetchWeatherData(weatherResponse)
             case .failure(let error):
-                self?.onError?("Error fetching weather data: \(error.localizedDescription)")
+                self?.delegate?.didFailWithError("Error fetching weather data: \(error.localizedDescription)")
             }
         }
     }
-    
-    
-    func updateFormation() {
+
+    func updateFormation(for sport: String) {
         var formation: [[Player]] = []
-        
-        switch players.count {
-        
-        case 3:
-            formation = [
-                [players[0]],
-                [players[1]],
-                [players[2]],
-                
-            ]
-        case 4:
-            formation = [
-                [players[0]],               // Kaleci (1)
-                Array(players[1...2]),      // Defans (2)
-                [players[3]]                // Forvet (1)
-            ]
-        case 5:
-            formation = [
-                [players[0]],               // Kaleci (1)
-                Array(players[1...3]),      // Defans (3)
-                [players[4]]                // Forvet (1)
-            ]
-        case 6:
-            formation = [
-                [players[0]],               // Kaleci (1)
-                Array(players[1...2]),      // Defans (2)
-                Array(players[3...4]),      // Orta Saha (2)
-                [players[5]]                // Forvet (1)
-            ]
-        case 7:
-            formation = [
-                [players[0]],               // Kaleci (1)
-                Array(players[1...3]),      // Defans (3)
-                Array(players[4...5]),      // Orta Saha (2)
-                [players[6]]                // Forvet (1)
-            ]
-        case 8:
-            formation = [
-                [players[0]],               // Kaleci (1)
-                Array(players[1...3]),      // Defans (3)
-                Array(players[4...5]),      // Orta Saha (2)
-                Array(players[6...7])       // Forvet (2)
-            ]
-        case 9:
-            formation = [
-                [players[0]],               // Kaleci (1)
-                Array(players[1...3]),      // Defans (3)
-                Array(players[4...6]),      // Orta Saha (3)
-                Array(players[7...8])       // Forvet (2)
-            ]
-        case 10:
-            formation = [
-                [players[0]],               // Kaleci (1)
-                Array(players[1...4]),      // Defans (4)
-                Array(players[5...7]),      // Orta Saha (3)
-                Array(players[8...9])       // Forvet (2)
-            ]
-        case 11:
-            formation = [
-                [players[0]],               // Kaleci (1)
-                Array(players[1...4]),      // Defans (4)
-                Array(players[5...7]),      // Orta Saha (3)
-                Array(players[8...10])      // Forvet (3)
-            ]
-        default:
-            print("Unsupported team size")
+
+        let positions = getPositions(for: sport)
+
+        for position in positions {
+            let playersInPosition = players.filter { $0.position == position }
+            formation.append(playersInPosition)
         }
-        
-        // Formation'ı ViewController'a ilet
-        onPlayersUpdated?(formation)
+
+
+        delegate?.didUpdatePlayers(formation)
+    }
+    private func getPositions(for sport: String) -> [String] {
+        switch sport.lowercased() {
+        case "football":
+            return ["Goalkeeper", "Stopper", "Forward"]
+        case "volleyball":
+            return ["Setter", "Outside Hitter", "Libero"]
+        case "basketball":
+            return ["Point Guard", "Shooting Guard", "Center"]
+        default:
+            return []
+        }
     }
 }
 

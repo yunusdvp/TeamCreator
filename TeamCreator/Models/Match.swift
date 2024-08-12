@@ -10,7 +10,8 @@ import Foundation
 struct Match: Codable {
     var id: String?
     var sport: String
-    var players: [String]
+    var teamA: Team
+    var teamB: Team
     var location: String
     var date: Date
 }

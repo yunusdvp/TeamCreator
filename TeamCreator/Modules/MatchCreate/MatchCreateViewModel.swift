@@ -141,8 +141,8 @@ final class MatchCreateViewModel: MatchCreateViewModelProtocol {
                     newTeamAPlayers[playerIndexA] = newTeamBPlayers[playerIndexB]
                     newTeamBPlayers[playerIndexB] = tempPlayer
 
-                    let newTeamAScore = calculateTeamScore(for: Team(players: newTeamAPlayers))
-                    let newTeamBScore = calculateTeamScore(for: Team(players: newTeamBPlayers))
+                    let newTeamAScore = calculateTeamScore(for: Team(players: newTeamAPlayers, sport: selectedSport?.rawValue ?? "football"))
+                    let newTeamBScore = calculateTeamScore(for: Team(players: newTeamBPlayers, sport: selectedSport?.rawValue ?? "football"))
 
                     if abs(newTeamAScore - newTeamBScore) < abs(calculateTeamScore(for: teamA) - calculateTeamScore(for: teamB)) {
                         teamA.players = newTeamAPlayers
@@ -257,8 +257,8 @@ final class MatchCreateViewModel: MatchCreateViewModelProtocol {
 
             setSportCriteria(for: sportName)
 
-            var teamA = Team(players: [])
-            var teamB = Team(players: [])
+            var teamA = Team(players: [], sport: sportName)
+        var teamB = Team(players: [], sport: sportName)
             let sortedPlayers = players.sorted { $0.skillRating ?? 0 > $1.skillRating ?? 0 }
 
             for (index, player) in sortedPlayers.enumerated() {
