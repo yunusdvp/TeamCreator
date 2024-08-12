@@ -9,6 +9,8 @@ import UIKit
 
 class BaseViewController: UIViewController, LoadingShowable {
 
+    private var backTargetViewController: (UIViewController, ((UIViewController) -> Void))?
+
     //MARK: -Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +56,33 @@ class BaseViewController: UIViewController, LoadingShowable {
             }
         }
     }
+    func navigateToViewController<T: UIViewController>(
+            storyboardName: String,
+            viewControllerIdentifier: String,
+            configure: (T) -> Void,
+            backTo viewControllerWithConfiguration: ((UIViewController) -> Void)? = nil
+        ) {
+            let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
+            guard let viewController = storyboard.instantiateViewController(withIdentifier: viewControllerIdentifier) as? T else { return }
+
+            configure(viewController)
+
+            if let navigationController = self.navigationController {
+                navigationController.pushViewController(viewController, animated: true)
+            } else {
+                let navigationController = UINavigationController(rootViewController: self)
+                view.window?.rootViewController = navigationController
+                view.window?.makeKeyAndVisible()
+                DispatchQueue.main.async {
+                    navigationController.pushViewController(viewController, animated: true)
+                }
+            }
+
+            if let backConfiguration = viewControllerWithConfiguration {
+                backTargetViewController = (viewController, backConfiguration)
+            }
+        }
+
 
     // MARK: - Keyboard Handling
 

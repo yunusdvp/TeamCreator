@@ -71,7 +71,7 @@ extension EntryViewController: EntryViewModelDelegate {
 
     func navigateToSecond() {
         navigateToViewController(storyboardName: "DashboardView", viewControllerIdentifier: "DashboardViewController") { (secondVC: DashboardViewController) in
-            let secondViewModel = DashboardViewModel(delegate: secondVC)
+            let secondViewModel = DashboardViewModel()
             secondVC.viewModel = secondViewModel
         }
     }

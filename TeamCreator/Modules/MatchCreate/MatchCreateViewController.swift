@@ -89,7 +89,7 @@ class MatchCreateViewController: BaseViewController {
 
             let location = locationTextField.text
             let matchDate = datePicker.date
-        print(selectedPlayers)
+            print(selectedPlayers)
             navigateToTeam(teamA: teamA, teamB: teamB, location: location, matchDate: matchDate)
 
         } else {
@@ -156,13 +156,21 @@ extension MatchCreateViewController: UIPickerViewDelegate, UIPickerViewDataSourc
 
 
 extension MatchCreateViewController: MatchCreateViewModelDelegate {
-    func navigateToTeam(teamA: Team?,teamB: Team?, location: String?, matchDate: Date?) {
-            navigateToViewController(storyboardName: "TeamView", viewControllerIdentifier: "TeamViewController") { (teamVC: TeamViewController) in
+    func navigateToTeam(teamA: Team?, teamB: Team?, location: String?, matchDate: Date?) {
+        navigateToViewController(storyboardName: "TeamView", viewControllerIdentifier: "TeamViewController",
+            configure: { (teamVC: TeamViewController) in
+
                 let teamViewModel = TeamViewModel(teamA: teamA, teamB: teamB, location: location, matchDate: matchDate)
                 teamVC.viewModel = teamViewModel
+            },
+            backTo: { (backVC: UIViewController) in
+                if let dashVC = backVC as? DashboardViewController {
+                    let dashViewModel = DashboardViewModel()
+                    dashVC.viewModel = dashViewModel
+                }
             }
-
-        }
+        )
+    }
     func navigateToAnywhere() {
 
     }

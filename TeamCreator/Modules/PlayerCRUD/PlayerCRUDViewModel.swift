@@ -163,6 +163,7 @@ final class PlayerCRUDViewModel: PlayerCRUDViewModelProtocol {
                                       newImageData: imageData) { result in
             completion(result)
         }
+        
     }
     
     func isFormValid() -> Bool {
