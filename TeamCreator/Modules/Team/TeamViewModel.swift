@@ -62,6 +62,7 @@ protocol TeamViewModelProtocol: AnyObject {
     var location: String? { get set }
     var matchDate: Date? { get set }
     var players: [Player] { get set }
+    var backgroundImageName: String { get }
 
     func confirmMatch()
     func fetchStadiumWeather(for stadiumName: String)
@@ -87,7 +88,19 @@ final class TeamViewModel: TeamViewModelProtocol {
     var teamB: Team?
     var location: String?
     var matchDate: Date?
-
+    
+    var backgroundImageName: String {
+        switch SelectedSportManager.shared.selectedSport?.rawValue {
+        case "football":
+            return "soccerField"
+        case "basketball":
+            return "basketField"
+        case "volleyball":
+            return "volleyballField"
+        default:
+            return "defaultField" 
+        }
+    }
     init(teamA: Team?, teamB: Team?, location: String?, matchDate: Date?) {
         self.teamA = teamA
         self.teamB = teamB
