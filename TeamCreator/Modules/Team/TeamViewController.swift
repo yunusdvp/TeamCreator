@@ -147,6 +147,7 @@ class TeamViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+
         setupBindings()
         segmentedControl.selectedSegmentIndex = 0
                updateUIWithSelectedTeam()
