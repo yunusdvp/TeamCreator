@@ -22,12 +22,12 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hmj-aK-7bw">
                                 <rect key="frame" x="110" y="2" width="100" height="40"/>
-                                <color key="backgroundColor" red="0.99607843139999996" green="0.60784313729999995" blue="0.2790856968" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.94549006219999998" green="0.43872053529999999" blue="0.28676758060000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="J6c-W0-LRL"/>
                                     <constraint firstAttribute="height" constant="40" id="Qi2-rG-g9V"/>
                                 </constraints>
-                                <color key="tintColor" red="0.14117647059999999" green="0.2666666667" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Add"/>
                                 <userDefinedRuntimeAttributes>
