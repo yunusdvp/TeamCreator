@@ -11,6 +11,6 @@ struct Team {
     var players: [Player]
 
     var totalSkillRating: Int {
-        return players.reduce(0) { $0 + ($1.skillRating ?? 0) }
+        return Int(players.reduce(0) { $0 + ($1.skillRating ?? 0) })
     }
 }

@@ -99,7 +99,7 @@ final class PlayerCRUDViewModel: PlayerCRUDViewModelProtocol {
     }
     
     func updateSkillPoint(_ skillPoint: Int) {
-        playerData.skillRating = skillPoint
+        playerData.skillRating = Double(skillPoint)
     }
     
     func updatePlayerAge(_ age: Int) {

@@ -13,12 +13,12 @@ struct Player: Codable {
     var age: Int?
     var position: String?
     var sporType: String?
-    var skillRating: Int?
+    var skillRating: Double?
     var gender: String?
     var profilePhotoURL: String?
 }
 
 struct PlayerScore {
-    let player: Player
-    let score: Double
+    var player: Player
+    var score: Double
 }

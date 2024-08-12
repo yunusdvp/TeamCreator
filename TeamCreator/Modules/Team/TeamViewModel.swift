@@ -113,6 +113,14 @@ class TeamViewModel {
         var formation: [[Player]] = []
         
         switch players.count {
+        
+        case 3:
+            formation = [
+                [players[0]],
+                [players[1]],
+                [players[2]],
+                
+            ]
         case 4:
             formation = [
                 [players[0]],               // Kaleci (1)

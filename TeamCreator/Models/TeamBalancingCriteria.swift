@@ -8,8 +8,8 @@
 import Foundation
 
 struct TeamBalancingCriteria {
-    var skillWeight: Double
-    var ageWeight: Double
-    var positionWeight: Double
-    var genderWeight: Double
+    var skillWeight: Double?
+    var ageWeight: Double?
+    var positionWeight: Double?
+    var genderWeight: Double?
 }

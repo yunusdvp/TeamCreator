@@ -23,11 +23,12 @@ protocol PlayerRepositoryProtocol {
     func addPlayer(player: Player, imageData: Data, completion: @escaping (Result<Void, Error>) -> Void)
     func removePlayer(playerId: String, completion: @escaping (Result<Void, Error>) -> Void)
     func addRandomPlayers(count: Int, completion: @escaping (Result<Void, Error>) -> Void)
-    func updatePlayer(playerId: String, name: String?, position: String?, skillRating: Int?, age: Int?, gender: String?, newImageData: Data?, completion: @escaping (Result<Void, Error>) -> Void)
+    func updatePlayer(playerId: String, name: String?, position: String?, skillRating: Double?, age: Int?, gender: String?, newImageData: Data?, completion: @escaping (Result<Void, Error>) -> Void)
 
 }
 
 final class PlayerRepository: PlayerRepositoryProtocol {
+
 
     private let db = Firestore.firestore()
     private let imageStorage = ImageStorage()
@@ -227,7 +228,7 @@ final class PlayerRepository: PlayerRepositoryProtocol {
 //            }
 //        }
 //    }
-    func updatePlayer(playerId: String, name: String?, position: String?, skillRating: Int?, age: Int?, gender: String?, newImageData: Data?, completion: @escaping (Result<Void, Error>) -> Void) {
+    func updatePlayer(playerId: String, name: String?, position: String?, skillRating: Double?, age: Int?, gender: String?, newImageData: Data?, completion: @escaping (Result<Void, Error>) -> Void) {
 
         let playerRef = db.collection("players").document(playerId)
 
@@ -252,7 +253,7 @@ final class PlayerRepository: PlayerRepositoryProtocol {
                     player.position = position
                 }
                 if let skillRating = skillRating {
-                    player.skillRating = skillRating
+                    player.skillRating = Double(skillRating)
                 }
                 if let age = age {
                     player.age = age
