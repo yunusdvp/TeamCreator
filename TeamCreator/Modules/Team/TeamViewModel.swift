@@ -108,23 +108,6 @@ class TeamViewModel {
         }
     }
     
-    /*func loadPlayers() {
-        // Örnek oyuncular
-        players = [
-            Players(name: "Ali"),
-            Players(name: "Ayşe"),
-            Players(name: "Mehmet"),
-            Players(name: "Fatma"),
-            Players(name: "Giray"),
-            Players(name: "Ceren"),
-            Players(name: "Yunus"),
-            Players(name: "Gizem"),
-            Players(name: "Canan"),
-            Players(name: "Mustafa"),
-
-        ]
-        updateFormation()
-    }*/
     
     func updateFormation() {
         var formation: [[Player]] = []
@@ -193,3 +176,20 @@ class TeamViewModel {
     }
 }
 
+/*func loadPlayers() {
+    // Örnek oyuncular
+    players = [
+        Players(name: "Ali"),
+        Players(name: "Ayşe"),
+        Players(name: "Mehmet"),
+        Players(name: "Fatma"),
+        Players(name: "Giray"),
+        Players(name: "Ceren"),
+        Players(name: "Yunus"),
+        Players(name: "Gizem"),
+        Players(name: "Canan"),
+        Players(name: "Mustafa"),
+
+    ]
+    updateFormation()
+}*/
