@@ -98,7 +98,6 @@
 		54CEF5E02C63FB4B009687DF /* PlayerOtherPropertyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54CEF5DE2C63FB4B009687DF /* PlayerOtherPropertyTableViewCell.xib */; };
 		54CEF5E22C641DE2009687DF /* positions.json in Resources */ = {isa = PBXBuildFile; fileRef = 54CEF5E12C641DE2009687DF /* positions.json */; };
 		54CEF5E62C65029E009687DF /* NoPasteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CEF5E52C65029E009687DF /* NoPasteTextField.swift */; };
-		C42590232C675EC90032F152 /* TurkeySportsFacilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42590222C675EC90032F152 /* TurkeySportsFacilities.swift */; };
 		C425903C2C694A130032F152 /* Players.swift in Sources */ = {isa = PBXBuildFile; fileRef = C425903B2C694A130032F152 /* Players.swift */; };
 		C42C28682C5A3D2600E6586E /* DashboardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C28622C5A3D2600E6586E /* DashboardCollectionViewCell.swift */; };
 		C42C28692C5A3D2600E6586E /* DashboardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C42C28632C5A3D2600E6586E /* DashboardCollectionViewCell.xib */; };
@@ -213,7 +212,6 @@
 		54CEF5DE2C63FB4B009687DF /* PlayerOtherPropertyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerOtherPropertyTableViewCell.xib; sourceTree = "<group>"; };
 		54CEF5E12C641DE2009687DF /* positions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = positions.json; sourceTree = "<group>"; };
 		54CEF5E52C65029E009687DF /* NoPasteTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPasteTextField.swift; sourceTree = "<group>"; };
-		C42590222C675EC90032F152 /* TurkeySportsFacilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurkeySportsFacilities.swift; sourceTree = "<group>"; };
 		C425903B2C694A130032F152 /* Players.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Players.swift; sourceTree = "<group>"; };
 		C42C28622C5A3D2600E6586E /* DashboardCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardCollectionViewCell.swift; sourceTree = "<group>"; };
 		C42C28632C5A3D2600E6586E /* DashboardCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DashboardCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -434,7 +432,6 @@
 		464607592C57AB130032DC89 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C42590222C675EC90032F152 /* TurkeySportsFacilities.swift */,
 				46AE95982C6151D500BE923A /* WeatherResponse.swift */,
 				4646075A2C57AB250032DC89 /* Sport.swift */,
 				C42C286B2C5A3D4400E6586E /* DashboardItem.swift */,
@@ -851,7 +848,6 @@
 				462F56502C58191800081988 /* BaseViewController.swift in Sources */,
 				463101742C621562005C569E /* IndoorSportsHall.swift in Sources */,
 				54CEF5CE2C636FBC009687DF /* PositionTableViewCell.swift in Sources */,
-				C42590232C675EC90032F152 /* TurkeySportsFacilities.swift in Sources */,
 				54A3D5DF2C58391100AD457C /* UIView.swift in Sources */,
 				464606E92C53FF0B0032DC89 /* TeamCreator.xcdatamodeld in Sources */,
 				54A3D5E12C5839DD00AD457C /* OnboardViewModel.swift in Sources */,

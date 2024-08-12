@@ -6,15 +6,24 @@
 //
 import Foundation
 
+protocol OnboardViewModelDelegate: AnyObject {
+    func showLoadingView()
+    func hideLoadingView()
+    func reloadData()
+    func navigateToEntry()
+    func showNoInternetConnectionAlert()
+}
+
+
 // MARK: - OnboardViewModelProtocol
 protocol OnboardViewModelProtocol: AnyObject {
-    var updateUI: ((OnboardViewState) -> Void)? { get set }
-    
-    func viewDidLoad()
-    func getNumberOfSlides() -> Int
-    func getSlide(at index: Int) -> OnboardSlide
-    func getCurrentPage() -> Int
-    func setCurrentPage(_ index: Int)
+    var delegate: OnboardViewModelDelegate? { get set }
+    var numberOfSlides: Int { get }
+    var currentPage: Int { get }
+    var cellPadding: CGFloat { get }
+
+    func load()
+    func slide(at index: Int) -> OnboardSlide
     func nextPage()
     func isLastPage() -> Bool
 }
@@ -27,62 +36,54 @@ enum OnboardViewState {
 }
 
 final class OnboardViewModel: OnboardViewModelProtocol {
-    
-    var updateUI: ((OnboardViewState) -> Void)?
-    
+
+    weak var delegate: OnboardViewModelDelegate?
+
     var slides: [OnboardSlide] = []
-    
-    private var currentPage: Int = 0 {
-        didSet {
-            updateUI?(.updateSlides)
-        }
-    }
+
+    private(set) var currentPage: Int = 0
+
+    let cellPadding: CGFloat = 16.0
+
     // MARK: - Lifecycle Methods
-    func viewDidLoad() {
+    func load() {
+        delegate?.showLoadingView()
         loadSlidesFromJSON()
         checkInternetConnection()
     }
 
     // MARK: - Public Methods
-    func getNumberOfSlides() -> Int {
+    var numberOfSlides: Int {
         return slides.count
     }
-    
-    func getSlide(at index: Int) -> OnboardSlide {
+
+    func slide(at index: Int) -> OnboardSlide {
         return slides[index]
     }
-    
-    func getCurrentPage() -> Int {
-        return currentPage
-    }
-    
-    func setCurrentPage(_ index: Int) {
-        currentPage = index
-    }
-    
+
     func nextPage() {
         if currentPage < slides.count - 1 {
             currentPage += 1
+            delegate?.reloadData()
         } else {
-            updateUI?(.navigateToEntry)
+            delegate?.navigateToEntry()
         }
     }
-    
+
     func isLastPage() -> Bool {
         return currentPage == slides.count - 1
     }
-    
-    // MARK: - Private Methods
+
     private func checkInternetConnection() {
         let internetStatus = API.shared.isConnectoInternet()
+        delegate?.hideLoadingView()
         if internetStatus {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-                self?.updateUI?(.updateSlides)
-            }
+            delegate?.reloadData()
         } else {
-            updateUI?(.noInternetConnection)
+            delegate?.showNoInternetConnectionAlert()
         }
     }
+
     private func loadSlidesFromJSON() {
         guard let url = Bundle.main.url(forResource: "onboard_data", withExtension: "json") else {
             print("JSON file not found")
@@ -97,5 +98,4 @@ final class OnboardViewModel: OnboardViewModelProtocol {
             print("Error decoding JSON: \(error)")
         }
     }
-
 }
