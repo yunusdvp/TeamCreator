@@ -83,16 +83,13 @@ class MatchCreateViewController: BaseViewController {
 
             let teamA = teams.teamA
             let teamB = teams.teamB
+            print(selectedPlayers)
+            let teamAScore = viewModel.calculateTeamScore(for: teamA, sportName: sportName)
+            let teamBScore = viewModel.calculateTeamScore(for: teamB, sportName: sportName)
 
-            let teamAScore = viewModel.calculateTeamScore(for: teamA)
-            let teamBScore = viewModel.calculateTeamScore(for: teamB)
-
-            //print("Team A: \(teamA.players)")
-            //print("Team B: \(teamB.players)")
-            //print("Team A Total Score: \(teamAScore)")
-            //print("Team B Total Score: \(teamBScore)")
             let location = locationTextField.text
             let matchDate = datePicker.date
+        print(selectedPlayers)
             navigateToTeam(teamA: teamA, teamB: teamB, location: location, matchDate: matchDate)
 
         } else {
@@ -115,22 +112,25 @@ extension MatchCreateViewController: UITableViewDelegate, UITableViewDataSource 
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerListTableViewCell", for: indexPath) as? PlayerListTableViewCell else {
             return UITableViewCell()
         }
-        let player = viewModel.getPlayer(at: indexPath.row)
+        let player = viewModel.getPlayer(at: indexPath)
         cell.configure(with: player)
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let player = viewModel.getPlayer(at: indexPath.row)
+        let position = viewModel.getSectionTitle(for: indexPath.section)
+        let player = viewModel.getPlayer(at: indexPath)
         selectedPlayers.append(player)
         updateMatchCreateButtonTitle()
     }
+
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let player = viewModel.getPlayer(at: indexPath.row)
+        let player = viewModel.getPlayer(at: indexPath)
         if let index = selectedPlayers.firstIndex(where: { $0.id == player.id }) {
             selectedPlayers.remove(at: index)
             updateMatchCreateButtonTitle()
         }
     }
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         viewModel.getSectionTitle(for: section)
     }
