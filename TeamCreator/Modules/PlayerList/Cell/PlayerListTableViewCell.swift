@@ -31,7 +31,7 @@ class PlayerListTableViewCell: UITableViewCell {
         case "football":
             sportTypeIcon.image = UIImage(named: "footballIcon")
         case "volleyball":
-            sportTypeIcon.image = UIImage(named: "voleyballIcon")
+            sportTypeIcon.image = UIImage(named: "volleyballIcon")
         case "basketball":
             sportTypeIcon.image = UIImage(named: "basketballIcon")
         default:

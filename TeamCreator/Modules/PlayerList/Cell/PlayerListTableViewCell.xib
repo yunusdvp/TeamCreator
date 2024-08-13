@@ -46,8 +46,8 @@
                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Kbv-HM-jUX">
                                                                 <rect key="frame" x="0.0" y="0.0" width="115" height="50"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="basketball" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="gv1-Go-owl">
-                                                                        <rect key="frame" x="0.0" y="1" width="20" height="48.666666666666671"/>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="volleyballIcon" translatesAutoresizingMaskIntoConstraints="NO" id="gv1-Go-owl">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="20" height="50"/>
                                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="50" id="8Mu-6c-l5t"/>
@@ -163,10 +163,10 @@
     </objects>
     <resources>
         <image name="Remove-bg.ai_1722497811850" width="820" height="461"/>
-        <image name="basketball" catalog="system" width="128" height="123"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
+        <image name="volleyballIcon" width="512" height="512"/>
         <systemColor name="systemGroupedBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
