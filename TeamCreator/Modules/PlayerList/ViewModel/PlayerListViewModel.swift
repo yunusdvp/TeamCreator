@@ -57,6 +57,8 @@ final class PlayerListViewModel: PlayerListViewModelProtocol {
     }
     
     func fetchPlayers(sporType: String, completion: @escaping (Result<[Player], Error>) -> Void) {
+        delegate?.showLoading()
+        
         let filters: [PlayerFilter] = [.sporType(sporType)]
         playerRepository.fetchPlayers(withFilters: filters) { [weak self] result in
             switch result {
@@ -66,9 +68,11 @@ final class PlayerListViewModel: PlayerListViewModelProtocol {
             case .failure(let error):
                 print("Error fetching players: \(error.localizedDescription)")
             }
+            self?.delegate?.hideLoading()
             completion(result)
         }
     }
+    
     
     func getCellTypeCount() -> Int {
         return cellTypeList.count

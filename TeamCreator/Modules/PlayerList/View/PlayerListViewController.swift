@@ -11,6 +11,8 @@ protocol PlayerListViewControllerProtocol: AnyObject {
     func reloadTableView()
     func navigateToPlayerCRUD(with player: Player)
     func navigateToPlayerCRUD()
+    func showLoading()
+    func hideLoading()
 }
 
 protocol PlayerListViewControllerDelegate: AnyObject {
@@ -25,8 +27,8 @@ final class PlayerListViewController: BaseViewController{
     @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Properties
-    private var isAscendingOrder: Bool = true 
-
+    private var isAscendingOrder: Bool = true
+    
     var viewModel: PlayerListViewModelProtocol! {
         didSet {
             viewModel.delegate = self
@@ -35,15 +37,17 @@ final class PlayerListViewController: BaseViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        registerCells()
         
+        registerCells()
+        showLoading()
         tableView.delegate = self
         tableView.dataSource = self
         
         let selectedSport = SelectedSportManager.shared.selectedSport?.rawValue ?? ""
         
-        viewModel.fetchPlayers(sporType: selectedSport) { result in
+        viewModel.fetchPlayers(sporType: selectedSport) { [weak self] result in
+            self?.hideLoading()
+            
             switch result {
             case .success(let players):
                 print("Players successfully fetched: \(players)")
@@ -57,7 +61,7 @@ final class PlayerListViewController: BaseViewController{
         tableView.register(cellType: PlayerListTableViewCell.self)
         tableView.register(cellType: AddPlayerButtonTableViewCell.self)
     }
-
+    
     @IBAction func filterIconButtonClicked(_ sender: UIBarButtonItem) {
         viewModel.toggleSortOrder()
     }
@@ -167,7 +171,7 @@ extension PlayerListViewController: PlayerListViewControllerProtocol {
     func reloadTableView() {
         tableView.reloadData()
     }
-
+    
     func navigateToPlayerCRUD(with player: Player) {
         navigateToViewController(
             storyboardName: "PlayerCRUDViewController",
@@ -185,7 +189,7 @@ extension PlayerListViewController: PlayerListViewControllerProtocol {
             }
         )
     }
-
+    
 }
 
 extension PlayerListViewController: AddPlayerButtonTableViewCellDelegate {

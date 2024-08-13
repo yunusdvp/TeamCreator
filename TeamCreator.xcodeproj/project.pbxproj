@@ -22,6 +22,8 @@
 		463101762C621581005C569E /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463101752C621581005C569E /* Coordinates.swift */; };
 		463101782C6217DF005C569E /* SportsFacilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463101772C6217DF005C569E /* SportsFacilities.swift */; };
 		4631017A2C64B323005C569E /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463101792C64B323005C569E /* UIWindow.swift */; };
+		464538DA2C6BDFB600586801 /* EntryViewModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464538D92C6BDFB600586801 /* EntryViewModelsTests.swift */; };
+		464538DC2C6BE05800586801 /* DashboardViewModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464538DB2C6BE05800586801 /* DashboardViewModelsTests.swift */; };
 		464606DF2C53FF0B0032DC89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464606DE2C53FF0B0032DC89 /* AppDelegate.swift */; };
 		464606E12C53FF0B0032DC89 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464606E02C53FF0B0032DC89 /* SceneDelegate.swift */; };
 		464606E62C53FF0B0032DC89 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 464606E52C53FF0B0032DC89 /* Base */; };
@@ -47,7 +49,6 @@
 		469662692C660A2A0007FE47 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 469662682C660A2A0007FE47 /* Kingfisher */; };
 		469ED1E92C6AC90A005C0B2E /* OnboardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469ED1E82C6AC90A005C0B2E /* OnboardViewModelTests.swift */; };
 		46AE958B2C60C1A600BE923A /* SelectedSport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AE958A2C60C1A600BE923A /* SelectedSport.swift */; };
-		46AE958E2C610DE800BE923A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 46AE958D2C610DE800BE923A /* Alamofire */; };
 		46AE95902C610E0600BE923A /* GeminiApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AE958F2C610E0600BE923A /* GeminiApiService.swift */; };
 		46AE95932C610F0800BE923A /* GoogleGenerativeAI in Frameworks */ = {isa = PBXBuildFile; productRef = 46AE95922C610F0800BE923A /* GoogleGenerativeAI */; };
 		46AE95992C6151D500BE923A /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AE95982C6151D500BE923A /* WeatherResponse.swift */; };
@@ -144,6 +145,8 @@
 		463101752C621581005C569E /* Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
 		463101772C6217DF005C569E /* SportsFacilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsFacilities.swift; sourceTree = "<group>"; };
 		463101792C64B323005C569E /* UIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
+		464538D92C6BDFB600586801 /* EntryViewModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryViewModelsTests.swift; sourceTree = "<group>"; };
+		464538DB2C6BE05800586801 /* DashboardViewModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModelsTests.swift; sourceTree = "<group>"; };
 		464606DB2C53FF0B0032DC89 /* TeamCreator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeamCreator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		464606DE2C53FF0B0032DC89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		464606E02C53FF0B0032DC89 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -218,6 +221,7 @@
 		54CEF5DE2C63FB4B009687DF /* PlayerOtherPropertyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerOtherPropertyTableViewCell.xib; sourceTree = "<group>"; };
 		54CEF5E12C641DE2009687DF /* positions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = positions.json; sourceTree = "<group>"; };
 		54CEF5E52C65029E009687DF /* NoPasteTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPasteTextField.swift; sourceTree = "<group>"; };
+		54E4BD182C6BF3B6001AC2F0 /* Readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
 		C425903B2C694A130032F152 /* Players.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Players.swift; sourceTree = "<group>"; };
 		C425903E2C6ADF450032F152 /* MyMatchesView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyMatchesView.storyboard; sourceTree = "<group>"; };
 		C42590402C6ADF690032F152 /* MyMatchesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMatchesViewController.swift; sourceTree = "<group>"; };
@@ -237,7 +241,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46AE958E2C610DE800BE923A /* Alamofire in Frameworks */,
 				468C7BC02C5A25BA0006AD51 /* FirebaseFirestore in Frameworks */,
 				468C7BC22C5A25BA0006AD51 /* FirebaseStorage in Frameworks */,
 				46AE95932C610F0800BE923A /* GoogleGenerativeAI in Frameworks */,
@@ -392,6 +395,7 @@
 				468C7BBC2C5A24CF0006AD51 /* GoogleService-Info.plist */,
 				464606EF2C53FF0D0032DC89 /* Info.plist */,
 				464606E72C53FF0B0032DC89 /* TeamCreator.xcdatamodeld */,
+				54E4BD182C6BF3B6001AC2F0 /* Readme.md */,
 			);
 			path = TeamCreator;
 			sourceTree = "<group>";
@@ -477,6 +481,8 @@
 			isa = PBXGroup;
 			children = (
 				469ED1E82C6AC90A005C0B2E /* OnboardViewModelTests.swift */,
+				464538D92C6BDFB600586801 /* EntryViewModelsTests.swift */,
+				464538DB2C6BE05800586801 /* DashboardViewModelsTests.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -797,7 +803,6 @@
 			packageProductDependencies = (
 				468C7BBF2C5A25BA0006AD51 /* FirebaseFirestore */,
 				468C7BC12C5A25BA0006AD51 /* FirebaseStorage */,
-				46AE958D2C610DE800BE923A /* Alamofire */,
 				46AE95922C610F0800BE923A /* GoogleGenerativeAI */,
 				469662682C660A2A0007FE47 /* Kingfisher */,
 			);
@@ -877,7 +882,6 @@
 			mainGroup = 464606D22C53FF0B0032DC89;
 			packageReferences = (
 				468C7BBE2C5A25B90006AD51 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				46AE958C2C610DE800BE923A /* XCRemoteSwiftPackageReference "Alamofire" */,
 				46AE95912C610F0800BE923A /* XCRemoteSwiftPackageReference "generative-ai-swift" */,
 				469662672C660A2A0007FE47 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
@@ -1043,8 +1047,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				464538DA2C6BDFB600586801 /* EntryViewModelsTests.swift in Sources */,
 				469ED1E92C6AC90A005C0B2E /* OnboardViewModelTests.swift in Sources */,
 				464606F92C53FF0D0032DC89 /* TeamCreatorTests.swift in Sources */,
+				464538DC2C6BE05800586801 /* DashboardViewModelsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1403,14 +1409,6 @@
 				minimumVersion = 7.12.0;
 			};
 		};
-		46AE958C2C610DE800BE923A /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.9.1;
-			};
-		};
 		46AE95912C610F0800BE923A /* XCRemoteSwiftPackageReference "generative-ai-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/generative-ai-swift";
@@ -1436,11 +1434,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 469662672C660A2A0007FE47 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
-		};
-		46AE958D2C610DE800BE923A /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 46AE958C2C610DE800BE923A /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
 		};
 		46AE95922C610F0800BE923A /* GoogleGenerativeAI */ = {
 			isa = XCSwiftPackageProductDependency;
