@@ -16,6 +16,7 @@ final class PlayerCRUDViewController: BaseViewController {
     // MARK: - Properties
     @IBOutlet private weak var tableView: UITableView!
     
+    
     private let imagePicker = UIImagePickerController()
     
     var viewModel: PlayerCRUDViewModelProtocol? {
@@ -23,6 +24,7 @@ final class PlayerCRUDViewController: BaseViewController {
             viewModel?.delegate = self
         }
     }
+    weak var delegate: PlayerListViewControllerDelegate?
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -76,37 +78,30 @@ final class PlayerCRUDViewController: BaseViewController {
         present(alert, animated: true, completion: nil)
     }
     func addPlayer(completion: @escaping (Bool) -> Void) {
+        self.delegate?.didUpdatePlayerList()
         navigateToPlayerList()
     }
     
     func navigateToPlayerList() {
-        navigateToViewController(
-            storyboardName: "PlayerListViewController",
-            viewControllerIdentifier: "PlayerListViewController",
-            configure: { (playerListVC: PlayerListViewController) in
-                let playerListViewModel = PlayerListViewModel()
-                playerListVC.viewModel = playerListViewModel
-            },
-            backTo: { (backVC: UIViewController) in
-                if let homeVC = backVC as? PlayerListViewController {
-                    let homeViewModel = PlayerListViewModel()
-                    homeVC.viewModel = homeViewModel
-                }
-            }
-        )
+        self.navigationController?.popViewController(animated: true)
+        self.delegate?.didUpdatePlayerList()
     }
-      
+
     func updatePlayer() {
+        self.delegate?.didUpdatePlayerList()
         viewModel?.updatePlayerInFirebase { [weak self] result in
             switch result {
             case .success:
+                
                 self?.showUpdateAlert(success: true, error: nil)
+                //self?.delegate?.didUpdatePlayerList()
                 self?.navigateToPlayerList()
             case .failure(let error):
                 self?.showUpdateAlert(success: false, error: error)
             }
         }
     }
+    
 }
 
 // MARK: - Extension-UITableViewDataSource-UITableViewDelegate
@@ -249,7 +244,6 @@ extension PlayerCRUDViewController: UIImagePickerControllerDelegate, UINavigatio
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        // Resim seçimi iptal edildiyse resmi temizle
         if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? PlayerImageTableViewCell {
             cell.clearImage()
         }

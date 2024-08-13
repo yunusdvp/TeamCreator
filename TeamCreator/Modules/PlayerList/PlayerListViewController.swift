@@ -12,6 +12,10 @@ protocol PlayerListViewControllerProtocol: AnyObject {
     func navigateToPlayerCRUD(with player: Player)
     func navigateToPlayerCRUD()
 }
+protocol PlayerListViewControllerDelegate: AnyObject {
+    func didUpdatePlayerList()
+}
+
 
 final class PlayerListViewController: BaseViewController {
     
@@ -42,19 +46,7 @@ final class PlayerListViewController: BaseViewController {
             }
         }
     }
-    override func viewWillAppear(_ animated: Bool) {
-        let selectedSport = SelectedSportManager.shared.selectedSport?.rawValue ?? ""
-        viewModel.fetchPlayers(sporType: selectedSport) { result in
-            switch result {
-            case .success(let players):
-                print("Players successfully fetched: \(players)")
-            case .failure(let error):
-                print("Error fetching players: \(error.localizedDescription)")
-            }
-        }
-    }
-    
-    
+
     private func registerCells() {
         tableView.register(UINib(nibName: "PlayerListTableViewCell", bundle: nil), forCellReuseIdentifier: "PlayerListTableViewCell")
         tableView.register(UINib(nibName: "AddPlayerButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "AddPlayerButtonTableViewCell")
@@ -147,9 +139,10 @@ extension PlayerListViewController: PlayerListViewControllerProtocol {
         navigateToViewController(
             storyboardName: "PlayerCRUDViewController",
             viewControllerIdentifier: "PlayerCRUDViewController",
-            configure: { (playerListVC: PlayerCRUDViewController) in
-                let playerListViewModel = PlayerCRUDViewModel()
-                playerListVC.viewModel = playerListViewModel
+            configure: { (playerCRUDVC: PlayerCRUDViewController) in
+                let playerCRUDViewModel = PlayerCRUDViewModel()
+                playerCRUDVC.viewModel = playerCRUDViewModel
+                playerCRUDVC.delegate = self
             },
             backTo: { (backVC: UIViewController) in
                 if let homeVC = backVC as? DashboardViewController {
@@ -170,9 +163,10 @@ extension PlayerListViewController: PlayerListViewControllerProtocol {
         navigateToViewController(
             storyboardName: "PlayerCRUDViewController",
             viewControllerIdentifier: "PlayerCRUDViewController",
-            configure: { (playerListVC: PlayerCRUDViewController) in
-                let playerListViewModel = PlayerCRUDViewModel(player: player)
-                playerListVC.viewModel = playerListViewModel
+            configure: { (playerCRUDVC: PlayerCRUDViewController) in
+                let playerCRUDViewModel = PlayerCRUDViewModel(player: player)
+                playerCRUDVC.viewModel = playerCRUDViewModel
+                playerCRUDVC.delegate = self 
             },
             backTo: { (backVC: UIViewController) in
                 if let homeVC = backVC as? DashboardViewController {
@@ -182,10 +176,26 @@ extension PlayerListViewController: PlayerListViewControllerProtocol {
             }
         )
     }
+
 }
 extension PlayerListViewController: AddPlayerButtonTableViewCellDelegate {
     func didTapButton() {
         print("Buton tıklandı")
         navigateToPlayerCRUD()
     }
+}
+extension PlayerListViewController: PlayerListViewControllerDelegate {
+    func didUpdatePlayerList() {
+        print("delegate çağırıldı")
+            viewModel.fetchPlayers(sporType: SelectedSportManager.shared.selectedSport?.rawValue ?? "") { [weak self] result in
+                switch result {
+                case .success:
+                    print("yeni veriler çekildi")
+                    self?.reloadTableView()
+                case .failure(let error):
+                    print("Error updating player list: \(error.localizedDescription)")
+                }
+            }
+        }
+    
 }

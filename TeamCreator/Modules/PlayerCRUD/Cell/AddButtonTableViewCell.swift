@@ -38,7 +38,7 @@ class AddButtonTableViewCell: UITableViewCell {
             onAddButtonTapped?()
             viewController.addPlayer { success in
                 if success {
-                    viewController.navigateToPlayerList()
+                    viewController.delegate?.didUpdatePlayerList()
                 } else {
                 }
             }
