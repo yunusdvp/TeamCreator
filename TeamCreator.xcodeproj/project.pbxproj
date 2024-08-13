@@ -24,7 +24,6 @@
 		4631017A2C64B323005C569E /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463101792C64B323005C569E /* UIWindow.swift */; };
 		464606DF2C53FF0B0032DC89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464606DE2C53FF0B0032DC89 /* AppDelegate.swift */; };
 		464606E12C53FF0B0032DC89 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464606E02C53FF0B0032DC89 /* SceneDelegate.swift */; };
-		464606E32C53FF0B0032DC89 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464606E22C53FF0B0032DC89 /* ViewController.swift */; };
 		464606E62C53FF0B0032DC89 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 464606E52C53FF0B0032DC89 /* Base */; };
 		464606E92C53FF0B0032DC89 /* TeamCreator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 464606E72C53FF0B0032DC89 /* TeamCreator.xcdatamodeld */; };
 		464606EB2C53FF0D0032DC89 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 464606EA2C53FF0D0032DC89 /* Assets.xcassets */; };
@@ -148,7 +147,6 @@
 		464606DB2C53FF0B0032DC89 /* TeamCreator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeamCreator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		464606DE2C53FF0B0032DC89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		464606E02C53FF0B0032DC89 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		464606E22C53FF0B0032DC89 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		464606E52C53FF0B0032DC89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		464606E82C53FF0B0032DC89 /* TeamCreator.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TeamCreator.xcdatamodel; sourceTree = "<group>"; };
 		464606EA2C53FF0D0032DC89 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -353,9 +351,8 @@
 		462F565D2C58249200081988 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
-				462F565E2C5824AC00081988 /* SplashViewController.swift */,
-				462F56602C5824BA00081988 /* SplashViewModel.swift */,
-				542A79842C5D8CDD0033C7D1 /* SplashViewController.storyboard */,
+				C42590582C6BADCF0032F152 /* View */,
+				C42590592C6BADE20032F152 /* ViewModel */,
 			);
 			path = Splash;
 			sourceTree = "<group>";
@@ -392,7 +389,6 @@
 				462F56492C58180600081988 /* Storyboards */,
 				4646075C2C5817630032DC89 /* Extensions */,
 				464607592C57AB130032DC89 /* Models */,
-				464606E22C53FF0B0032DC89 /* ViewController.swift */,
 				468C7BBC2C5A24CF0006AD51 /* GoogleService-Info.plist */,
 				464606EF2C53FF0D0032DC89 /* Info.plist */,
 				464606E72C53FF0B0032DC89 /* TeamCreator.xcdatamodeld */,
@@ -421,20 +417,20 @@
 		4646074E2C57A2C10032DC89 /* Entry */ = {
 			isa = PBXGroup;
 			children = (
-				464607512C57A2F40032DC89 /* Views */,
-				4646074F2C57A2E70032DC89 /* EntryViewController.swift */,
-				464607572C57A3510032DC89 /* EntryViewModel.swift */,
+				464607512C57A2F40032DC89 /* View */,
+				C425905A2C6BAE270032F152 /* ViewModel */,
 			);
 			path = Entry;
 			sourceTree = "<group>";
 		};
-		464607512C57A2F40032DC89 /* Views */ = {
+		464607512C57A2F40032DC89 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				464607522C57A2FA0032DC89 /* Cells */,
 				466D3F7A2C680B87002303F7 /* EntryViewController.storyboard */,
+				4646074F2C57A2E70032DC89 /* EntryViewController.swift */,
 			);
-			path = Views;
+			path = View;
 			sourceTree = "<group>";
 		};
 		464607522C57A2FA0032DC89 /* Cells */ = {
@@ -496,9 +492,8 @@
 		46AE95A62C6154CA00BE923A /* Team */ = {
 			isa = PBXGroup;
 			children = (
-				46AE95A32C6154CA00BE923A /* TeamView.storyboard */,
-				46AE95A42C6154CA00BE923A /* TeamViewController.swift */,
-				46AE95A52C6154CA00BE923A /* TeamViewModel.swift */,
+				C425904F2C6BAC5B0032F152 /* View */,
+				C42590502C6BAC690032F152 /* ViewModel */,
 			);
 			path = Team;
 			sourceTree = "<group>";
@@ -506,9 +501,8 @@
 		46AE95AA2C615E4900BE923A /* MatchCreate */ = {
 			isa = PBXGroup;
 			children = (
-				46AE95AB2C615E7D00BE923A /* MatchCreateViewController.swift */,
-				46AE95AD2C615E9500BE923A /* MatchCreateViewController.storyboard */,
-				46AE95AF2C615EAA00BE923A /* MatchCreateViewModel.swift */,
+				C425904D2C6BAB990032F152 /* View */,
+				C425904E2C6BABB10032F152 /* ViewModel */,
 			);
 			path = MatchCreate;
 			sourceTree = "<group>";
@@ -526,10 +520,8 @@
 		46E171252C5B8B00003D9C74 /* PlayerCRUD */ = {
 			isa = PBXGroup;
 			children = (
-				54CEF5BA2C636A1C009687DF /* Cell */,
-				54CEF5BD2C636B1E009687DF /* PlayerCRUDViewController.swift */,
-				54CEF5D32C638B9C009687DF /* PlayerCRUDViewModel.swift */,
-				54CEF5BB2C636A37009687DF /* PlayerCRUDViewController.storyboard */,
+				C42590532C6BACD90032F152 /* View */,
+				C42590542C6BACFE0032F152 /* ViewModel */,
 			);
 			path = PlayerCRUD;
 			sourceTree = "<group>";
@@ -537,10 +529,8 @@
 		545D3C432C5D724C00EAB40D /* PlayerList */ = {
 			isa = PBXGroup;
 			children = (
-				545D3C542C5D726D00EAB40D /* Cell */,
-				545D3C4F2C5D726D00EAB40D /* PlayerListViewModel.swift */,
-				545D3C662C5D7BCD00EAB40D /* PlayerListViewController.swift */,
-				545D3C682C5D7BDD00EAB40D /* PlayerListViewController.storyboard */,
+				C42590512C6BAC920032F152 /* View */,
+				C42590522C6BACA60032F152 /* ViewModel */,
 			);
 			path = PlayerList;
 			sourceTree = "<group>";
@@ -559,9 +549,9 @@
 		54A3D5C42C58364000AD457C /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				54A5D45F2C59572300EF405C /* Views */,
-				54A3D5E02C5839DD00AD457C /* OnboardViewModel.swift */,
-				54A3D5E22C583D9900AD457C /* OnboardSlide.swift */,
+				C42590562C6BAD6F0032F152 /* Model */,
+				54A5D45F2C59572300EF405C /* View */,
+				C42590572C6BAD7B0032F152 /* ViewModel */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -575,14 +565,14 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		54A5D45F2C59572300EF405C /* Views */ = {
+		54A5D45F2C59572300EF405C /* View */ = {
 			isa = PBXGroup;
 			children = (
 				54A3D5DB2C58368800AD457C /* Cells */,
 				54A5D44B2C5842EC00EF405C /* OnboardViewController.swift */,
 				54A5D4552C5917F200EF405C /* OnboardViewController.storyboard */,
 			);
-			path = Views;
+			path = View;
 			sourceTree = "<group>";
 		};
 		54CEF5BA2C636A1C009687DF /* Cell */ = {
@@ -607,10 +597,8 @@
 		C425903D2C6ADE880032F152 /* MyMatches */ = {
 			isa = PBXGroup;
 			children = (
-				C42590482C6AE00B0032F152 /* Cell */,
-				C425903E2C6ADF450032F152 /* MyMatchesView.storyboard */,
-				C42590402C6ADF690032F152 /* MyMatchesViewController.swift */,
-				C42590422C6ADF8B0032F152 /* MyMatchesViewModel.swift */,
+				C425904B2C6BAAE50032F152 /* View */,
+				C425904C2C6BAB550032F152 /* ViewModel */,
 			);
 			path = MyMatches;
 			sourceTree = "<group>";
@@ -624,30 +612,167 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		C42C28642C5A3D2600E6586E /* Cells */ = {
+		C425904B2C6BAAE50032F152 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C42590482C6AE00B0032F152 /* Cell */,
+				C425903E2C6ADF450032F152 /* MyMatchesView.storyboard */,
+				C42590402C6ADF690032F152 /* MyMatchesViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C425904C2C6BAB550032F152 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C42590422C6ADF8B0032F152 /* MyMatchesViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C425904D2C6BAB990032F152 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				46AE95AB2C615E7D00BE923A /* MatchCreateViewController.swift */,
+				46AE95AD2C615E9500BE923A /* MatchCreateViewController.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C425904E2C6BABB10032F152 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				46AE95AF2C615EAA00BE923A /* MatchCreateViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C425904F2C6BAC5B0032F152 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				46AE95A42C6154CA00BE923A /* TeamViewController.swift */,
+				46AE95A32C6154CA00BE923A /* TeamView.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C42590502C6BAC690032F152 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				46AE95A52C6154CA00BE923A /* TeamViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C42590512C6BAC920032F152 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				545D3C542C5D726D00EAB40D /* Cell */,
+				545D3C662C5D7BCD00EAB40D /* PlayerListViewController.swift */,
+				545D3C682C5D7BDD00EAB40D /* PlayerListViewController.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C42590522C6BACA60032F152 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				545D3C4F2C5D726D00EAB40D /* PlayerListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C42590532C6BACD90032F152 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				54CEF5BA2C636A1C009687DF /* Cell */,
+				54CEF5BD2C636B1E009687DF /* PlayerCRUDViewController.swift */,
+				54CEF5BB2C636A37009687DF /* PlayerCRUDViewController.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C42590542C6BACFE0032F152 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				54CEF5D32C638B9C009687DF /* PlayerCRUDViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C42590552C6BAD370032F152 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C42C28662C5A3D2600E6586E /* DashboardViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C42590562C6BAD6F0032F152 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				54A3D5E22C583D9900AD457C /* OnboardSlide.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C42590572C6BAD7B0032F152 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				54A3D5E02C5839DD00AD457C /* OnboardViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C42590582C6BADCF0032F152 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				462F565E2C5824AC00081988 /* SplashViewController.swift */,
+				542A79842C5D8CDD0033C7D1 /* SplashViewController.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C42590592C6BADE20032F152 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				462F56602C5824BA00081988 /* SplashViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C425905A2C6BAE270032F152 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				464607572C57A3510032DC89 /* EntryViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C42C28642C5A3D2600E6586E /* Cell */ = {
 			isa = PBXGroup;
 			children = (
 				465FE63A2C6828570025FA2D /* DashboardView.storyboard */,
 				C42C28622C5A3D2600E6586E /* DashboardCollectionViewCell.swift */,
 				C42C28632C5A3D2600E6586E /* DashboardCollectionViewCell.xib */,
 			);
-			path = Cells;
+			path = Cell;
 			sourceTree = "<group>";
 		};
-		C42C28652C5A3D2600E6586E /* Views */ = {
+		C42C28652C5A3D2600E6586E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C42C28642C5A3D2600E6586E /* Cells */,
+				C42C286F2C5A3F3E00E6586E /* DashboardViewController.swift */,
+				C42C28642C5A3D2600E6586E /* Cell */,
 			);
-			path = Views;
+			path = View;
 			sourceTree = "<group>";
 		};
 		C42C28672C5A3D2600E6586E /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				C42C28652C5A3D2600E6586E /* Views */,
-				C42C28662C5A3D2600E6586E /* DashboardViewModel.swift */,
-				C42C286F2C5A3F3E00E6586E /* DashboardViewController.swift */,
+				C42C28652C5A3D2600E6586E /* View */,
+				C42590552C6BAD370032F152 /* ViewModel */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -854,7 +979,6 @@
 				46AE95B22C61FC6F00BE923A /* SelectedSportManager.swift in Sources */,
 				54CEF5E62C65029E009687DF /* NoPasteTextField.swift in Sources */,
 				C42C28702C5A3F3E00E6586E /* DashboardViewController.swift in Sources */,
-				464606E32C53FF0B0032DC89 /* ViewController.swift in Sources */,
 				46AE95992C6151D500BE923A /* WeatherResponse.swift in Sources */,
 				545D3C5A2C5D726D00EAB40D /* PlayerListTableViewCell.swift in Sources */,
 				464607502C57A2E70032DC89 /* EntryViewController.swift in Sources */,
