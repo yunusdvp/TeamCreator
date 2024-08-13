@@ -9,7 +9,6 @@ import UIKit
 
 protocol MatchCreateViewControllerProtocol: AnyObject {
     func reloadTableView()
-    func navigateToAnyWhere()
 }
 
 class MatchCreateViewController: BaseViewController {
@@ -30,26 +29,19 @@ class MatchCreateViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = MatchCreateViewModel()
         prepareTableView()
         preparePickerView()
-        viewModel.fetchLocations()
-        let selectedSport = SelectedSportManager.shared.selectedSport?.rawValue ?? ""
-        viewModel.fetchPlayers(sporType: selectedSport) { result in
-            switch result {
-            case .success(let players):
-                print("Oyuncular başarıyla getirildi: \(players)")
-
-            case .failure(let error):
-                print("Oyuncular getirilirken hata oluştu: \(error.localizedDescription)")
-            }
-        }
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.load()
     }
 
     private func prepareTableView() {
         playerTableView.delegate = self
         playerTableView.dataSource = self
-        playerTableView.register(UINib(nibName: "PlayerListTableViewCell", bundle: nil), forCellReuseIdentifier: "PlayerListTableViewCell")
+        playerTableView.register(cellType: PlayerListTableViewCell.self)
         playerTableView.allowsMultipleSelection = true
     }
     private func updateMatchCreateButtonTitle() {
@@ -76,27 +68,6 @@ class MatchCreateViewController: BaseViewController {
         locationTextField.resignFirstResponder()
     }
 
-//    @IBAction func matchCreateButtonTapped(_ sender: UIButton) {
-//        guard let sportName = SelectedSportManager.shared.selectedSport?.rawValue else { return }
-//        viewModel.setSportCriteria(for: sportName)
-//        if let teams = viewModel.createBalancedTeams(from: selectedPlayers, sportName: sportName) {
-//
-//            let teamA = teams.teamA
-//            let teamB = teams.teamB
-//            print(selectedPlayers)
-//            let teamAScore = viewModel.calculateTeamScore(for: teamA, sportName: sportName)
-//            let teamBScore = viewModel.calculateTeamScore(for: teamB, sportName: sportName)
-//
-//            let location = locationTextField.text
-//            let matchDate = datePicker.date
-//            print(selectedPlayers)
-//            navigateToTeam(teamA: teamA, teamB: teamB, location: location, matchDate: matchDate)
-//
-//        } else {
-//            print("Yeterli oyuncu yok veya geçersiz spor adı.")
-//        }
-//
-//    }
     @IBAction func matchCreateButtonTapped(_ sender: UIButton) {
         guard !selectedPlayers.isEmpty else {
             showAlert("Alert", "Please select at least one player.")
@@ -191,6 +162,7 @@ extension MatchCreateViewController: UIPickerViewDelegate, UIPickerViewDataSourc
 
 
 extension MatchCreateViewController: MatchCreateViewModelDelegate {
+    
     func navigateToTeam(teamA: Team?, teamB: Team?, location: String?, matchDate: Date?) {
         navigateToViewController(storyboardName: "TeamView", viewControllerIdentifier: "TeamViewController",
             configure: { (teamVC: TeamViewController) in
@@ -205,9 +177,6 @@ extension MatchCreateViewController: MatchCreateViewModelDelegate {
                 }
             }
         )
-    }
-    func navigateToAnywhere() {
-
     }
 
     func reloadTableView() {

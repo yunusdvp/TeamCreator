@@ -363,6 +363,7 @@
 		464606D22C53FF0B0032DC89 = {
 			isa = PBXGroup;
 			children = (
+				54E4BD182C6BF3B6001AC2F0 /* Readme.md */,
 				464606DD2C53FF0B0032DC89 /* TeamCreator */,
 				464606F72C53FF0D0032DC89 /* TeamCreatorTests */,
 				464607012C53FF0D0032DC89 /* TeamCreatorUITests */,
@@ -395,7 +396,6 @@
 				468C7BBC2C5A24CF0006AD51 /* GoogleService-Info.plist */,
 				464606EF2C53FF0D0032DC89 /* Info.plist */,
 				464606E72C53FF0B0032DC89 /* TeamCreator.xcdatamodeld */,
-				54E4BD182C6BF3B6001AC2F0 /* Readme.md */,
 			);
 			path = TeamCreator;
 			sourceTree = "<group>";

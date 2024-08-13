@@ -37,24 +37,14 @@ final class PlayerListViewController: BaseViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         registerCells()
-        showLoading()
         tableView.delegate = self
         tableView.dataSource = self
         
-        let selectedSport = SelectedSportManager.shared.selectedSport?.rawValue ?? ""
-        
-        viewModel.fetchPlayers(sporType: selectedSport) { [weak self] result in
-            self?.hideLoading()
-            
-            switch result {
-            case .success(let players):
-                print("Players successfully fetched: \(players)")
-            case .failure(let error):
-                print("Error fetching players: \(error.localizedDescription)")
-            }
-        }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        showLoading()
+        viewModel.load()
     }
     
     private func registerCells() {
