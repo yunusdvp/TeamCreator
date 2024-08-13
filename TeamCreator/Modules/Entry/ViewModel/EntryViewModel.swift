@@ -13,6 +13,7 @@ protocol EntryViewModelProtocol: AnyObject {
     var delegate: EntryViewModelDelegate? { get set }
 
     func fetchSports()
+    func load()
     func getSportsCount() -> Int
     func getSport(at index: Int) -> Sport
     func selectSport(at index: Int)
@@ -29,9 +30,6 @@ final class EntryViewModel: EntryViewModelProtocol {
     weak var delegate: EntryViewModelDelegate?
     private var sports: [Sport] = []
 
-    init() {
-
-    }
     // MARK: - Public Methods
     func fetchSports() {
         let sports1 = Sport(name: "Football", backgroundImage: "football5", type: .football)
@@ -53,6 +51,9 @@ final class EntryViewModel: EntryViewModelProtocol {
         SelectedSportManager.shared.selectedSport = sports[index].type
         print(SelectedSportManager.shared.selectedSport as Any)
         delegate?.navigateToSecond()
+    }
+    func load() {
+        fetchSports()
     }
 
     func navigateToSecond() {

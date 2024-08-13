@@ -7,14 +7,19 @@
 
 import UIKit
 protocol AddButtonTableViewCellDelegate: AnyObject {
-    func didTapButton()
+    func didTapAddButton(success: Bool)
 }
 class AddButtonTableViewCell: UITableViewCell {
     // MARK: - Properties
     @IBOutlet private weak var playerAddButton: UIButton!
 
-    var onAddButtonTapped: (() -> Void)?
     weak var delegate: AddButtonTableViewCellDelegate?
+    
+    var viewModel: PlayerCRUDViewModelProtocol? {
+            didSet {
+                updateButtonTitle()
+            }
+        }
     // MARK: - Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,31 +27,27 @@ class AddButtonTableViewCell: UITableViewCell {
 
     }
     func updateButtonTitle() {
-        if let viewController = self.findViewController() as? PlayerCRUDViewController, viewController.viewModel?.player != nil {
-            playerAddButton.setTitle("Update", for: .normal)
-        } else {
-            playerAddButton.setTitle("Add", for: .normal)
+            if viewModel?.player != nil {
+                playerAddButton.setTitle("Update", for: .normal)
+            } else {
+                playerAddButton.setTitle("Add", for: .normal)
+            }
         }
-    }
     @IBAction func playerAddButtonClicked(_ sender: UIButton) {
-        if let viewController = self.findViewController() as? PlayerCRUDViewController {
-            if !viewController.validateForm() {
-                let alert = UIAlertController(title: "Missing Field", message: "Please make sure you have filled in all fields.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                viewController.present(alert, animated: true, completion: nil)
-                return
-            }
-
-            onAddButtonTapped?()
-            viewController.addPlayer { success in
-                if success {
-                    viewController.delegate?.didUpdatePlayerList()
-                } else {
+        guard let viewModel = viewModel else { return }
+                if !viewModel.isFormValid() {
+                    showValidationAlert()
+                    return
                 }
-            }
-        }
-        delegate?.didTapButton()
+                viewModel.addOrUpdatePlayer()
+                
+                delegate?.didTapAddButton(success: true)
     }
+    private func showValidationAlert() {
+            let alert = UIAlertController(title: "Missing Field", message: "Please make sure you have filled in all fields.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            findViewController()?.present(alert, animated: true, completion: nil)
+        }
 }
 
 extension UIView {
@@ -61,3 +62,4 @@ extension UIView {
         return nil
     }
 }
+

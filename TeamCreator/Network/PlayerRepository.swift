@@ -79,7 +79,6 @@ final class PlayerRepository: PlayerRepositoryProtocol {
     }
 
     func addPlayer(player: Player, imageData: Data, completion: @escaping (Result<Void, Error>) -> Void) {
-        clearCache()
         var player = player
         player.id = UUID().uuidString
         if let image = UIImage(data: imageData), let compressedData = image.jpegData(compressionQuality: 0.33) {
@@ -93,7 +92,9 @@ final class PlayerRepository: PlayerRepositoryProtocol {
                             if let error = error {
                                 completion(.failure(error))
                             } else {
-
+                                if let sportType = player.sporType {
+                                    self.cachedPlayers.removeValue(forKey: sportType)
+                                }
                                 completion(.success(()))
                             }
                         }
@@ -161,7 +162,6 @@ final class PlayerRepository: PlayerRepositoryProtocol {
     }
 
     func updatePlayer(playerId: String, name: String?, position: String?, skillRating: Double?, age: Int?, gender: String?, newImageData: Data?, completion: @escaping (Result<Void, Error>) -> Void) {
-        clearCache()
         let playerRef = db.collection("players").document(playerId)
 
         playerRef.getDocument { document, error in
@@ -177,6 +177,10 @@ final class PlayerRepository: PlayerRepositoryProtocol {
 
             do {
                 var player = try document.data(as: Player.self)
+                
+                if let sportType = player.sporType {
+                    self.cachedPlayers.removeValue(forKey: sportType)
+                }
 
                 if let name = name {
                     player.name = name
@@ -217,6 +221,7 @@ final class PlayerRepository: PlayerRepositoryProtocol {
                         switch result {
                         case .success(let url):
                             updatePlayerInFirestore(url)
+                            self.clearCache()
                         case .failure(let error):
                             completion(.failure(error))
                         }
@@ -232,5 +237,6 @@ final class PlayerRepository: PlayerRepositoryProtocol {
     }
     private func clearCache() {
             cachedPlayers.removeAll()
+        print("cach silindi")
         }
     }
