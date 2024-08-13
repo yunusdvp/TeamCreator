@@ -39,10 +39,10 @@ class PlayerOtherPropertyTableViewCell: UITableViewCell {
         skillPointTextLabel.addTarget(self, action: #selector(skillPointTextFieldDidChange), for: .editingChanged)
         ageTextField.addTarget(self, action: #selector(ageTextFieldDidChange), for: .editingChanged)
     }
-    func configure(skillPoint: Int?, age: Int?) {
-        skillPointTextLabel.text = skillPoint != nil ? "\(skillPoint!)" : ""
-        ageTextField.text = age != nil ? "\(age!)" : ""
-    }
+  
+      private func validateSkillPoint(_ skillPoint: Int) -> Bool {
+          return skillPoint >= 1 && skillPoint <= 100
+      }
     
 }
 
@@ -66,11 +66,16 @@ extension PlayerOtherPropertyTableViewCell: UITextFieldDelegate {
     }
     
     @objc private func skillPointTextFieldDidChange() {
-        if let skillPointText = skillPointTextLabel.text, let skillPoint = Int(skillPointText) {
-            viewModel?.updateSkillPoint(skillPoint)
-            delegate?.didChangeSkillPoint(skillPoint)
-        }
-    }
+           if let skillPointText = skillPointTextLabel.text, let skillPoint = Int(skillPointText) {
+               if validateSkillPoint(skillPoint) {
+                   viewModel?.updateSkillPoint(skillPoint)
+                   delegate?.didChangeSkillPoint(skillPoint)
+               } else {
+                   skillPointTextLabel.text = ""
+               }
+           }
+       }
+
     
     @objc private func ageTextFieldDidChange() {
         if let ageText = ageTextField.text, let age = Int(ageText) {
