@@ -7,15 +7,11 @@
 
 import UIKit
 
-protocol PlayerCRUDViewControllerProtocol: AnyObject {
-    func reloadTableView()
-}
-
 final class PlayerCRUDViewController: BaseViewController {
     
     // MARK: - Properties
     @IBOutlet private weak var tableView: UITableView!
-
+    
     private let imagePicker = UIImagePickerController()
     var viewModel: PlayerCRUDViewModelProtocol? {
         didSet {
@@ -31,10 +27,8 @@ final class PlayerCRUDViewController: BaseViewController {
         print(SelectedSportManager.shared.selectedSport as Any)
         registerCells()
         
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        imagePicker.delegate = self
+        setupTableView()
+        setupPickerView()
         setupTapGesture()
     }
     
@@ -57,170 +51,135 @@ final class PlayerCRUDViewController: BaseViewController {
         tableView.register(cellType: PlayerOtherPropertyTableViewCell.self)
         tableView.register(cellType: AddButtonTableViewCell.self)
     }
-    
-    private func openImagePicker() {
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.allowsEditing = false
-        present(imagePicker, animated: true, completion: nil)
+    private func setupTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+    }
+    private func setupPickerView() {
+        imagePicker.delegate = self
     }
     
     func validateForm() -> Bool {
         guard let viewModel = viewModel else { return false }
         return viewModel.isFormValid()
     }
-    private func showUpdateAlert(success: Bool, error: Error?) {
-        let alertTitle = success ? "Success" : "Error"
-        let alertMessage = success ? "Player successfully updated." : "Failed to update player: \(error?.localizedDescription ?? "Unknown error")"
-        let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
-    func addPlayer(completion: @escaping (Bool) -> Void) {
-        self.delegate?.didUpdatePlayerList()
+
+    func addPlayer() {
+        guard let viewModel = viewModel else { return }
+        showLoading()
         navigateToPlayerList()
     }
     
     func navigateToPlayerList() {
+        self.delegate?.didUpdatePlayerList()
         self.navigationController?.popViewController(animated: true)
-        self.delegate?.didUpdatePlayerList()
+        
     }
-    
-    func updatePlayer() {
-        self.delegate?.didUpdatePlayerList()
-        viewModel?.updatePlayerInFirebase { [weak self] result in
-            switch result {
-            case .success:
-                
-                self?.showUpdateAlert(success: true, error: nil)
-                self?.navigateToPlayerList()
-            case .failure(let error):
-                self?.showUpdateAlert(success: false, error: error)
-            }
-        }
-    }
-    
 }
-
-// MARK: - Extension-UITableViewDataSource-UITableViewDelegate
-extension PlayerCRUDViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        guard let viewModel = viewModel else { return 0 }
-        return viewModel.getCellTypeCount()
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let viewModel = viewModel else { return UITableViewCell() }
-        let cellType = viewModel.getCellType(at: indexPath.section)
-        switch cellType {
-        case .playerImage:
-            let cell = tableView.dequeCell(cellType: PlayerImageTableViewCell.self, indexPath: indexPath)
-            if viewModel.player?.profilePhotoURL != nil {
-                cell.configure(with: viewModel.player?.profilePhotoURL)
-            }
-            cell.onImageTapped = { [weak self] in
-                self?.openImagePicker()
-            }
-            return cell
-        case .playerName:
-            let cell = tableView.dequeCell(cellType: PlayerNameTableViewCell.self, indexPath: indexPath)
-            if let name = viewModel.player?.name {
-                cell.playerNameTextField.text = name
-            }
-            cell.onNameChange = { [weak self] name in
-                self?.viewModel?.updatePlayerName(name)
-            }
-            return cell
-        case .playerGender:
-            let cell = tableView.dequeCell(cellType: GenderTableViewCell.self, indexPath: indexPath)
-            if let gender = viewModel.player?.gender {
-                cell.genderSegmentedControl.selectedSegmentIndex = (gender == "Male") ? 0 : 1
-            }
-            cell.onGenderSelected = { [weak self] gender in
-                self?.viewModel?.updatePlayerGender(gender)
-            }
-            return cell
-        case .playerPosition:
-            let cell = tableView.dequeCell(cellType: PositionTableViewCell.self, indexPath: indexPath)
-            
-            cell.positions = viewModel.getPositionsForSelectedSport()
-            cell.selectedPosition = viewModel.getSelectedPosition()
-            cell.viewModel = viewModel
-            cell.onPositionSelected = { [weak self] position in
-                self?.viewModel?.setSelectedPosition(position)
-            }
-            return cell
-        case .playerOtherProperty:
-            let cell = tableView.dequeCell(cellType: PlayerOtherPropertyTableViewCell.self, indexPath: indexPath)
-            if let skillRating = viewModel.player?.skillRating {
-                cell.skillPointTextLabel.text = "\(skillRating)"
-            }
-            if let age = viewModel.player?.age {
-                cell.ageTextField.text = "\(age)"
-            }
-            cell.viewModel = viewModel
-            return cell
-        case .playerAddButton:
-            let cell = tableView.dequeCell(cellType: AddButtonTableViewCell.self, indexPath: indexPath)
-            cell.updateButtonTitle()
-            cell.onAddButtonTapped = { [weak self] in
-                if (self?.viewModel?.player) != nil {
-                    self?.viewModel?.updatePlayerInFirebase { result in
-                        switch result {
-                        case .success:
-                            print("Player successfully updated")
-                        case .failure(let error):
-                            print("Error updating player: \(error.localizedDescription)")
-                        }
-                    }
-                } else {
-                    self?.viewModel?.addPlayerToFirebase { result in
-                        switch result {
-                        case .success:
-                            print("Player successfully added")
-                        case .failure(let error):
-                            print("Error adding player: \(error.localizedDescription)")
-                        }
-                    }
+    // MARK: - Extension-UITableViewDataSource-UITableViewDelegate
+    extension PlayerCRUDViewController: UITableViewDelegate, UITableViewDataSource {
+        func numberOfSections(in tableView: UITableView) -> Int { viewModel?.getCellTypeCount() ?? 0 }
+        
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { 1 }
+        
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            guard let viewModel = viewModel else { return UITableViewCell() }
+            let cellType = viewModel.getCellType(at: indexPath.section)
+            switch cellType {
+            case .playerImage:
+                let cell = tableView.dequeCell(cellType: PlayerImageTableViewCell.self, indexPath: indexPath)
+                if let profilePhotoURL = viewModel.player?.profilePhotoURL {
+                    cell.configure(with: profilePhotoURL)
                 }
+                cell.onImageTapped = { [weak self] in
+                    self?.viewModel?.delegate?.presentImagePicker()
+                }
+                return cell
+            case .playerName:
+                let cell = tableView.dequeCell(cellType: PlayerNameTableViewCell.self, indexPath: indexPath)
+                if let name = viewModel.player?.name {
+                    cell.playerNameTextField.text = name
+                }
+                cell.onNameChange = { [weak self] name in
+                    self?.viewModel?.updatePlayerName(name)
+                }
+                return cell
+            case .playerGender:
+                let cell = tableView.dequeCell(cellType: GenderTableViewCell.self, indexPath: indexPath)
+                if let gender = viewModel.player?.gender {
+                    cell.genderSegmentedControl.selectedSegmentIndex = (gender == "Male") ? 0 : 1
+                }
+                cell.onGenderSelected = { [weak self] gender in
+                    self?.viewModel?.updatePlayerGender(gender)
+                }
+                return cell
+            case .playerPosition:
+                let cell = tableView.dequeCell(cellType: PositionTableViewCell.self, indexPath: indexPath)
+                
+                cell.positions = viewModel.getPositionsForSelectedSport()
+                cell.selectedPosition = viewModel.getSelectedPosition()
+                cell.onPositionSelected = { [weak self] position in
+                    self?.viewModel?.setSelectedPosition(position)
+                }
+                return cell
+            case .playerOtherProperty:
+                let cell = tableView.dequeCell(cellType: PlayerOtherPropertyTableViewCell.self, indexPath: indexPath)
+                if let skillRating = viewModel.player?.skillRating {
+                    cell.skillPointTextLabel.text = "\(skillRating)"
+                }
+                if let age = viewModel.player?.age {
+                    cell.ageTextField.text = "\(age)"
+                }
+                cell.viewModel = viewModel
+                return cell
+            case .playerAddButton:
+                        let cell = tableView.dequeCell(cellType: AddButtonTableViewCell.self, indexPath: indexPath)
+                        cell.viewModel = viewModel
+                        cell.delegate = self
+                        return cell
             }
-            return cell
+        }
+        
+        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            return indexPath.section == 0 ? 150 : 100
+        }
+        
+        func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+            return section == 1 ? 10 : 0
+        }
+        
+        func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+            section == 1 ? UIView() : nil
         }
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return indexPath.section == 0 ? 150 : 100
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 1 ? 10 : 0
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 1 {
-            let headerView = UIView()
-            headerView.backgroundColor = .clear
-            return headerView
-        } else {
-            return nil
-        }
-    }
-}
 
 // MARK: - PlayerCRUDViewControllerProtocol
-extension PlayerCRUDViewController: PlayerCRUDViewControllerProtocol {
+extension PlayerCRUDViewController: PlayerCRUDViewModelDelegate {
     func reloadTableView() {
         tableView.reloadData()
     }
-}
-
-// MARK: - PlayerCRUDViewModelDelegate
-extension PlayerCRUDViewController: PlayerCRUDViewModelDelegate {
-    func fetchData() {
-        viewModel?.fetchData()
+    
+    func showUpdateAlert(success: Bool, message: String) {
+           hideLoading()
+           let alert = UIAlertController(title: success ? "Success" : "Error", message: message, preferredStyle: .alert)
+           alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
+               if success {
+                   self?.navigateToPlayerList()
+               }
+           }))
+           present(alert, animated: true, completion: nil)
+       }
+    
+    func updatePlayerList() {
+        hideLoading()
+        navigateToPlayerList()
+    }
+    
+    func presentImagePicker() {
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.allowsEditing = false
+        present(imagePicker, animated: true, completion: nil)
     }
 }
 
@@ -247,6 +206,11 @@ extension PlayerCRUDViewController: UIImagePickerControllerDelegate, UINavigatio
     }
     
     @IBAction func selectImage(_ sender: UIButton) {
-        openImagePicker()
+        presentImagePicker()
+    }
+}
+extension PlayerCRUDViewController: AddButtonTableViewCellDelegate {
+    func didTapAddButton(success: Bool) {
+        addPlayer()
     }
 }

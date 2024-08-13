@@ -28,7 +28,7 @@ final class EntryViewController: BaseViewController {
         super.viewDidLoad()
         viewModel = EntryViewModel()
         prepareCollectionView()
-        viewModel.fetchSports()
+        viewModel.load()
     }
 
     //MARK: Private Functions
