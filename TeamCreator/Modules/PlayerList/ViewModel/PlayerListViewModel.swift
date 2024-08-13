@@ -24,6 +24,7 @@ protocol PlayerListViewModelProtocol: AnyObject {
     func removePlayer(playerId: String, completion: @escaping (Result<Void, Error>) -> Void)
     func sortPlayersBySkillPoint()
     func toggleSortOrder()
+    func load()
 }
 
 final class PlayerListViewModel: PlayerListViewModelProtocol {
@@ -33,13 +34,25 @@ final class PlayerListViewModel: PlayerListViewModelProtocol {
     private var cellTypeList: [PlayerListCellType] = []
     private var players: [Player] = []
     private var isSortedAscending: Bool = true
+    private var selectedSport = SelectedSportManager.shared.selectedSport
     
     let playerRepository = NetworkManager.shared.playerRepository
     
     init() {
         self.cellTypeList = [.player, .addButton]
     }
-    
+    func load() {
+        fetchPlayers(sporType: selectedSport?.rawValue ?? "") { [weak self] result in
+            self?.delegate?.hideLoading()
+            
+            switch result {
+            case .success(let players):
+                print("Players successfully fetched: \(players)")
+            case .failure(let error):
+                print("Error fetching players: \(error.localizedDescription)")
+            }
+        }
+    }
     func sortPlayersBySkillPoint() {
         players.sort { (firstPlayer, secondPlayer) -> Bool in
             guard let firstPlayerSkill = firstPlayer.skillRating,
@@ -104,6 +117,3 @@ final class PlayerListViewModel: PlayerListViewModelProtocol {
     func getPlayerCount() -> Int { players.count }
     
 }
-
-
-

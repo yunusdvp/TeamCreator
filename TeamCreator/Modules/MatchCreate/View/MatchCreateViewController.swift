@@ -9,7 +9,6 @@ import UIKit
 
 protocol MatchCreateViewControllerProtocol: AnyObject {
     func reloadTableView()
-    func navigateToAnyWhere()
 }
 
 class MatchCreateViewController: BaseViewController {
@@ -30,26 +29,19 @@ class MatchCreateViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = MatchCreateViewModel()
         prepareTableView()
         preparePickerView()
-        viewModel.fetchLocations()
-        let selectedSport = SelectedSportManager.shared.selectedSport?.rawValue ?? ""
-        viewModel.fetchPlayers(sporType: selectedSport) { result in
-            switch result {
-            case .success(let players):
-                print("Oyuncular başarıyla getirildi: \(players)")
-
-            case .failure(let error):
-                print("Oyuncular getirilirken hata oluştu: \(error.localizedDescription)")
-            }
-        }
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.load()
     }
 
     private func prepareTableView() {
         playerTableView.delegate = self
         playerTableView.dataSource = self
-        playerTableView.register(UINib(nibName: "PlayerListTableViewCell", bundle: nil), forCellReuseIdentifier: "PlayerListTableViewCell")
+        playerTableView.register(cellType: PlayerListTableViewCell.self)
         playerTableView.allowsMultipleSelection = true
     }
     private func updateMatchCreateButtonTitle() {
@@ -76,65 +68,10 @@ class MatchCreateViewController: BaseViewController {
         locationTextField.resignFirstResponder()
     }
 
-//    @IBAction func matchCreateButtonTapped(_ sender: UIButton) {
-//        guard let sportName = SelectedSportManager.shared.selectedSport?.rawValue else { return }
-//        viewModel.setSportCriteria(for: sportName)
-//        if let teams = viewModel.createBalancedTeams(from: selectedPlayers, sportName: sportName) {
-//
-//            let teamA = teams.teamA
-//            let teamB = teams.teamB
-//            print(selectedPlayers)
-//            let teamAScore = viewModel.calculateTeamScore(for: teamA, sportName: sportName)
-//            let teamBScore = viewModel.calculateTeamScore(for: teamB, sportName: sportName)
-//
-//            let location = locationTextField.text
-//            let matchDate = datePicker.date
-//            print(selectedPlayers)
-//            navigateToTeam(teamA: teamA, teamB: teamB, location: location, matchDate: matchDate)
-//
-//        } else {
-//            print("Yeterli oyuncu yok veya geçersiz spor adı.")
-//        }
-//
-//    }
     @IBAction func matchCreateButtonTapped(_ sender: UIButton) {
-        guard !selectedPlayers.isEmpty else {
-            showAlert("Alert", "Please select at least one player.")
-            return
-        }
-        guard let location = locationTextField.text, !location.isEmpty else {
-            showAlert("Alert", "Please select a location.")
-            return
-        }
-        let matchDate = datePicker.date
-        guard matchDate > Date() else {
-            showAlert("Alert", "Please select a valid match date.")
-            return
-        }
-        guard let sportName = SelectedSportManager.shared.selectedSport?.rawValue else {
-            showAlert("Alert", "Sport selection is missing.")
-            return
-        }
-        viewModel.setSportCriteria(for: sportName)
-        if let teams = viewModel.createBalancedTeams(from: selectedPlayers, sportName: sportName) {
-            
-            let teamA = teams.teamA
-            let teamB = teams.teamB
-            print(selectedPlayers)
-            let teamAScore = viewModel.calculateTeamScore(for: teamA, sportName: sportName)
-            let teamBScore = viewModel.calculateTeamScore(for: teamB, sportName: sportName)
-            
-            let location = locationTextField.text
-            let matchDate = datePicker.date
-            print(selectedPlayers)
-            navigateToTeam(teamA: teamA, teamB: teamB, location: location, matchDate: matchDate)
-            
-        } else {
-            print("Not enough players or invalid sport name."   )
-        }
+        viewModel.createMatch(selectedPlayers: selectedPlayers, location: locationTextField.text, matchDate: datePicker.date)
+       }
     }
-}
-
 extension MatchCreateViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         viewModel.getNumberOfSections()
@@ -172,17 +109,11 @@ extension MatchCreateViewController: UITableViewDelegate, UITableViewDataSource 
 }
 
 extension MatchCreateViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
+    func numberOfComponents(in pickerView: UIPickerView) -> Int { 1 }
 
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return viewModel.getLocationsCount()
-    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {viewModel.getLocationsCount() }
 
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return viewModel.getLocationName(at: row)
-    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? { viewModel.getLocationName(at: row) }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         locationTextField.text = viewModel.getLocationName(at: row)
@@ -191,6 +122,7 @@ extension MatchCreateViewController: UIPickerViewDelegate, UIPickerViewDataSourc
 
 
 extension MatchCreateViewController: MatchCreateViewModelDelegate {
+    
     func navigateToTeam(teamA: Team?, teamB: Team?, location: String?, matchDate: Date?) {
         navigateToViewController(storyboardName: "TeamView", viewControllerIdentifier: "TeamViewController",
             configure: { (teamVC: TeamViewController) in
@@ -205,9 +137,6 @@ extension MatchCreateViewController: MatchCreateViewModelDelegate {
                 }
             }
         )
-    }
-    func navigateToAnywhere() {
-
     }
 
     func reloadTableView() {
