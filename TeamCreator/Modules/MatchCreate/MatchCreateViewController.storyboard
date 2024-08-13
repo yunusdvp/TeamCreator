@@ -63,9 +63,6 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="89" id="xk9-Mu-Txp"/>
                                 </constraints>
-                                <date key="maximumDate" timeIntervalSinceReferenceDate="744980400">
-                                    <!--2024-08-10 11:00:00 +0000-->
-                                </date>
                             </datePicker>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
