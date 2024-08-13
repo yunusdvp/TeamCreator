@@ -58,7 +58,7 @@ final class TeamViewModel: TeamViewModelProtocol {
         case "volleyball":
             return "volleyballField"
         default:
-            return "defaultField" 
+            return "defaultField"
         }
     }
     init(teamA: Team?, teamB: Team?, location: String?, matchDate: Date?) {
@@ -149,21 +149,3 @@ final class TeamViewModel: TeamViewModelProtocol {
         }
     }
 }
-
-/*func loadPlayers() {
-    // Örnek oyuncular
-    players = [
-        Players(name: "Ali"),
-        Players(name: "Ayşe"),
-        Players(name: "Mehmet"),
-        Players(name: "Fatma"),
-        Players(name: "Giray"),
-        Players(name: "Ceren"),
-        Players(name: "Yunus"),
-        Players(name: "Gizem"),
-        Players(name: "Canan"),
-        Players(name: "Mustafa"),
-
-    ]
-    updateFormation()
-}*/

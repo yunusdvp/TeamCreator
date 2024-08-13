@@ -16,10 +16,16 @@ class EntryCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         setupView()
-        //addBlurEffect()
         addGradientLayer()
         
     }
+    override func layoutSubviews() {
+            super.layoutSubviews()
+
+            if let gradientLayer = backgroundImageView.layer.sublayers?.first as? CAGradientLayer {
+                gradientLayer.frame = backgroundImageView.bounds
+            }
+        }
     private func setupView() {
         backgroundImageView.layer.cornerRadius = 7.6
             backgroundImageView.clipsToBounds = true
@@ -43,30 +49,14 @@ class EntryCollectionViewCell: UICollectionViewCell {
         
         
     }
-    private func addBlurEffect() {
-            let blurEffect = UIBlurEffect(style: .dark)
-            let blurEffectView = UIVisualEffectView(effect: blurEffect)
-            blurEffectView.frame = backgroundImageView.bounds
-            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            backgroundImageView.addSubview(blurEffectView)
-        }
+    
     private func addGradientLayer() {
             let gradientLayer = CAGradientLayer()
             gradientLayer.frame = backgroundImageView.bounds
             gradientLayer.colors = [UIColor.black.withAlphaComponent(0.0).cgColor, UIColor.black.withAlphaComponent(0.5).cgColor]
             gradientLayer.locations = [0.0, 1.0]
-            gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5) // Başlangıç noktası (üst orta)
+            gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
             gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
             backgroundImageView.layer.addSublayer(gradientLayer)
         }
-    
-    override func layoutSubviews() {
-            super.layoutSubviews()
-            // Gradyan katmanının boyutunu hücre boyutuna göre ayarlama
-            if let gradientLayer = backgroundImageView.layer.sublayers?.first as? CAGradientLayer {
-                gradientLayer.frame = backgroundImageView.bounds
-            }
-        }
-    
-
 }

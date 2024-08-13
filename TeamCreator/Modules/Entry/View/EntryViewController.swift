@@ -17,22 +17,28 @@ final class EntryViewController: BaseViewController {
     @IBOutlet weak var entryCollectionView: UICollectionView!
     @IBOutlet weak var titleLabel: UILabel!
 
-    //MARK: - Proporties
-    var viewModel: EntryViewModelProtocol! {
-        didSet {
-            viewModel.delegate = self
-        }
+    //MARK: - Properties
+    var viewModel: EntryViewModelProtocol!
+
+    //MARK: - Initializer
+    init(viewModel: EntryViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
     }
-    //MARK: -Lifecycle Methods
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
+    //MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = EntryViewModel()
+        viewModel.delegate = self
         prepareCollectionView()
-        viewModel.fetchSports()
+        viewModel.load()
     }
 
     //MARK: Private Functions
-
     private func prepareCollectionView() {
         entryCollectionView.dataSource = self
         entryCollectionView.delegate = self
@@ -46,7 +52,6 @@ final class EntryViewController: BaseViewController {
 }
 
 //MARK: UICollectionViewDelegate and UICollectionViewDataSource Functions
-
 extension EntryViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.getSportsCount()
@@ -59,13 +64,15 @@ extension EntryViewController: UICollectionViewDelegate, UICollectionViewDataSou
         cell.configure(with: sport)
         return cell
     }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) { viewModel.selectSport(at: indexPath.row) }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.selectSport(at: indexPath.row)
+    }
 }
 
 //MARK: EntryViewControllerProtocol
-
 extension EntryViewController: EntryViewModelDelegate {
-    func reloadCollectionView() { 
+    func reloadCollectionView() {
         entryCollectionView.reloadData()
     }
 

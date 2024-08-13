@@ -7,8 +7,14 @@
 
 import Foundation
 
+protocol MyMatchesViewModelDelegate: AnyObject {
+    func didUpdateMatches()
+    func didFailWithError(_ error: Error)
+}
+
 class MyMatchesViewModel {
     
+    weak var delegate: MyMatchesViewModelDelegate?
     private let repository: MatchRepositoryProtocol
     private var matches: [Match] = []
     
@@ -16,42 +22,35 @@ class MyMatchesViewModel {
         self.repository = repository
     }
     
-    func fetchMatches(for sport: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    func fetchMatches(for sport: String) {
         repository.fetchMatches(sport: sport) { [weak self] result in
             switch result {
             case .success(let matches):
                 self?.matches = matches
-                completion(.success(()))
+                self?.delegate?.didUpdateMatches()
             case .failure(let error):
-                completion(.failure(error))
+                self?.delegate?.didFailWithError(error)
             }
         }
     }
     
-    func deleteMatch(_ match: Match, completion: @escaping (Bool) -> Void) {
+    func removeMatch(_ match: Match) {
         guard let matchId = match.id else {
-            completion(false)
             return
         }
         
         repository.removeMatch(matchId: matchId) { [weak self] result in
             switch result {
             case .success:
-                // Firebase'den başarıyla silindiyse, local matches dizisinden de kaldırın
                 if let index = self?.matches.firstIndex(where: { $0.id == matchId }) {
-                    self?.removeMatch(at: index)
+                    self?.matches.remove(at: index)
+                    self?.delegate?.didUpdateMatches()
                 }
-                completion(true)
-            case .failure:
-                completion(false)
+            case .failure(let error):
+                self?.delegate?.didFailWithError(error)
             }
         }
     }
-
-    func removeMatch(at index: Int) {
-        matches.remove(at: index)
-    }
-
     
     func numberOfRows() -> Int {
         return matches.count

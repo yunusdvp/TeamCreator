@@ -8,17 +8,17 @@
 import Foundation
 
 // MARK: - EntryViewModelProtocol
-
 protocol EntryViewModelProtocol: AnyObject {
     var delegate: EntryViewModelDelegate? { get set }
 
     func fetchSports()
+    func load()
     func getSportsCount() -> Int
     func getSport(at index: Int) -> Sport
     func selectSport(at index: Int)
 }
-// MARK: - EntryViewModelDelegate
 
+// MARK: - EntryViewModelDelegate
 protocol EntryViewModelDelegate: AnyObject {
     func reloadCollectionView()
     func navigateToSecond()
@@ -29,10 +29,11 @@ final class EntryViewModel: EntryViewModelProtocol {
     weak var delegate: EntryViewModelDelegate?
     private var sports: [Sport] = []
 
-    init() {
-
-    }
     // MARK: - Public Methods
+    init(sports: [Sport] = []) {
+        self.sports = sports
+    }
+
     func fetchSports() {
         let sports1 = Sport(name: "Football", backgroundImage: "football5", type: .football)
         let sports2 = Sport(name: "Volleyball", backgroundImage: "volleyball", type: .volleyball)
@@ -51,11 +52,10 @@ final class EntryViewModel: EntryViewModelProtocol {
 
     func selectSport(at index: Int) {
         SelectedSportManager.shared.selectedSport = sports[index].type
-        print(SelectedSportManager.shared.selectedSport as Any)
         delegate?.navigateToSecond()
     }
 
-    func navigateToSecond() {
-        delegate?.navigateToSecond()
+    func load() {
+        fetchSports()
     }
 }

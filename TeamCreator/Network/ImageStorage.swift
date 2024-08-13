@@ -49,9 +49,7 @@ class ImageStorage: ImageStorageProtocol {
 //        }
 //    }
     func uploadProfileImage(imageData: Data, compressionQuality: CGFloat = 0.25, completion: @escaping (Result<String, Error>) -> Void) {
-        // Convert the image data to UIImage for compression
         if let image = UIImage(data: imageData) {
-            // Compress the image to reduce its size
             if let compressedData = image.jpegData(compressionQuality: compressionQuality) {
                 let storageRef = Storage.storage().reference().child("profile_images").child(UUID().uuidString)
                 let metadata = StorageMetadata()

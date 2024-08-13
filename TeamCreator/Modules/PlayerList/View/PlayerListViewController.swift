@@ -20,7 +20,8 @@ protocol PlayerListViewControllerDelegate: AnyObject {
 }
 
 
-final class PlayerListViewController: BaseViewController, AddButtonTableViewCellDelegate {
+final class PlayerListViewController: BaseViewController{
+    
     
     @IBOutlet private weak var filterIcon: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
@@ -58,7 +59,7 @@ final class PlayerListViewController: BaseViewController, AddButtonTableViewCell
     
     private func registerCells() {
         tableView.register(cellType: PlayerListTableViewCell.self)
-        tableView.register(cellType: AddButtonTableViewCell.self)
+        tableView.register(cellType: AddPlayerButtonTableViewCell.self)
     }
     
     @IBAction func filterIconButtonClicked(_ sender: UIBarButtonItem) {
@@ -89,9 +90,10 @@ extension PlayerListViewController: UITableViewDelegate, UITableViewDataSource {
             }
             return cell
         case .addButton:
-            let cell = tableView.dequeCell(cellType: AddButtonTableViewCell.self, indexPath: indexPath)
+            let cell = tableView.dequeCell(cellType: AddPlayerButtonTableViewCell.self, indexPath:indexPath)
             cell.delegate = self
             return cell
+        
         }
     }
     

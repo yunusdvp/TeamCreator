@@ -118,7 +118,8 @@ extension OnboardViewController: OnboardViewModelDelegate {
 
         let storyboard = UIStoryboard(name: "EntryViewController", bundle: nil)
         guard let entryVC = storyboard.instantiateViewController(withIdentifier: "EntryViewController") as? EntryViewController else { return }
-
+        let viewModel = EntryViewModel()
+        entryVC.viewModel = viewModel
         let navigationController = UINavigationController(rootViewController: entryVC)
         window.setRootViewController(navigationController)
         window.makeKeyAndVisible()
