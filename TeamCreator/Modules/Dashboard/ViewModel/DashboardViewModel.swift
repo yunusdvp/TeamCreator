@@ -25,8 +25,8 @@ final class DashboardViewModel: DashboardViewModelProtocol {
     weak var delegate: DashboardViewModelDelegate?
     private var items: [DashboardItem] = []
 
-    init() {
-        
+    init(items: [DashboardItem] = []) {
+        self.items = items
     }
 
     func fetchItems() {
@@ -45,6 +45,7 @@ final class DashboardViewModel: DashboardViewModelProtocol {
     func getItem(at index: Int) -> DashboardItem {
         return items[index]
     }
+
     func getBackgroundImageName(for category: String) -> String {
         guard let selectedSport = SelectedSportManager.shared.selectedSport else { return "" }
 
@@ -85,5 +86,3 @@ final class DashboardViewModel: DashboardViewModelProtocol {
         }
     }
 }
-
-
