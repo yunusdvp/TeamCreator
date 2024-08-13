@@ -10,8 +10,6 @@ import Foundation
 protocol MatchCreateViewModelProtocol: AnyObject {
     var delegate: MatchCreateViewModelDelegate? { get set }
     var selectedSport: SelectedSport? { get }
-    func fetchPlayers(sporType: String, completion: @escaping (Result<[Player], Error>) -> Void)
-    func fetchLocations()
     func getPlayersCount() -> Int
     func getLocationsCount() -> Int
     func getLocationName(at index: Int) -> String
@@ -19,17 +17,16 @@ protocol MatchCreateViewModelProtocol: AnyObject {
     func getNumberOfSections() -> Int
     func getPlayer(at indexPath: IndexPath) -> Player
     func getPlayersCount(for section: Int) -> Int
-    func createBalancedTeams(from players: [Player], sportName: String) -> (teamA: Team, teamB: Team)?
-    func calculateTeamScore(for team: Team, sportName: String) -> Double
-    func calculatePlayerScore(player: Player, sportName: String) -> Double
     func setSportCriteria(for sportName: String)
     func load()
+    func createMatch(selectedPlayers: [Player], location: String?, matchDate: Date?)
 }
 
 protocol MatchCreateViewModelDelegate: AnyObject {
     func reloadTableView()
     func navigateToTeam(teamA: Team?, teamB: Team?, location: String?, matchDate: Date?)
     func updatePickerView()
+    func showAlert(_ title: String, _ message: String)
 
 
 }
@@ -64,7 +61,38 @@ final class MatchCreateViewModel: MatchCreateViewModelProtocol {
         }
         fetchLocations()
     }
-    func fetchPlayers(sporType: String, completion: @escaping (Result<[Player], Error>) -> Void) {
+    func createMatch(selectedPlayers: [Player], location: String?, matchDate: Date?) {
+            guard !selectedPlayers.isEmpty else {
+                delegate?.showAlert("Alert", "Please select at least one player.")
+                return
+            }
+            
+            guard let location = location, !location.isEmpty else {
+                delegate?.showAlert("Alert", "Please select a location.")
+                return
+            }
+            
+            guard let matchDate = matchDate, matchDate > Date() else {
+                delegate?.showAlert("Alert", "Please select a valid match date.")
+                return
+            }
+            
+            guard let sportName = selectedSport?.rawValue else {
+                delegate?.showAlert("Alert", "Sport selection is missing.")
+                return
+            }
+            
+            setSportCriteria(for: sportName)
+            
+            if let teams = createBalancedTeams(from: selectedPlayers, sportName: sportName) {
+                let teamAScore = calculateTeamScore(for: teams.teamA, sportName: sportName)
+                let teamBScore = calculateTeamScore(for: teams.teamB, sportName: sportName)
+                delegate?.navigateToTeam(teamA: teams.teamA, teamB: teams.teamB, location: location, matchDate: matchDate)
+            } else {
+                delegate?.showAlert("Alert", "Not enough players or invalid sport name.")
+            }
+        }
+    private func fetchPlayers(sporType: String, completion: @escaping (Result<[Player], Error>) -> Void) {
         let filters: [PlayerFilter] = [.sporType(sporType)]
         playerRepository.fetchPlayers(withFilters: filters) { [weak self] result in
             switch result {
@@ -79,7 +107,7 @@ final class MatchCreateViewModel: MatchCreateViewModelProtocol {
         }
     }
 
-    func fetchLocations() {
+    private func fetchLocations() {
         guard let sport = selectedSport else { return }
         loadJsonData { [weak self] stadiums, indoorSportsHalls in
             switch sport {
@@ -92,17 +120,17 @@ final class MatchCreateViewModel: MatchCreateViewModelProtocol {
         }
     }
 
-    func calculatePlayerScore(player: Player, sportName: String) -> Double {
+    private func calculatePlayerScore(player: Player, sportName: String) -> Double {
         var score = Double(player.skillRating ?? 0)
         
         if let age = player.age {
             switch sportName.lowercased() {
             case "football":
-                score *= age >= 20 && age <= 32 ? 1.1 : 0.9
+                score *= Constants.Football.skillAgeRange.contains(age) ? Constants.Football.skillAgeMultiplier : Constants.General.fallbackMultiplier
             case "volleyball":
-                score *= age >= 18 && age <= 30 ? 1.1 : 0.9
+                score *= Constants.Volleyball.skillAgeRange.contains(age) ? Constants.Volleyball.skillAgeMultiplier : Constants.General.fallbackMultiplier
             case "basketball":
-                score *= age >= 22 && age <= 35 ? 1.1 : 0.9
+                score *= Constants.Basketball.skillAgeRange.contains(age) ? Constants.Basketball.skillAgeMultiplier : Constants.General.fallbackMultiplier
             default:
                 break
             }
@@ -112,11 +140,11 @@ final class MatchCreateViewModel: MatchCreateViewModelProtocol {
             switch sportName.lowercased() {
             case "football", "basketball":
                 if gender == "male" {
-                    score *= 1.1
+                    score *= Constants.Football.maleGenderMultiplier
                 }
             case "volleyball":
                 if gender == "female" {
-                    score *= 1.1
+                    score *= Constants.Volleyball.femaleGenderMultiplier
                 }
             default:
                 break
@@ -126,7 +154,7 @@ final class MatchCreateViewModel: MatchCreateViewModelProtocol {
         return score
     }
 
-    func calculateTeamScore(for team: Team, sportName: String) -> Double {
+    private func calculateTeamScore(for team: Team, sportName: String) -> Double {
         return team.players.reduce(0) { $0 + calculatePlayerScore(player: $1, sportName: sportName) }
     }
 
@@ -165,7 +193,7 @@ final class MatchCreateViewModel: MatchCreateViewModelProtocol {
         }
     }
 
-    func createBalancedTeams(from players: [Player], sportName: String) -> (teamA: Team, teamB: Team)? {
+    private func createBalancedTeams(from players: [Player], sportName: String) -> (teamA: Team, teamB: Team)? {
         guard players.count >= 4 else {
             return nil
         }
@@ -231,9 +259,7 @@ final class MatchCreateViewModel: MatchCreateViewModelProtocol {
         }
     }
 
-    func getPlayersCount() -> Int {
-        return players.count
-    }
+    func getPlayersCount() -> Int { players.count }
 
     func getPlayersCount(for section: Int) -> Int {
         let position = positionSections[section]
@@ -244,20 +270,38 @@ final class MatchCreateViewModel: MatchCreateViewModelProtocol {
         let position = positionSections[indexPath.section]
         return groupedPlayers[position]?[indexPath.row] ?? Player()
     }
-    func getNumberOfSections() -> Int {
-        return positionSections.count
-    }
+    func getNumberOfSections() -> Int { positionSections.count }
 
-    func getSectionTitle(for section: Int) -> String {
-        return positionSections[section]
-    }
+    func getSectionTitle(for section: Int) -> String { positionSections[section] }
 
-    func getLocationsCount() -> Int {
-        return locations.count
-    }
+    func getLocationsCount() -> Int { locations.count }
 
-    func getLocationName(at index: Int) -> String {
-        return locations[index]
-    }
+    func getLocationName(at index: Int) -> String { locations[index] }
 
+}
+
+private extension MatchCreateViewModel {
+    enum Constants {
+        enum Football {
+            static let skillAgeMultiplier: Double = 1.1
+            static let skillAgeRange = 20...32
+            static let maleGenderMultiplier: Double = 1.1
+        }
+        
+        enum Volleyball {
+            static let skillAgeMultiplier: Double = 1.1
+            static let skillAgeRange = 18...30
+            static let femaleGenderMultiplier: Double = 1.1
+        }
+        
+        enum Basketball {
+            static let skillAgeMultiplier: Double = 1.1
+            static let skillAgeRange = 22...35
+            static let maleGenderMultiplier: Double = 1.1
+        }
+
+        enum General {
+            static let fallbackMultiplier: Double = 0.9
+        }
+    }
 }
