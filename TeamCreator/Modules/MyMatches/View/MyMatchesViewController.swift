@@ -8,7 +8,7 @@
 import UIKit
 
 class MyMatchesViewController: BaseViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     private var viewModel: MyMatchesViewModel!
     private var emptyView: EmptyView!
@@ -30,8 +30,9 @@ class MyMatchesViewController: BaseViewController {
     }
     
     private func setupViewModel() {
-        let repository = MatchRepository() // MatchRepository'den bir örnek oluşturuyoruz
+        let repository = MatchRepository()
         viewModel = MyMatchesViewModel(repository: repository)
+        viewModel.delegate = self
     }
 
     private func setupEmptyView() {
@@ -47,17 +48,7 @@ class MyMatchesViewController: BaseViewController {
         }
 
         showLoading()
-        viewModel.fetchMatches(for: selectedSport.rawValue) { [weak self] result in
-            DispatchQueue.main.async {
-                self?.hideLoading()
-                switch result {
-                case .success:
-                    self?.updateUI()
-                case .failure(let error):
-                    print("Error fetching matches: \(error.localizedDescription)")
-                }
-            }
-        }
+        viewModel.fetchMatches(for: selectedSport.rawValue)
     }
     
     private func updateUI() {
@@ -69,6 +60,19 @@ class MyMatchesViewController: BaseViewController {
             emptyView.isHidden = true
             tableView.reloadData()
         }
+    }
+}
+
+extension MyMatchesViewController: MyMatchesViewModelDelegate {
+    
+    func didUpdateMatches() {
+        hideLoading()
+        updateUI()
+    }
+    
+    func didFailWithError(_ error: Error) {
+        hideLoading()
+        showAlert("Error", "Failed to load matches: \(error.localizedDescription)")
     }
 }
 
@@ -89,21 +93,11 @@ extension MyMatchesViewController: UITableViewDataSource {
         return cell
     }
     
-    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let matchToDelete = viewModel.match(at: indexPath.row)
-            viewModel.removeMatch(matchToDelete) { [weak self] success in
-                guard success else {
-                    self?.showAlert("Error", "Failed to delete match.")
-                    return
-                }
-                
-                DispatchQueue.main.async {
-                    tableView.deleteRows(at: [indexPath], with: .automatic)
-                    self?.updateUI()
-                }
-            }
+            showLoading()
+            viewModel.removeMatch(matchToDelete)
         }
     }
 }
@@ -122,6 +116,5 @@ extension MyMatchesViewController: UITableViewDelegate {
         }
     }
 }
-
 
 
