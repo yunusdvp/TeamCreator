@@ -19,11 +19,13 @@ protocol PlayerListViewControllerDelegate: AnyObject {
 
 
 final class PlayerListViewController: BaseViewController, AddButtonTableViewCellDelegate {
-    @IBOutlet weak var filterIcon: UIBarButtonItem!
+    
+    @IBOutlet private weak var filterIcon: UIBarButtonItem!
+    @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Properties
     private var isAscendingOrder: Bool = true 
-    @IBOutlet weak var tableView: UITableView!
+
     var viewModel: PlayerListViewModelProtocol! {
         didSet {
             viewModel.delegate = self
@@ -32,14 +34,14 @@ final class PlayerListViewController: BaseViewController, AddButtonTableViewCell
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        viewModel = PlayerListViewModel()
+
         registerCells()
         
         tableView.delegate = self
         tableView.dataSource = self
         
         let selectedSport = SelectedSportManager.shared.selectedSport?.rawValue ?? ""
+        
         viewModel.fetchPlayers(sporType: selectedSport) { result in
             switch result {
             case .success(let players):

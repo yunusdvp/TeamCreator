@@ -15,10 +15,8 @@ final class PlayerCRUDViewController: BaseViewController {
     
     // MARK: - Properties
     @IBOutlet private weak var tableView: UITableView!
-    
-    
+
     private let imagePicker = UIImagePickerController()
-    
     var viewModel: PlayerCRUDViewModelProtocol? {
         didSet {
             viewModel?.delegate = self
@@ -86,7 +84,7 @@ final class PlayerCRUDViewController: BaseViewController {
         self.navigationController?.popViewController(animated: true)
         self.delegate?.didUpdatePlayerList()
     }
-
+    
     func updatePlayer() {
         self.delegate?.didUpdatePlayerList()
         viewModel?.updatePlayerInFirebase { [weak self] result in
@@ -94,7 +92,6 @@ final class PlayerCRUDViewController: BaseViewController {
             case .success:
                 
                 self?.showUpdateAlert(success: true, error: nil)
-                //self?.delegate?.didUpdatePlayerList()
                 self?.navigateToPlayerList()
             case .failure(let error):
                 self?.showUpdateAlert(success: false, error: error)
@@ -148,7 +145,7 @@ extension PlayerCRUDViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         case .playerPosition:
             let cell = tableView.dequeCell(cellType: PositionTableViewCell.self, indexPath: indexPath)
-
+            
             cell.positions = viewModel.getPositionsForSelectedSport()
             cell.selectedPosition = viewModel.getSelectedPosition()
             cell.viewModel = viewModel
