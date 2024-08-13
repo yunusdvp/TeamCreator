@@ -6,13 +6,15 @@
 //
 
 import UIKit
-
+protocol AddButtonTableViewCellDelegate: AnyObject {
+    func didTapButton()
+}
 class AddButtonTableViewCell: UITableViewCell {
     // MARK: - Properties
     @IBOutlet private weak var playerAddButton: UIButton!
 
     var onAddButtonTapped: (() -> Void)?
-
+    weak var delegate: AddButtonTableViewCellDelegate?
     // MARK: - Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -43,6 +45,7 @@ class AddButtonTableViewCell: UITableViewCell {
                 }
             }
         }
+        delegate?.didTapButton()
     }
 }
 

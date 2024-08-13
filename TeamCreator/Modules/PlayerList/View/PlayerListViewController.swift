@@ -12,15 +12,20 @@ protocol PlayerListViewControllerProtocol: AnyObject {
     func navigateToPlayerCRUD(with player: Player)
     func navigateToPlayerCRUD()
 }
+
 protocol PlayerListViewControllerDelegate: AnyObject {
     func didUpdatePlayerList()
 }
 
 
-final class PlayerListViewController: BaseViewController {
+final class PlayerListViewController: BaseViewController, AddButtonTableViewCellDelegate {
+    
+    @IBOutlet private weak var filterIcon: UIBarButtonItem!
+    @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Properties
-    @IBOutlet weak var tableView: UITableView!
+    private var isAscendingOrder: Bool = true 
+
     var viewModel: PlayerListViewModelProtocol! {
         didSet {
             viewModel.delegate = self
@@ -29,14 +34,14 @@ final class PlayerListViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        viewModel = PlayerListViewModel()
+
         registerCells()
         
         tableView.delegate = self
         tableView.dataSource = self
         
         let selectedSport = SelectedSportManager.shared.selectedSport?.rawValue ?? ""
+        
         viewModel.fetchPlayers(sporType: selectedSport) { result in
             switch result {
             case .success(let players):
@@ -46,13 +51,15 @@ final class PlayerListViewController: BaseViewController {
             }
         }
     }
-
+    
     private func registerCells() {
-        tableView.register(UINib(nibName: "PlayerListTableViewCell", bundle: nil), forCellReuseIdentifier: "PlayerListTableViewCell")
-        tableView.register(UINib(nibName: "AddPlayerButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "AddPlayerButtonTableViewCell")
+        tableView.register(cellType: PlayerListTableViewCell.self)
+        tableView.register(cellType: AddButtonTableViewCell.self)
     }
-    
-    
+
+    @IBAction func filterIconButtonClicked(_ sender: UIBarButtonItem) {
+        viewModel.toggleSortOrder()
+    }
 }
 
 extension PlayerListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -72,13 +79,13 @@ extension PlayerListViewController: UITableViewDelegate, UITableViewDataSource {
         let cellType = viewModel.getCellType(at: indexPath.section)
         switch cellType {
         case .player:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerListTableViewCell", for: indexPath) as? PlayerListTableViewCell else { return UITableViewCell() }
+            let cell = tableView.dequeCell(cellType: PlayerListTableViewCell.self, indexPath: indexPath)
             if let player = viewModel.getPlayer(at: indexPath.row) {
                 cell.configure(with: player)
             }
             return cell
         case .addButton:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "AddPlayerButtonTableViewCell", for: indexPath) as? AddPlayerButtonTableViewCell else { return UITableViewCell()}
+            let cell = tableView.dequeCell(cellType: AddButtonTableViewCell.self, indexPath: indexPath)
             cell.delegate = self
             return cell
         }
@@ -113,12 +120,14 @@ extension PlayerListViewController: UITableViewDelegate, UITableViewDataSource {
             present(alertController, animated: true, completion: nil)
         }
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cellType = viewModel.getCellType(at: indexPath.section)
         if cellType == .player, let player = viewModel.getPlayer(at: indexPath.row) {
             navigateToPlayerCRUD(with: player)
         }
     }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return section == 1 ? 15 : 0
     }
@@ -153,12 +162,10 @@ extension PlayerListViewController: PlayerListViewControllerProtocol {
         )
     }
     
-    
-    
     func reloadTableView() {
         tableView.reloadData()
     }
-    
+
     func navigateToPlayerCRUD(with player: Player) {
         navigateToViewController(
             storyboardName: "PlayerCRUDViewController",
@@ -166,7 +173,7 @@ extension PlayerListViewController: PlayerListViewControllerProtocol {
             configure: { (playerCRUDVC: PlayerCRUDViewController) in
                 let playerCRUDViewModel = PlayerCRUDViewModel(player: player)
                 playerCRUDVC.viewModel = playerCRUDViewModel
-                playerCRUDVC.delegate = self 
+                playerCRUDVC.delegate = self
             },
             backTo: { (backVC: UIViewController) in
                 if let homeVC = backVC as? DashboardViewController {
@@ -178,24 +185,25 @@ extension PlayerListViewController: PlayerListViewControllerProtocol {
     }
 
 }
+
 extension PlayerListViewController: AddPlayerButtonTableViewCellDelegate {
     func didTapButton() {
         print("Buton tıklandı")
         navigateToPlayerCRUD()
     }
 }
+
 extension PlayerListViewController: PlayerListViewControllerDelegate {
     func didUpdatePlayerList() {
         print("delegate çağırıldı")
-            viewModel.fetchPlayers(sporType: SelectedSportManager.shared.selectedSport?.rawValue ?? "") { [weak self] result in
-                switch result {
-                case .success:
-                    print("yeni veriler çekildi")
-                    self?.reloadTableView()
-                case .failure(let error):
-                    print("Error updating player list: \(error.localizedDescription)")
-                }
+        viewModel.fetchPlayers(sporType: SelectedSportManager.shared.selectedSport?.rawValue ?? "") { [weak self] result in
+            switch result {
+            case .success:
+                print("yeni veriler çekildi")
+                self?.reloadTableView()
+            case .failure(let error):
+                print("Error updating player list: \(error.localizedDescription)")
             }
         }
-    
+    }
 }

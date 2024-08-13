@@ -15,10 +15,8 @@ final class PlayerCRUDViewController: BaseViewController {
     
     // MARK: - Properties
     @IBOutlet private weak var tableView: UITableView!
-    
-    
+
     private let imagePicker = UIImagePickerController()
-    
     var viewModel: PlayerCRUDViewModelProtocol? {
         didSet {
             viewModel?.delegate = self
@@ -86,7 +84,7 @@ final class PlayerCRUDViewController: BaseViewController {
         self.navigationController?.popViewController(animated: true)
         self.delegate?.didUpdatePlayerList()
     }
-
+    
     func updatePlayer() {
         self.delegate?.didUpdatePlayerList()
         viewModel?.updatePlayerInFirebase { [weak self] result in
@@ -94,7 +92,6 @@ final class PlayerCRUDViewController: BaseViewController {
             case .success:
                 
                 self?.showUpdateAlert(success: true, error: nil)
-                //self?.delegate?.didUpdatePlayerList()
                 self?.navigateToPlayerList()
             case .failure(let error):
                 self?.showUpdateAlert(success: false, error: error)
@@ -120,36 +117,35 @@ extension PlayerCRUDViewController: UITableViewDelegate, UITableViewDataSource {
         let cellType = viewModel.getCellType(at: indexPath.section)
         switch cellType {
         case .playerImage:
-            let cell = tableView.dequeueCell(with: PlayerImageTableViewCell.self, for: indexPath)
+            let cell = tableView.dequeCell(cellType: PlayerImageTableViewCell.self, indexPath: indexPath)
             if viewModel.player?.profilePhotoURL != nil {
-                cell?.configure(with: viewModel.player?.profilePhotoURL)
+                cell.configure(with: viewModel.player?.profilePhotoURL)
             }
-            cell?.onImageTapped = { [weak self] in
+            cell.onImageTapped = { [weak self] in
                 self?.openImagePicker()
             }
-            return cell ?? UITableViewCell()
+            return cell
         case .playerName:
-            let cell = tableView.dequeueCell(with: PlayerNameTableViewCell.self, for: indexPath)
+            let cell = tableView.dequeCell(cellType: PlayerNameTableViewCell.self, indexPath: indexPath)
             if let name = viewModel.player?.name {
-                cell?.playerNameTextField.text = name
+                cell.playerNameTextField.text = name
             }
-            cell?.onNameChange = { [weak self] name in
+            cell.onNameChange = { [weak self] name in
                 self?.viewModel?.updatePlayerName(name)
             }
-            return cell ?? UITableViewCell()
+            return cell
         case .playerGender:
-            let cell = tableView.dequeueCell(with: GenderTableViewCell.self, for: indexPath)
+            let cell = tableView.dequeCell(cellType: GenderTableViewCell.self, indexPath: indexPath)
             if let gender = viewModel.player?.gender {
-                cell?.genderSegmentedControl.selectedSegmentIndex = (gender == "Male") ? 0 : 1
+                cell.genderSegmentedControl.selectedSegmentIndex = (gender == "Male") ? 0 : 1
             }
-            cell?.onGenderSelected = { [weak self] gender in
+            cell.onGenderSelected = { [weak self] gender in
                 self?.viewModel?.updatePlayerGender(gender)
             }
-            return cell ?? UITableViewCell()
+            return cell
         case .playerPosition:
-            guard let cell = tableView.dequeueCell(with: PositionTableViewCell.self, for: indexPath) else {
-                return UITableViewCell()
-            }
+            let cell = tableView.dequeCell(cellType: PositionTableViewCell.self, indexPath: indexPath)
+            
             cell.positions = viewModel.getPositionsForSelectedSport()
             cell.selectedPosition = viewModel.getSelectedPosition()
             cell.viewModel = viewModel
@@ -158,7 +154,7 @@ extension PlayerCRUDViewController: UITableViewDelegate, UITableViewDataSource {
             }
             return cell
         case .playerOtherProperty:
-            guard let cell = tableView.dequeueCell(with: PlayerOtherPropertyTableViewCell.self, for: indexPath) else { return UITableViewCell() }
+            let cell = tableView.dequeCell(cellType: PlayerOtherPropertyTableViewCell.self, indexPath: indexPath)
             if let skillRating = viewModel.player?.skillRating {
                 cell.skillPointTextLabel.text = "\(skillRating)"
             }
@@ -168,7 +164,7 @@ extension PlayerCRUDViewController: UITableViewDelegate, UITableViewDataSource {
             cell.viewModel = viewModel
             return cell
         case .playerAddButton:
-            guard let cell = tableView.dequeueCell(with: AddButtonTableViewCell.self, for: indexPath) else { return UITableViewCell() }
+            let cell = tableView.dequeCell(cellType: AddButtonTableViewCell.self, indexPath: indexPath)
             cell.updateButtonTitle()
             cell.onAddButtonTapped = { [weak self] in
                 if (self?.viewModel?.player) != nil {
