@@ -29,6 +29,7 @@ final class TeamViewController: BaseViewController {
         super.viewDidLoad()
         setupBindings()
         viewModel.loadInitialData()
+        updateUIWithSelectedTeam()
     }
 
     private func setupBindings() {
