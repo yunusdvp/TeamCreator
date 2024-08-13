@@ -20,67 +20,30 @@ final class TeamViewController: BaseViewController {
     @IBOutlet weak var confirmMatchButton: UIButton!
     
     var viewModel: TeamViewModelProtocol! {
-           didSet {
-               viewModel.delegate = self
-           }
-       }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        updateUIWithSelectedTeam() // Verileri yeniden yükle
+        didSet {
+            viewModel.delegate = self
+        }
     }
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupBindings()
-        segmentedControl.selectedSegmentIndex = 0
-        updateUIWithSelectedTeam()
-        setupBackgroundImage()
-        if let location = viewModel.location {
-            viewModel.fetchStadiumWeather(for: location)
-        }
-
-        if let matchDate = viewModel.matchDate {
-            updateDateAndTimeLabels(with: matchDate)
-        }
+        viewModel.loadInitialData()
     }
-    
-    
-    override func viewDidLayoutSubviews() {
-            super.viewDidLayoutSubviews()
-            setupBackgroundImage()
-        }
-
 
     private func setupBindings() {
         segmentedControl.addTarget(self, action: #selector(segmentedControlChanged(_:)), for: .valueChanged)
-            }
+    }
 
     private func updateUI(with weatherResponse: WeatherResponse) {
-        stadiumLabel.text = viewModel.location ?? "Unknown Stadium"
+        stadiumLabel.text = "🏟️" + (viewModel.location ?? "Unknown Stadium")
         weatherLabel.text = weatherResponse.weather.first?.description ?? "N/A"
         tempatureLabel.text = "\(Int(weatherResponse.main.temp))"
-
-        if let conditionName = weatherResponse.weather.first?.conditionName {
-            weatherImage.image = UIImage(systemName: conditionName)
-        } else {
-            weatherImage.image = UIImage(systemName: "questionmark")
-        }
+        weatherImage.image = UIImage(systemName: weatherResponse.weather.first?.conditionName ?? "questionmark")
     }
+
     private func updateUIWithSelectedTeam() {
-        
-        let selectedTeam = segmentedControl.selectedSegmentIndex == 0 ? viewModel.teamA : viewModel.teamB
-        guard let players = selectedTeam?.players else {
-            print("Oyuncular bulunamadı.")
-            return
-        }
-        
-        viewModel.players = players
-        viewModel.updateFormation(for: selectedTeam?.sport ?? "football")
-       
+        viewModel.updateSelectedTeam(index: segmentedControl.selectedSegmentIndex)
     }
 
     private func showError(_ message: String) {
@@ -91,16 +54,13 @@ final class TeamViewController: BaseViewController {
 
     private func setupDynamicFormation(formation: [[Player]]) {
         playersContainerView.subviews.forEach { $0.removeFromSuperview() }
-            let backgroundImageName = viewModel.backgroundImageName
-            guard let backgroundImage = UIImage(named: backgroundImageName) else {
-                print("Background image \(backgroundImageName) not found")
-                return
-            }
-            let backgroundImageView = UIImageView(frame: playersContainerView.bounds)
-            backgroundImageView.image = backgroundImage
-            backgroundImageView.contentMode = .scaleAspectFill
-            backgroundImageView.clipsToBounds = true
-            playersContainerView.addSubview(backgroundImageView)
+        
+        let backgroundImageView = UIImageView(frame: playersContainerView.bounds)
+        backgroundImageView.image = UIImage(named: viewModel.backgroundImageName)
+        backgroundImageView.contentMode = .scaleAspectFill
+        backgroundImageView.clipsToBounds = true
+        playersContainerView.addSubview(backgroundImageView)
+        
         let lineHeight: CGFloat = 80.0
         let radius: CGFloat = 30.0
         let containerWidth = playersContainerView.bounds.width
@@ -125,97 +85,80 @@ final class TeamViewController: BaseViewController {
                 playerView.addSubview(playerLabel)
                 playersContainerView.addSubview(playerView)
                 
-                
-
                 startX += radius * 2 + 20
             }
         }
     }
+
     private func updateDateAndTimeLabels(with date: Date) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy"
-        dateLabel.text = dateFormatter.string(from: date)
-
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "HH:mm"
-        hoursLabel.text = timeFormatter.string(from: date)
+        dateLabel.text = viewModel.formattedDate(from: date)
+        hoursLabel.text = viewModel.formattedTime(from: date)
     }
-    private func navigateToEntry() {
-            guard let window = view.window else { return }
 
-            let storyboard = UIStoryboard(name: "EntryViewController", bundle: nil)
-            guard let entryVC = storyboard.instantiateViewController(withIdentifier: "EntryViewController") as? EntryViewController else { return }
-
-            let navigationController = UINavigationController(rootViewController: entryVC)
-            window.rootViewController = navigationController
-            window.makeKeyAndVisible()
-        }
-    private func setupBackgroundImage() {
-            guard let backgroundImage = UIImage(named: "soccerField") else {
-                   print("Background image not found")
-                   return
-               }
-            let backgroundImageView = UIImageView(frame: playersContainerView.bounds)
-            backgroundImageView.image = backgroundImage
-            backgroundImageView.contentMode = .scaleAspectFill
-            backgroundImageView.clipsToBounds = true
-
-            playersContainerView.insertSubview(backgroundImageView, at: 0)
-        }
     @IBAction func confirmMatchButtonTapped(_ sender: UIButton) {
         viewModel.confirmMatch()
     }
     
     @IBAction func segmentedControlChanged(_ sender: UISegmentedControl) {
         updateUIWithSelectedTeam()
-        //setupBackgroundImage()
     }
     
+    private func navigateToEntry() {
+        guard let window = view.window else { return }
+
+        let storyboard = UIStoryboard(name: "EntryViewController", bundle: nil)
+        guard let entryVC = storyboard.instantiateViewController(withIdentifier: "EntryViewController") as? EntryViewController else { return }
+
+        let navigationController = UINavigationController(rootViewController: entryVC)
+        window.rootViewController = navigationController
+        window.makeKeyAndVisible()
+    }
 }
 
 extension TeamViewController: TeamViewModelDelegate {
     func didFetchWeatherData(_ weatherResponse: WeatherResponse) {
-            DispatchQueue.main.async {
-                self.updateUI(with: weatherResponse)
-            }
+        DispatchQueue.main.async {
+            self.updateUI(with: weatherResponse)
         }
+    }
 
-        func didFailWithError(_ error: String) {
-            DispatchQueue.main.async {
-                self.showError(error)
-            }
+    func didFailWithError(_ error: String) {
+        DispatchQueue.main.async {
+            self.showError(error)
         }
+    }
 
-        func didUpdatePlayers(_ formation: [[Player]]) {
-            DispatchQueue.main.async {
-                self.setupDynamicFormation(formation: formation)
-            }
+    func didUpdatePlayers(_ formation: [[Player]]) {
+        DispatchQueue.main.async {
+            self.setupDynamicFormation(formation: formation)
         }
+    }
 
     func didCreateMatchSuccessfully() {
-            let alert = UIAlertController(
-                title: "Match Created",
-                message: "Your match was successfully created. What would you like to do next?",
-                preferredStyle: .alert
-            )
+        let alert = UIAlertController(
+            title: "Match Created",
+            message: "Your match was successfully created. What would you like to do next?",
+            preferredStyle: .alert
+        )
 
-            let mainMenuAction = UIAlertAction(title: "Go to Main Menu", style: .default) { [weak self] _ in
-                self?.navigateToEntry()
-            }
-
-            let matchPreviewAction = UIAlertAction(title: "Match Preview", style: .default) { [weak self] _ in
-                self?.confirmMatchButton.isHidden = true
-            }
-
-            alert.addAction(mainMenuAction)
-            alert.addAction(matchPreviewAction)
-
-            DispatchQueue.main.async {
-                self.present(alert, animated: true, completion: nil)
-            }
+        let mainMenuAction = UIAlertAction(title: "Go to Main Menu", style: .default) { [weak self] _ in
+            self?.navigateToEntry()
         }
 
-        func didFailToCreateMatch(_ error: String) {
-            showAlert("Error", error)
+        let matchPreviewAction = UIAlertAction(title: "Match Preview", style: .default) { [weak self] _ in
+            self?.confirmMatchButton.isHidden = true
         }
+
+        alert.addAction(mainMenuAction)
+        alert.addAction(matchPreviewAction)
+
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+
+    func didFailToCreateMatch(_ error: String) {
+        showAlert("Error", error)
+    }
 }
+

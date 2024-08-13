@@ -29,7 +29,7 @@ class MyMatchesTableViewCell: UITableViewCell {
         hourLabel.text = match.hourFormatted
         typeLabel.text = match.sport
         
-        // Seçilen spor dalına göre icon seçimi
+
         switch SelectedSportManager.shared.selectedSport {
         case .football:
             typeImage.image = UIImage(named: "footballIcon2")
