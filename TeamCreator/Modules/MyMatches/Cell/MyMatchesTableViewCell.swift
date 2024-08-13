@@ -9,11 +9,11 @@ import UIKit
 
 class MyMatchesTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var typeImage: UIImageView!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var locationLabel: UILabel!
-    @IBOutlet weak var hourLabel: UILabel!
-    @IBOutlet weak var typeLabel: UILabel!
+    @IBOutlet private weak var typeImage: UIImageView!
+    @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet private weak var locationLabel: UILabel!
+    @IBOutlet private weak var hourLabel: UILabel!
+    @IBOutlet private weak var typeLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
