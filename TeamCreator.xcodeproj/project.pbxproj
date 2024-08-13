@@ -43,9 +43,10 @@
 		466D3F782C675976002303F7 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466D3F772C675976002303F7 /* Team.swift */; };
 		466D3F7B2C680B87002303F7 /* EntryViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 466D3F7A2C680B87002303F7 /* EntryViewController.storyboard */; };
 		468C7BBD2C5A24CF0006AD51 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 468C7BBC2C5A24CF0006AD51 /* GoogleService-Info.plist */; };
-		468C7BC02C5A25BA0006AD51 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 468C7BBF2C5A25BA0006AD51 /* FirebaseFirestore */; };
+		468C7BC02C5A25BA0006AD51 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 468C7BBF2C5A25BA0006AD51 /* FirebaseFirestore */; settings = {ATTRIBUTES = (Required, ); }; };
 		468C7BC22C5A25BA0006AD51 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 468C7BC12C5A25BA0006AD51 /* FirebaseStorage */; };
 		469662692C660A2A0007FE47 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 469662682C660A2A0007FE47 /* Kingfisher */; };
+		469ED1E92C6AC90A005C0B2E /* OnboardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469ED1E82C6AC90A005C0B2E /* OnboardViewModelTests.swift */; };
 		46AE958B2C60C1A600BE923A /* SelectedSport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AE958A2C60C1A600BE923A /* SelectedSport.swift */; };
 		46AE958E2C610DE800BE923A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 46AE958D2C610DE800BE923A /* Alamofire */; };
 		46AE95902C610E0600BE923A /* GeminiApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AE958F2C610E0600BE923A /* GeminiApiService.swift */; };
@@ -162,6 +163,7 @@
 		466D3F772C675976002303F7 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		466D3F7A2C680B87002303F7 /* EntryViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EntryViewController.storyboard; sourceTree = "<group>"; };
 		468C7BBC2C5A24CF0006AD51 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		469ED1E82C6AC90A005C0B2E /* OnboardViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardViewModelTests.swift; sourceTree = "<group>"; };
 		46AE958A2C60C1A600BE923A /* SelectedSport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedSport.swift; sourceTree = "<group>"; };
 		46AE958F2C610E0600BE923A /* GeminiApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiApiService.swift; sourceTree = "<group>"; };
 		46AE95982C6151D500BE923A /* WeatherResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherResponse.swift; sourceTree = "<group>"; };
@@ -387,6 +389,7 @@
 		464606F72C53FF0D0032DC89 /* TeamCreatorTests */ = {
 			isa = PBXGroup;
 			children = (
+				469ED1E72C6AC8BD005C0B2E /* Modules */,
 				464606F82C53FF0D0032DC89 /* TeamCreatorTests.swift */,
 			);
 			path = TeamCreatorTests;
@@ -458,6 +461,14 @@
 				463101792C64B323005C569E /* UIWindow.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		469ED1E72C6AC8BD005C0B2E /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				469ED1E82C6AC90A005C0B2E /* OnboardViewModelTests.swift */,
+			);
+			path = Modules;
 			sourceTree = "<group>";
 		};
 		46AE95892C60C19300BE923A /* Enums */ = {
@@ -667,6 +678,8 @@
 				464607002C53FF0D0032DC89 /* PBXTargetDependency */,
 			);
 			name = TeamCreatorUITests;
+			packageProductDependencies = (
+			);
 			productName = TeamCreatorUITests;
 			productReference = 464606FE2C53FF0D0032DC89 /* TeamCreatorUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -866,6 +879,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				469ED1E92C6AC90A005C0B2E /* OnboardViewModelTests.swift in Sources */,
 				464606F92C53FF0D0032DC89 /* TeamCreatorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
