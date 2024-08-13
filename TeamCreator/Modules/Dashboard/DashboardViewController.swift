@@ -59,6 +59,8 @@ extension DashboardViewController: UICollectionViewDelegate, UICollectionViewDat
                         navigateToPlayerList()
                     case 1:
                         navigateToMatchCreate()
+                    case 2:
+                        navigateToMyMatches()
                     default:
                         break
                 }
@@ -103,7 +105,16 @@ extension DashboardViewController: DashboardViewModelDelegate {
             }
         )
     }
+    
+    func navigateToMyMatches() {
+        navigateToViewController(
+            storyboardName: "MyMatchesView",
+            viewControllerIdentifier: "MyMatchesViewController") { 
+                (myMatchesVC: MyMatchesViewController) in
+        }
+    }
 }
+
 private extension DashboardViewController {
     enum LayoutConstants {
         static let itemSize = CGSize(width: UIScreen.main.bounds.width - 35, height: UIScreen.main.bounds.height / 5.25)

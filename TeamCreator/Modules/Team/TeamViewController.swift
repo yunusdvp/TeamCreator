@@ -24,6 +24,13 @@ final class TeamViewController: BaseViewController {
                viewModel.delegate = self
            }
        }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        updateUIWithSelectedTeam() // Verileri yeniden yükle
+    }
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +47,8 @@ final class TeamViewController: BaseViewController {
             updateDateAndTimeLabels(with: matchDate)
         }
     }
+    
+    
     override func viewDidLayoutSubviews() {
             super.viewDidLayoutSubviews()
             setupBackgroundImage()
@@ -64,11 +73,14 @@ final class TeamViewController: BaseViewController {
     private func updateUIWithSelectedTeam() {
         
         let selectedTeam = segmentedControl.selectedSegmentIndex == 0 ? viewModel.teamA : viewModel.teamB
-        guard let players = selectedTeam?.players else { return }
+        guard let players = selectedTeam?.players else {
+            print("Oyuncular bulunamadı.")
+            return
+        }
         
         viewModel.players = players
         viewModel.updateFormation(for: selectedTeam?.sport ?? "football")
-        //setupBackgroundImage()
+       
     }
 
     private func showError(_ message: String) {
@@ -206,6 +218,4 @@ extension TeamViewController: TeamViewModelDelegate {
         func didFailToCreateMatch(_ error: String) {
             showAlert("Error", error)
         }
-    
-    
 }
