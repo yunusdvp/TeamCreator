@@ -76,28 +76,63 @@ class MatchCreateViewController: BaseViewController {
         locationTextField.resignFirstResponder()
     }
 
+//    @IBAction func matchCreateButtonTapped(_ sender: UIButton) {
+//        guard let sportName = SelectedSportManager.shared.selectedSport?.rawValue else { return }
+//        viewModel.setSportCriteria(for: sportName)
+//        if let teams = viewModel.createBalancedTeams(from: selectedPlayers, sportName: sportName) {
+//
+//            let teamA = teams.teamA
+//            let teamB = teams.teamB
+//            print(selectedPlayers)
+//            let teamAScore = viewModel.calculateTeamScore(for: teamA, sportName: sportName)
+//            let teamBScore = viewModel.calculateTeamScore(for: teamB, sportName: sportName)
+//
+//            let location = locationTextField.text
+//            let matchDate = datePicker.date
+//            print(selectedPlayers)
+//            navigateToTeam(teamA: teamA, teamB: teamB, location: location, matchDate: matchDate)
+//
+//        } else {
+//            print("Yeterli oyuncu yok veya geçersiz spor adı.")
+//        }
+//
+//    }
     @IBAction func matchCreateButtonTapped(_ sender: UIButton) {
-        guard let sportName = SelectedSportManager.shared.selectedSport?.rawValue else { return }
+        guard !selectedPlayers.isEmpty else {
+            showAlert("Alert", "Please select at least one player.")
+            return
+        }
+        guard let location = locationTextField.text, !location.isEmpty else {
+            showAlert("Alert", "Please select a location.")
+            return
+        }
+        let matchDate = datePicker.date
+        guard matchDate > Date() else {
+            showAlert("Alert", "Please select a valid match date.")
+            return
+        }
+        guard let sportName = SelectedSportManager.shared.selectedSport?.rawValue else {
+            showAlert("Alert", "Sport selection is missing.")
+            return
+        }
         viewModel.setSportCriteria(for: sportName)
         if let teams = viewModel.createBalancedTeams(from: selectedPlayers, sportName: sportName) {
-
+            
             let teamA = teams.teamA
             let teamB = teams.teamB
             print(selectedPlayers)
             let teamAScore = viewModel.calculateTeamScore(for: teamA, sportName: sportName)
             let teamBScore = viewModel.calculateTeamScore(for: teamB, sportName: sportName)
-
+            
             let location = locationTextField.text
             let matchDate = datePicker.date
             print(selectedPlayers)
             navigateToTeam(teamA: teamA, teamB: teamB, location: location, matchDate: matchDate)
-
+            
         } else {
-            print("Yeterli oyuncu yok veya geçersiz spor adı.")
+            print("Not enough players or invalid sport name."   )
         }
-
     }
-
 }
 
 extension MatchCreateViewController: UITableViewDelegate, UITableViewDataSource {
