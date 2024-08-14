@@ -19,7 +19,6 @@ class AddPlayerButtonTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     @IBAction func addPlayerButtonClicked(_ sender: UIButton) {

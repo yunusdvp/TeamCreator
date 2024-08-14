@@ -19,7 +19,6 @@ final class MatchRepository: MatchRepositoryProtocol {
     private let db = Firestore.firestore()
 
     func addMatch(sport: String, playerIDs: [String], location: String, date: Date, completion: @escaping (Result<Void, Error>) -> Void) {
-        // Takım bilgileri uygun şekilde ayarlanmalı
         let teamA = Team(players: playerIDs.prefix(playerIDs.count / 2).map { Player(id: $0) }, sport: sport)
         let teamB = Team(players: playerIDs.suffix(playerIDs.count / 2).map { Player(id: $0) }, sport: sport)
         

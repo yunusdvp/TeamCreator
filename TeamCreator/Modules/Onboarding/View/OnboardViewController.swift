@@ -9,9 +9,9 @@ import UIKit
 
 final class OnboardViewController: BaseViewController {
     //MARK: Outlets
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var pageControl: UIPageControl!
-    @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private weak var pageControl: UIPageControl!
+    @IBOutlet private weak var nextButton: UIButton!
 
     var viewModel: OnboardViewModelProtocol! {
         didSet {

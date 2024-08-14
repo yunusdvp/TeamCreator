@@ -10,44 +10,12 @@ import UIKit
 import FirebaseStorage
 
 protocol ImageStorageProtocol {
-//    func uploadProfileImage(image: UIImage, completion: @escaping (Result<String, Error>) -> Void)
     func uploadProfileImage(imageData: Data, compressionQuality: CGFloat, completion: @escaping (Result<String, Error>) -> Void)
 
     func downloadProfileImage(url: String, completion: @escaping (Result<UIImage, Error>) -> Void)
 }
 
 class ImageStorage: ImageStorageProtocol {
-//    func uploadProfileImage(image: UIImage, completion: @escaping (Result<String, Error>) -> Void) {
-//        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
-//            completion(.failure(NSError(domain: "ImageConversionError", code: 0, userInfo: nil)))
-//            return
-//        }
-//
-//        let storageRef = Storage.storage().reference().child("profile_images").child(UUID().uuidString)
-//        let metadata = StorageMetadata()
-//        metadata.contentType = "image/jpeg"
-//        
-//        storageRef.putData(imageData, metadata: metadata) { (  metadata, error ) in
-//            if let error = error {
-//                completion(.failure(error))
-//                return
-//            }
-//            
-//            storageRef.downloadURL { (url, error) in
-//                if let error = error {
-//                    completion(.failure(error))
-//                    return
-//                }
-//                
-//                guard let downloadURL = url?.absoluteString else {
-//                    completion(.failure(NSError(domain: "URLFetchError", code: 0, userInfo: nil)))
-//                    return
-//                }
-//                
-//                completion(.success(downloadURL))
-//            }
-//        }
-//    }
     func uploadProfileImage(imageData: Data, compressionQuality: CGFloat = 0.25, completion: @escaping (Result<String, Error>) -> Void) {
         if let image = UIImage(data: imageData) {
             if let compressedData = image.jpegData(compressionQuality: compressionQuality) {

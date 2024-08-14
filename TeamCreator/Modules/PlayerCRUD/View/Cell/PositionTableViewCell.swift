@@ -2,7 +2,6 @@ import UIKit
 
 // MARK: - PositionTableViewCellDelegate
 protocol PositionTableViewCellDelegate: AnyObject {
-    func didTapPozitionTextField(cell: PositionTableViewCell)
     func getPositions() -> [String]
     func setSelectedPosition(_ position: String)
 }

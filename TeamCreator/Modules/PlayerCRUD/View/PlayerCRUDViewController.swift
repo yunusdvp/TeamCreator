@@ -24,11 +24,11 @@ final class PlayerCRUDViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(SelectedSportManager.shared.selectedSport as Any)
         registerCells()
         
         setupTableView()
         setupPickerView()
+        
         setupTapGesture()
     }
     
@@ -51,11 +51,13 @@ final class PlayerCRUDViewController: BaseViewController {
         tableView.register(cellType: PlayerOtherPropertyTableViewCell.self)
         tableView.register(cellType: AddButtonTableViewCell.self)
     }
+    
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         
     }
+    
     private func setupPickerView() {
         imagePicker.delegate = self
     }
@@ -209,6 +211,7 @@ extension PlayerCRUDViewController: UIImagePickerControllerDelegate, UINavigatio
         presentImagePicker()
     }
 }
+
 extension PlayerCRUDViewController: AddButtonTableViewCellDelegate {
     func didTapAddButton(success: Bool) {
         addPlayer()

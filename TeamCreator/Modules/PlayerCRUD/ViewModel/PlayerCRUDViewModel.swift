@@ -29,7 +29,6 @@ protocol PlayerCRUDViewModelProtocol: AnyObject {
     var delegate: PlayerCRUDViewModelDelegate? { get set }
     var player: Player? { get set }
 
-    func fetchData()
     func getCellTypeCount() -> Int
     func getCellType(at index: Int) -> PlayerCRUDCellType
     func setSelectedPosition(_ position: String)
@@ -68,7 +67,7 @@ final class PlayerCRUDViewModel: PlayerCRUDViewModelProtocol {
             self.selectedPosition = player.position
         }
     }
-    func fetchData() { delegate?.reloadTableView() }
+    
 
     func updatePlayerName(_ name: String) { playerData.name = name }
 

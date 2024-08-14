@@ -20,14 +20,13 @@ protocol PlayerListViewControllerDelegate: AnyObject {
 }
 
 
-final class PlayerListViewController: BaseViewController{
+final class PlayerListViewController: BaseViewController {
     
     
     @IBOutlet private weak var filterIcon: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Properties
-    private var isAscendingOrder: Bool = true
     
     var viewModel: PlayerListViewModelProtocol! {
         didSet {
@@ -39,9 +38,10 @@ final class PlayerListViewController: BaseViewController{
         super.viewDidLoad()
         
         registerCells()
+        
         showLoading()
-        tableView.delegate = self
-        tableView.dataSource = self
+        
+        setupTableView()
         
         let selectedSport = SelectedSportManager.shared.selectedSport?.rawValue ?? ""
         
@@ -56,7 +56,11 @@ final class PlayerListViewController: BaseViewController{
             }
         }
     }
-    
+    private func setupTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+    }
     private func registerCells() {
         tableView.register(cellType: PlayerListTableViewCell.self)
         tableView.register(cellType: AddPlayerButtonTableViewCell.self)
@@ -194,18 +198,18 @@ extension PlayerListViewController: PlayerListViewControllerProtocol {
 
 extension PlayerListViewController: AddPlayerButtonTableViewCellDelegate {
     func didTapButton() {
-        print("Buton tıklandı")
+        print("Button tapped")
         navigateToPlayerCRUD()
     }
 }
 
 extension PlayerListViewController: PlayerListViewControllerDelegate {
     func didUpdatePlayerList() {
-        print("delegate çağırıldı")
+        print("delegate was called")
         viewModel.fetchPlayers(sporType: SelectedSportManager.shared.selectedSport?.rawValue ?? "") { [weak self] result in
             switch result {
             case .success:
-                print("yeni veriler çekildi")
+                print("new data ")
                 self?.reloadTableView()
             case .failure(let error):
                 print("Error updating player list: \(error.localizedDescription)")

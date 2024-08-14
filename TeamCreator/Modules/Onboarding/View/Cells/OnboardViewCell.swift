@@ -9,9 +9,9 @@ import UIKit
 
 class OnboardViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var subjectLabel: UILabel!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet private weak var subjectLabel: UILabel!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var imageView: UIImageView!
     
     static let identifier = "OnboardViewCell"
     

@@ -7,11 +7,6 @@
 
 import UIKit
 
-// MARK: - GenderTableViewCellDelegate
-protocol GenderTableViewCellDelegate: AnyObject {
-    func didChangeGender(to gender: String)
-}
-
 class GenderTableViewCell: UITableViewCell {
     // MARK: - Properties
     @IBOutlet weak var genderSegmentedControl: UISegmentedControl!

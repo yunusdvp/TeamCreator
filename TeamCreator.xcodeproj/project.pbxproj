@@ -49,7 +49,6 @@
 		469662692C660A2A0007FE47 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 469662682C660A2A0007FE47 /* Kingfisher */; };
 		469ED1E92C6AC90A005C0B2E /* OnboardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469ED1E82C6AC90A005C0B2E /* OnboardViewModelTests.swift */; };
 		46AE958B2C60C1A600BE923A /* SelectedSport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AE958A2C60C1A600BE923A /* SelectedSport.swift */; };
-		46AE95902C610E0600BE923A /* GeminiApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AE958F2C610E0600BE923A /* GeminiApiService.swift */; };
 		46AE95932C610F0800BE923A /* GoogleGenerativeAI in Frameworks */ = {isa = PBXBuildFile; productRef = 46AE95922C610F0800BE923A /* GoogleGenerativeAI */; };
 		46AE95992C6151D500BE923A /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AE95982C6151D500BE923A /* WeatherResponse.swift */; };
 		46AE95A72C6154CA00BE923A /* TeamView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46AE95A32C6154CA00BE923A /* TeamView.storyboard */; };
@@ -172,7 +171,6 @@
 		468C7BBC2C5A24CF0006AD51 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		469ED1E82C6AC90A005C0B2E /* OnboardViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardViewModelTests.swift; sourceTree = "<group>"; };
 		46AE958A2C60C1A600BE923A /* SelectedSport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedSport.swift; sourceTree = "<group>"; };
-		46AE958F2C610E0600BE923A /* GeminiApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiApiService.swift; sourceTree = "<group>"; };
 		46AE95982C6151D500BE923A /* WeatherResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherResponse.swift; sourceTree = "<group>"; };
 		46AE95A32C6154CA00BE923A /* TeamView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TeamView.storyboard; sourceTree = "<group>"; };
 		46AE95A42C6154CA00BE923A /* TeamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamViewController.swift; sourceTree = "<group>"; };
@@ -302,7 +300,6 @@
 				46E171352C5BAA0B003D9C74 /* PlayerRepository.swift */,
 				46E171372C5BB35E003D9C74 /* ImageStorage.swift */,
 				46E171392C5BB6D2003D9C74 /* MatchRepository.swift */,
-				46AE958F2C610E0600BE923A /* GeminiApiService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1001,7 +998,6 @@
 				464607582C57A3510032DC89 /* EntryViewModel.swift in Sources */,
 				462F565C2C58248100081988 /* API.swift in Sources */,
 				54A5D4512C58CB8B00EF405C /* OnboardViewCell.swift in Sources */,
-				46AE95902C610E0600BE923A /* GeminiApiService.swift in Sources */,
 				462F56612C5824BA00081988 /* SplashViewModel.swift in Sources */,
 				54A3D5E32C583D9900AD457C /* OnboardSlide.swift in Sources */,
 				46AE95AC2C615E7D00BE923A /* MatchCreateViewController.swift in Sources */,
