@@ -1,0 +1,16 @@
+{
+  "sports": [
+    {
+      "name": "football",
+      "positions": ["Forward", "Stopper", "Goalkeeper"]
+    },
+    {
+      "name": "volleyball",
+      "positions": ["Setter", "Outside Hitter", "Libero"]
+    },
+    {
+      "name": "basketball",
+      "positions": ["Point Guard", "Shooting Guard", "Center"]
+    }
+  ]
+}

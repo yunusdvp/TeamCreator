@@ -1,0 +1,19 @@
+{
+    "screens": [
+        {
+            "title": "Welcome to Team Creator",
+            "description": "Create and manage your sports teams with ease.",
+            "imageName": "creative"
+        },
+        {
+            "title": "Add Players",
+            "description": "Easily add players to your team by providing their details.",
+            "imageName": "add-friend"
+        },
+        {
+            "title": "Create Matches",
+            "description": "Organize matches and track player performance.",
+            "imageName": "team"
+        }
+    ]
+}
