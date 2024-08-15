@@ -32,7 +32,6 @@ class EmptyView: UIView {
     private func setupView() {
         addSubview(messageLabel)
         
-        // Label'ı merkezi hale getirmek için kısıtlamalar ekleyin
         NSLayoutConstraint.activate([
             messageLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             messageLabel.centerYAnchor.constraint(equalTo: centerYAnchor)

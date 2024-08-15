@@ -22,7 +22,6 @@ class NetworkManager {
         self.api = API.shared
     }
 
-    // Hava durumu verilerini çekmek için yeni fonksiyon
     func fetchWeather(lat: Double, lon: Double, completion: @escaping (Result<WeatherResponse, Error>) -> Void) {
         api.getWeather(lat: lat, lon: lon, completion: completion)
     }
